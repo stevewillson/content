@@ -1,0 +1,12 @@
+= tmux introduction
+
+== What is the problem?
+
+== Potential solutions
+
+== Why tmux?
+
+== Further reading
+
+TMUX Website
+

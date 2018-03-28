@@ -1,0 +1,65 @@
+= Vim Introductory Class
+
+== History of vi/vim
+
+vi is installed on most linux machines, it is the **vi**sual mode for the *ex* line editor.
+
+Many programs use vi style key bindings and learning the vi shortcut keys will help with those shortcuts.
+
+== Invoking vi
+
+Type `vi` to start vi, this will bring up a new vi session in command mode
+
+== All that you need to know
+
+The joke about vi is all that you need to know is how to quit vi...
+
+Most of the time, you can quit vi by typing the following sequence:
+
+ $ ESC ESC : q ! <ENTER>
+
+== All that you need to know (continued)
+
+Before learning commands, you should know that there are two modes in vi *COMMAND* and *INSERT* mode.
+
+.COMMAND MODE
+* Used to issue *commands*, (not used for data entry)
+
+.INSERT MODE
+* Used to insert text into a file
+
+
+There are just a few vi commands that you need to know to be successful, after that, you can learn more commands to speed up editing
+
+=== COMMAND MODE
+`h` - move cursor LEFT +
+`j` - move cursor DOWN +
+`k` - move cursor UP +
+`l` - move cursor RIGHT +
+`a` - enter INSERT MODE (append after cursor) +
+`i` - enter INSERT MODE (insert text before cursor) +
+`x` - delete the character under the cursor +
+`y` - 'yank' (COPY) +
+`p` - paste (from the buffer) +
+`d` - delete SOMETHING (put it into the buffer) +
+`:` - enter EX COMMAND LINE mode +
+`.` - redo the last formatting command +
+ 
+`/` - search +
+`n` - next item +
+`N` - previous item +
+
+.the SOMETHINGS
+* `w` - word
+* `)` - sentence
+
+=== EX COMMAND LINE
+`w` - write (save file) +
+`q` - quit +
+
+* If you have unsaved changes, use '!' to quit without saving
+
+=== INSERT MODE
+`ESC` - enter COMMAND MODE
+
+

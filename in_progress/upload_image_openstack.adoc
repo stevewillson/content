@@ -1,0 +1,22 @@
+= Uploading an Image to OpenStack
+
+Goal: Download a QCOW2 image off of the internet and upload it into openstack.
+
+Download the image, I'm using the FreeBSD 11.1 Image
+
+Download python-openstackclient
+
+
+Follow this guide to upload the image into glance
+
+https://docs.openstack.org/murano/pike/reference/appendix/articles/image_builders/upload.html
+
+ $ openstack image create --disk-format qcow2 --container-format bare --file ./FILENAME NAME_OF_IMAGE 
+
+Now the image is accessible in OpenStack
+
+Show the image
+
+ $ openstack image list
+
+ $ openstack image show NAME_OF_IMAGE
