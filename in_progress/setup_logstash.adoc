@@ -1,0 +1,61 @@
+= Setting up logstash
+
+
+Download the binary from elastic.co for DEB 
+
+https://www.elastic.co/downloads/logstash
+
+Install using dpkg as root
+
+ $ sudo dpkg -i ./LOGSTASH.deb
+
+Follow the guide below to run through basic setup.
+
+https://www.elastic.co/guide/en/logstash/current/first-event.html
+
+ $ bin/logstash -e 'input { stdin {} } output { stdout {} }'
+
+Now write the logstash configuration file.
+
+Locations of files
+
+`/usr/share/logstash` - Logstash binary directory
+
+`/etc/logstash/` - Configuration files
+
+Create a file that runs a pipeline.
+
+.first-pipeline.conf
+----
+input {
+  stdin {}         
+}
+
+output {
+        stdout { codec => rubydebug }
+}
+----
+
+Run logstash with the `first-pipeline.conf` pipeline file.
+
+ $ bin/logstash -f first-pipeline.conf 
+
+You should be able to type text and then see that text parsed and output to stdout.
+
+Change the file so that it listens on port 5044 for content.
+
+.first-pipeline.conf
+----
+input {
+  beats {
+    port => "5044"
+  }
+}
+
+output {
+        stdout { codec => rubydebug }
+}
+----
+
+Run logstash to receive the input data from beats. Start logstash prior to running beats.
+
