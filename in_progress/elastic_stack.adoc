@@ -1,0 +1,37 @@
+= Setting up elastic stack on a VM
+
+For playing around with elastic stack
+
+Set up a debian based VM 
+
+Download elasticsearch and kibana
+
+Follow the video available at https://www.elastic.co/webinars/getting-started-elasticsearch?baymax=rtp&elektra=products&iesrc=ctr
+
+Download the deb files and then install them using `dpkg -i FILENAME`
+
+Need to not run ./bin/elasticsearch as root, need to change the owner of
+
+/var/log/elasticsearch/*
+/etc/default/elasticsearch
+Create a symlink to /etc/default/elasticsearch/jvm.options to /usr/share/elasticsearch/jvm.options
+
+Also need to change user permissions for kibana
+
+Run kibana by typing
+
+The deb files place kibana and elasticsearch in /usr/share commands
+
+Kibana is hosted on port 5601
+elastic search is on port 9200
+
+
+CRUD - Create Read Update Delete
+
+endpoints to work with different analyzers
+
+Read the documentation to find query endpoints
+
+Look in documentation to see information about different analyzers
+
+

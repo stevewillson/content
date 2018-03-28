@@ -1,0 +1,14 @@
+= Setting up logstash
+
+Download the binary from elastic.co for DEB 
+
+Unpack and install using dpkg as root
+
+ $ dpkg -i ./LOGSTASH.deb
+
+Change ownership of the following directories to the local user?
+
+/etc/logstash
+/var/log/logstash
+/var/lib/logstash
+

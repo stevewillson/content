@@ -1,0 +1,133 @@
+= Changing Domain Names
+
+I recently lost the service for the `willson.ga` domain name, now I am switching to `willson.tk` from Freenom for 1 year.
+
+Need to put in the proper nameservers when registering the domain name with freenom. I use cloudflare (free) for DNS nameservers. I used the following (provided by cloudflare):
+
+----
+austin.ns.cloudflare.com
+bonnie.ns.cloudflare.com
+----
+
+I can run a `dig` query on my domain name to verify that the DNS entry is configured properly.
+
+Verify correct nameservers
+
+ $ dig ns willson.tk
+
+Verify correct A record
+
+ $ dig willson.tk
+
+I need to now configure the servers to accept connections for willson.tk
+
+Edit the `/etc/nginx/sites-available/default` file.
+
+Add entries for willson.tk
+
+----
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name willson.ga www.willson.ga;
+	server_name willson.tk www.willson.tk;
+	return 302 https://$server_name$request_uri;
+}
+----
+
+And add a `server` entry for `willson.tk` and `www.willson.tk`
+
+Create a new file under `/etc/nginx/sites-available/` for `willson.tk` domain name.
+
+Use the nginx commands to test the configuration
+
+ $ nginx -t 
+
+ $ nginx -s reload
+
+Request the page, and watch what happens
+
+ $ wget willson.tk
+
+Verify that you can get to the `willson.tk` website.
+
+== Generate a certificate
+
+Download `certbot` and use the following command to test whether you can generate a certificate
+
+I set up a file in `/etc/nginx/sites-available` and created a symlink to that file in `/etc/nginx/sites-enabled`
+
+The contents of the file:
+
+----
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name willson.tk www.willson.tk;
+        location /notes/ {
+               root /var/www/html;
+               index index.html;
+               autoindex on;
+        }
+        location / {
+               try_files $uri $uri/ =404;
+               root /var/www/html;
+               index index.html index.htm index.nginx-debian.html;
+       }
+}
+----
+
+Verify that certbot will work when generating a new certificate
+
+ $ sudo certbot certonly --webroot -w /var/www/html -d willson.tk -d www.willson.tk --dry-run
+
+If the test works, generate the certificates!
+
+ $ sudo certbot certonly --webroot -w /var/www/html -d willson.tk -d www.willson.tk
+
+This will save the certificates to:
+
+----
+   /etc/letsencrypt/live/willson.tk/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/willson.tk/privkey.pem
+----
+
+
+Configure nginx to use those certificates in the sites-available file
+
+Example `/etc/nginx/sites-available/willson.tk` file below (symlinked to `/etc/nginx/sites-enabled/willson.tk`):
+
+----
+server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+        server_name willson.tk www.willson.tk;
+        return 302 https://$server_name$request_uri;
+}
+
+server {
+# FOR THE WILLSON.TK domain
+        server_name willson.tk www.willson.tk;
+        listen 443 ssl; # managed by Certbot
+        ssl_certificate /etc/letsencrypt/live/willson.tk/fullchain.pem; # managed by Certbot
+        ssl_certificate_key /etc/letsencrypt/live/willson.tk/privkey.pem; # managed by Certbot
+        include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+        ssl_dhparam /etc/ssl/certs/dhparam.pem;
+
+        location / {
+                # First attempt to serve request as file, then
+                # as directory, then fall back to displaying a 404.
+                try_files $uri $uri/ =404;
+                root /var/www/html;
+                # Add index.php to the list if you are using PHP
+                index index.html index.htm index.nginx-debian.html;
+        }
+
+     #Redirect non-https traffic to https
+        if ($scheme != "https") {
+                return 301 https://$host$request_uri;
+        } # managed by Certbot
+}
+----
+

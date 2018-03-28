@@ -1,0 +1,30 @@
+= Intro to debugging in Linux
+Steve Willson 2/4/18
+
+There are many times when installing software when it doesn't work. This guide is meant to be an introduction to some techniques to find out why it's broken.
+
+Use tmux+vi
+
+tmux (terminal multiplexer) allows you to have multiple terminals in one terminal. You're able to switch between terminals using keyboard combinations. One downside is that copy and paste doesn't work all that well.
+
+Commonly used keyboard shortcuts
+
+Ctrl+b - this is the key combination to preface other commands
+
+Ctrl+b " - split the terminal horizontally
+Ctrl+b % - split the terminal vertically
+
+Ctrl+b o - switch between terminals
+Ctrl+b c - create a new pane
+Ctrl+b x - kill the current pane
+Ctrl+b q - list the numbers of the current terminals
+
+Ctrl+b t - show a clock
+
+Ctrl+b arrow key - resize the pane
+
+Vim useful commands
+
+use the `/` key to search for text and then press `ENTER`, the cursor will move to the next occurance of that text, you can press `n` to move forward one occurance. Press `cw` to change that word, then you will need to leave `INSERT MODE` by pressing `ESC`
+
+

@@ -1,0 +1,61 @@
+= Development for asciidoctor-reveal.js
+Steve Willson steve@colorado.edu
+
+== Bundler
+
+A way of managing all of the dependencies with the proper versions of ruby gems.
+
+== Trying to solve issue with building tests
+
+Trying to get the command to work
+
+Need to install *nokogiri*
+I needed to install the following packages
+`libxslt-dev libxml2-dev ruby-dev zlib1g-dev`
+
+Need to run the following command to see what tests are skipped
+bundle exec rake doctest VERBOSE=yes
+
+What does it mean when a test is skipped?
+
+== Building the project by using git clone
+
+Use the command
+
+[source,bash]
+----
+bundle exec rake doctest:generate FORCE=yes
+----
+
+This command will run rake within the bundle and generate the html test files in the 
+`test/output/slim` directory. You can view the html files by hosting them on a directory that contains `reveal.js`
+
+WARNING: I still don't know where the `Rakefile` is that the command is using.
+
+NOTE: Need to find out how the `doctest` system works for asciidoctor-reveal.js
+
+
+
+To build slides using the '.js' version.
+
+Use NPM to initialize a new directory
+
+[source]
+----
+npm init
+npm i --save asciidoctor.js@1.5.5-3
+npm i --save asciidoctor-reveal.js
+----
+
+Now the files are stored in the local directory
+
+Alternatively, you can do the processing on the home folder (where the `node_modules` folder exists)
+
+Then, create the asciidoctor-revealjs.js file and presentation.adoc slideshow to create the slides
+
+
+
+
+
+
+

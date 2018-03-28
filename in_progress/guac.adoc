@@ -1,0 +1,60 @@
+= Guac Server Setup
+
+Followed Chase Wright's script on an ubuntu machines
+
+I already have nginx set up with a certificate,
+
+Just want to proxy the tomcat connection through nginx
+
+Edited file /etc/tomcat7/server.xml
+
+----
+<Connector port="8080" protocol="HTTP/1.1"                            
+connectionTimeout="20000"                                  
+URIEncoding="UTF-8"                                        
+redirectPort="8443"                                        
+proxyPort="443"                                            
+scheme="https"                                             
+/>     
+----
+
+I was able to proxy to port 8080 and then log in to the guac server by going to
+
+http://localhost/guacamole
+
+I'm trying to get redirection to work through willson.ga/guac
+
+
+Also edited the file /etc/nginx/sites-available/default
+
+to have a proxy redirection to the guacamole server
+
+----
+location / {                                                          
+# First attempt to serve request as file, then                    
+# as directory, then fall back to displaying a 404.               
+    try_files $uri $uri/ =404;                                        
+    root /var/www/html;                                               
+
+# Add index.php to the list if you are using PHP                  
+    index index.html index.htm index.nginx-debian.html;               
+}                                                                     
+
+
+location /guac/ {                                                     
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;              #proxy_set_header Host $http_host;
+    proxy_set_header Upgrade $http_upgrade;                       
+    proxy_set_header X-Forwarded-Proto https;                     
+    proxy_redirect off;                                           
+    proxy_connect_timeout      240;                               
+    proxy_send_timeout         240;                               
+    proxy_read_timeout         240;                               
+# note, there is not SSL here! plain HTTP is used             
+    proxy_pass http://localhost:8080/guacamole/;                  
+    proxy_buffering off;                                          
+    proxy_cookie_path /guacamole /guac/;                          
+    access_log off;                                               
+}   
+----
+
+

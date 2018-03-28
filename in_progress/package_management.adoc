@@ -1,0 +1,11 @@
+= Package Management Help
+Steve Willson
+
+
+How to determine what binaries are in a metapackage?
+
+
+I am interested in using *xxxxxx* binary, what package should I install?
+
+
+
