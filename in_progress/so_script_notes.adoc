@@ -1,0 +1,55 @@
+= Security Onion Script notes
+
+== /usr/sbin/so-common
+
+Description: checks to see if the root user is running the script, if not displays 'should be run as root' message
+
+== /usr/sbin/so-elastic-common
+
+Description: sets the following variables
+
+----
+ELASTICDIR
+SRC
+DOCKERHUB
+ELASTICDOWNLOADCONF
+----
+
+Checks to see if the file in `ELASTICDOWNLOADCONF` exists, if no it creates it then runs it. file is /etc/nsm/elasticdownload.conf. This file sets the `DOCKERHUB` variable.
+
+== /usr/sbin/so-elasticsearch-start
+
+Description: Sources so-elastic-common and /etc/nsm/securityonion.conf
+
+Check to see if ELASTICSEARCH_ENABLED is `yes`, if yes then check to see if `so-elasticsearch` is running. If no, then remove the docker container.
+
+There is a long command that is run to start the docker container. It uses the `docker run` command to start the container.
+
+It bind mounts different locations on the host to the container using the `--volume` option.
+
+== /usr/sbin/so-elasticsearch-stop
+
+Description: sources the files /usr/sbin/so-elastic-common and /etc/nsm/securityonion.conf
+
+Checks to see if ELASTICSEARCH_ENABLED is `yes` and the docker container is running. If yes then stop the container and remove it.
+
+== /usr/sbin/so-elasticsearch-status
+
+Description: source the file /usr/sbin/so-elasticsearch-status.
+
+Check to see if ELASTICSEARCH_ENABLED is `yes` if so then run
+
+----
+if docker ps |  grep -q so-elasticsearch; then
+    ok
+else
+    fail
+fi
+----
+
+This will test if the `docker ps | grep -q so-elasticsearch` command returns something. If not then this will fail
+
+Ubuntu `ok` and `fail` command are run depending on the return status of the docker ps | grep command
+
+
+
