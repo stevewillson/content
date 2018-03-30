@@ -1,0 +1,42 @@
+= Docker Notes
+
+Reference: https://docs.docker.com/get-started/#images-and-containers
+
+Container is a runtime instance of an image.
+
+List running containers with `docker ps`
+
+List the available docker images `docker image ls`
+
+
+Clone the security-onion-docker repository and build the docker containers locally.
+
+ $ git clone git@github.com:Security-Onion-Solutions/securityonion-docker.git
+
+Execute the `0_build_images.sh` script
+
+ $ 0_build_images.sh
+
+This will build the docker images locally.
+
+Start one of the docker images
+
+Clone the repo for security onion docker integration for elastic.
+
+ $ git clone https://github.com/Security-Onion-Solutions/securityonion-elastic.git
+
+Files for configuring SO exist in `~/CLONED_REPO/usr/sbin/`
+
+These files act as the glue that connects many of the security onion components together.
+
+
+
+
+
+Information about docker
+
+Use `man docker-XXXX` to get information about a particular docker command (such as `man docker-build`)
+
+
+
+
