@@ -59,3 +59,21 @@ output {
 
 Run logstash to receive the input data from beats. Start logstash prior to running beats.
 
+
+The below file will read a file and output the file to stdout. Setting `sincedb_path` to `/dev/null` forces the file to be read from the beginning every time logstash is started. 
+
+----
+input {
+  file { 
+    path => "/usr/share/logstash/sample.log"
+    start_position => "beginning"
+    sincedb_path => "/dev/null"
+  }
+}
+
+output {
+  stdout {codec => rubydebug }
+}
+----
+
+

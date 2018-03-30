@@ -1,0 +1,7 @@
+= Security Onion Conference 2017
+
+Security Onion 2017: Network Baseline Generation & Alerts w Bropy by Matt Domko
+
+References ERSPAN for ESXi to monitor traffic on vSphere clusters
+
+https://docs.extrahop.com/6.2/configure-erspan-vmware/

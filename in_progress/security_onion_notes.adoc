@@ -1,0 +1,77 @@
+= Security Onion Notes
+Steve Willson 30MAR18
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/IntroductionToSecurityOnion
+
+.Key points:
+* Security Onion is a Network Security Monitoring linux distribution based on Ubuntu
+* It does 3 things: full packet capture, NIDS&HIDS, contains analysis tools
+* Can be deployed in standalone and server-sensor configurations
+* Setup can be automated through the sosetup script
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/Hardware
+
+.HW Requirements
+* 2 VCPUs, 8GB RAM Minimum
+
+.Sensor Requirements
+* Rough estimate is 200Mbps per Snort instance, Suricata worker, or Bro worker 
+* 2 CPUs per worker
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/ProductionDeployment
+
+.Production Deployment Suggestions
+* Configure the master server first
+* Sensors connect to master through 22, 4505, 4506 (Salt), and 7736
+* Install metapackages (securityonion-all, securityonion-onionsalt)
+* Use a text config file `sosetup.conf` to automate setup
+
+THe above link contains a walkthrough for setting up a production deployment.
+
+Should create a user account on the master for each sensor.
+
+Setup will evenly divide the CPUs across the IDS and Bro processes if choosing best practices.
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/PostInstallation
+
+.PostInstallation:
+* Check service status `sudo service nsm status`
+* Setup only opens port 22 (SSH), need to allow other ports through `so-allow`
+* Disable unneeded sensor processes
+* Could place `/etc` under version control
+
+== BPF Filter Structure
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/BPF
+
+.Structure of the bpf.conf files
+* `/etc/nsm/rules/bpf.conf` is copied from the master server
+* There is a daily cronjob that will copy this file to the sensors
+* Per-process bpf files are symlinked to the interface bpf and the interface bpf is symlinked to the global bpf.conf
+
+== Timezones
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/TimeZones
+
+Recommend using UTC, use `sudo dpkg-reconfigure tzdata` set to UTC
+
+
+== Services
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/Services
+
+Controlled by NSM scripts, seems like securityonion was born out of a linux distro that had lots of scripts to do lots of NSM things.
+
+The directory `/usr/sbin` contains many of these scripts. Most begin with `so-` or `nsm_server_`
+
+Hopefully it will move towards services running in docker containers.
+
+
+== Elastic Stack Architecture
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/Elastic-Architecture
+
+Docker containers based off CentOS7
+
+
+
