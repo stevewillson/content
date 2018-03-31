@@ -1,0 +1,70 @@
+= Redis Notes
+
+Tutorial available at: try.redis.io
+
+Key-value store, often referred to as a NoSQL database.
+
+Store some data (value) inside a key. Data can be retrieved if the exact key is known.
+
+Use the command `SET` to store the value 'fido' at key 'server:name'
+
+`SET server:name "fido"`
+
+`GET server:name` replies with `"fido"`
+
+Other common operations: `DEL` (delete a given key and associated value), `SETNX` (set if not exists), `INCR` (increment a number stored at a given key)
+
+Redis provides many atomic operations to interact with data.
+
+A key can be made to only exist for a defined amount of time (`EXPIRE`)
+
+Use the `EXPIRE` command and a key followed by a number to specify the number of seconds that a key will last
+
+* -1 - the key will never expire
+* -2 - the key is expired
+
+Query how much time remains with the `TTL` command
+
+Supports many other complex data structures.
+
+* List - series of ordered values
+
+.Commands to interact with a list
+* `RPUSH` - appends a value to the list
+* `LPUSH` - inserts a value at the beginning of the list
+* `LRANGE` - gives a subset of the list, use `-1` to mean the end of the list, need to provide the start and end index of the list (inclusive)
+* `LLEN` - returns the length of the list
+* `LPOP` - removes the first element of the list and returns it
+* `RPOP` - removes the last element of the list and returns it
+
+== Set 
+
+set - similar to a list except it does not have a specific order and each element may only appear once.
+
+.Commands
+* `SADD` - adds a value to the set
+* `SREM` - removes a value from the set
+* `SISMEMBER` - tests if the given value is in the set
+* `SMEMBERS` - returns a list of all the members of this set
+* `SUNION` - combines two or more sets and returns the list of all elements
+
+Sorted sets have a score attached to each of the elements that is used to sort them.
+
+* `ZADD` - set a value and score to a particular key, the score is an integer used to sort the values
+* `ZRANGE` - get the values between those positions
+
+== Hashes
+
+Hashes are maps between string fields and string values.
+
+* `HSET` - sets the value of a key to a string and a value for that string
+* `HGETALL` - gets all of the values for the given key
+* `HMSET` - sets multiple fields for a hash at once
+* `HGET` - gets a particular value for a key
+
+Numerical values can be incremented in hash fields.
+
+`HINCRBY` - increments the hash value in the key by a defined amount
+`HDEL` - deletes a hash value
+
+
