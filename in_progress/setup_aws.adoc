@@ -1,0 +1,131 @@
+= Setting up a Web Server on AWS
+
+.Steps
+* Set up a new instance
+* Set up DNS to point to the new server
+* Login to the new instance and configure services
+* Allow desired ports through the Amazon firewall (I use ports 80, 443, and 6789(SSH))
+
+== Setup the server with Amazon Web Services
+
+Go to https://aws.amazon.com, register for a free account.
+
+Launch an Ubuntu 16.04 instance, create a new key file to connect to the instance using SSH using key authentication.
+
+ $ ssh -i "ubuntu_key_1.pem" ubuntu@ec2-18-219-249-95.us-east-2.compute.amazonaws.com
+
+Add the ports that you would like allowed in the 'Network & Security' area of AWS 
+
+== Register a domain name
+
+Go to freenom.com or another registrar to sign up for a domain name. Set the DNS name servers to be those at cloudflare (provided when you register for an account)
+
+== Set up the domain name servers
+
+Use cloudflare, change the DNS records to point to the new server's IP address
+
+Verify that your DNS records point to the right IP address
+
+ $ sudo apt-get install dnsutils
+  
+ $ dig YOUR_DOMAIN_NAME
+
+You should see a response with an 'A' record that points to the IP address specified
+
+== Edit SSH Server Config File
+
+Edit file `/etc/ssh/sshd_config`
+
+Change line `Port XXXX` to your high port. (Ex `Port 5678`)
+
+Allow password login
+
+Restart the SSH service
+
+ $ sudo service ssh restart
+
+== Add a new user
+
+Add the new user, add to the `sudo` group
+
+ $ useradd user
+
+Edit the `/etc/group` file to include the user in the sudo group
+
+Remove the `/home/ubuntu/.ssh/authorized_keys` file to disable login with the ssh key created at the beginning
+
+Set the hostname of the server, as root
+
+ $ sudo hostname HOSTNAME
+
+Edit the `/etc/hosts` file to include `HOSTNAME` appended to the end of the 127.0.0.1 entry
+
+== Add content from a previous host
+
+On the previous host, create a backup of all files in the user's home directory  `tar cvzpf userbak.tar.gz /home/user/`
+
+Use SCP to copy the file from the old server to the new server.
+
+ $ scp -P PORT USER@OLD_SERVER:FILE USER@NEW_SERVER:
+
+On the new host, extract the files with the command `tar xzvf userbak.tar.gz`
+
+== Set up sshguard
+
+ $ sudo apt-get install sshguard
+
+SSH guard monitors ssh connection attempts (`auth.log`) and blocks the IP address of failed logons in a certain period of time
+
+Add IPs to a whitelist at `/etc/sshguard/whitelist`
+
+I did a failed logon attempt for 2 different names within 17 seconds and my home IP address was blocked for >630 seconds. I then added my home public IP address to the whitecell.
+
+== Set up the nginx server
+
+ $ sudo apt-get install nginx
+
+Use letsencrypt certificates
+
+https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-16-04
+
+Following the tutorial on a fress install of nginx
+
+----
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+----
+
+Configure nginx to answer for the proper hostname by editing the files in `/etc/nginx/sites-available/`
+
+Initial configuration of the /etc/nginx/sites-available/willson.tk file
+
+----
+server {
+    server_name willson.tk www.willson.tk;
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    return 302 https://$server_name$request_uri;
+} 
+
+server {
+    server_name willson.tk www.willson.tk;
+    listen [::]:443 ssl ipv6only=on; # managed by Certbot
+    listen 443 ssl; # managed by Certbot
+    location / {
+        # First attempt to serve request as file, then
+        # as directory, then fall back to displaying a 404.
+        try_files $uri $uri/ =404;
+        root /var/www/html;
+        # Add index.php to the list if you are using PHP
+        index index.html index.htm index.nginx-debian.html;
+    }
+
+    ssl_certificate /etc/letsencrypt/live/willson.tk/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/willson.tk/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot       
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot         
+}
+----
+
+== Set up guacamole server
