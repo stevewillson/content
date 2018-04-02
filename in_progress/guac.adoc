@@ -1,10 +1,24 @@
 = Guac Server Setup
 
-Followed Chase Wright's script on an ubuntu machines
+== Install mysql
 
-I already have nginx set up with a certificate,
+ $ sudo apt-get install mysql-server
 
-Just want to proxy the tomcat connection through nginx
+== Install docker
+
+Follow instructions at the docker website
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04
+
+== Use Chase Wright's docker script to install guacamole
+
+https://www.chasewright.com/guacamole-mysql-docker/
+
+== Web Server Configuration
+
+Already have nginx set up with certificates
+
+Proxy the tomcat connection through nginx
 
 Edited file /etc/tomcat7/server.xml
 
