@@ -4,6 +4,10 @@ I would like to take a base Ubuntu 14.04 image and download the Security Onion p
 
 Follow the instructions for downloading at https://github.com/Security-Onion-Solutions/security-onion/wiki/InstallingOnUbuntu
 
+Also want to setup elastic stack, follow the instructions for setting up elastic stack.
+
+Generate a sample security onion.conf file
+
 Add the commands as user_data to a new nova server on a HEAT template.
 
 Need to download and run sosetup using an answer file, or install an X Window Manager.
