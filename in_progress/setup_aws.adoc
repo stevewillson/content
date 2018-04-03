@@ -129,3 +129,5 @@ server {
 ----
 
 == Set up guacamole server
+
+The writeup `setup_guac_server.adoc` contains instruction for how to install guacamole.
