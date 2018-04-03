@@ -58,6 +58,12 @@ Use the `tail -f <FILE>` command to view a file as it is appended to.
 
  $ sudo tail -f /var/log/auth.log
 
+Attempt to connect using ssh
+
+ $ ssh USER@IP_ADDR 
+
+Verify that `auth.log` sees this connection
+
 This command will view authentication requests to the linux machine
 
 This command is powerful when used in combination with `tmux` because you are able to open a pane to watch a log file and then use another pane to perform a log generating action.
