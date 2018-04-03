@@ -1,4 +1,5 @@
 = Changing Domain Names
+Steve Willson steve.willson@gmail.com
 
 I recently lost the service for the `willson.ga` domain name, now I am switching to `willson.tk` from Freenom for 1 year.
 
@@ -9,7 +10,7 @@ austin.ns.cloudflare.com
 bonnie.ns.cloudflare.com
 ----
 
-I can run a `dig` query on my domain name to verify that the DNS entry is configured properly.
+Run a `dig` query on the domain name to verify that the DNS entry is configured properly.
 
 Verify correct nameservers
 
@@ -19,11 +20,9 @@ Verify correct A record
 
  $ dig willson.tk
 
-I need to now configure the servers to accept connections for willson.tk
+Configure the servers to accept connections for willson.tk
 
-Edit the `/etc/nginx/sites-available/default` file.
-
-Add entries for willson.tk
+Edit the `/etc/nginx/sites-available/default` file and add entries for willson.tk
 
 ----
 server {
@@ -41,7 +40,11 @@ Create a new file under `/etc/nginx/sites-available/` for `willson.tk` domain na
 
 Use the nginx commands to test the configuration
 
+Verify that the configuration files have correct syntax
+
  $ nginx -t 
+
+Reload the configuration files without restarting nginx
 
  $ nginx -s reload
 
@@ -49,7 +52,7 @@ Request the page, and watch what happens
 
  $ wget willson.tk
 
-Verify that you can get to the `willson.tk` website.
+Verify that `willson.tk` can be reached.
 
 == Generate a certificate
 
@@ -93,7 +96,6 @@ This will save the certificates to:
    /etc/letsencrypt/live/willson.tk/privkey.pem
 ----
 
-
 Configure nginx to use those certificates in the sites-available file
 
 Example `/etc/nginx/sites-available/willson.tk` file below (symlinked to `/etc/nginx/sites-enabled/willson.tk`):
@@ -106,8 +108,8 @@ server {
         return 302 https://$server_name$request_uri;
 }
 
-server {
 # FOR THE WILLSON.TK domain
+server {
         server_name willson.tk www.willson.tk;
         listen 443 ssl; # managed by Certbot
         ssl_certificate /etc/letsencrypt/live/willson.tk/fullchain.pem; # managed by Certbot

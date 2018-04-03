@@ -1,9 +1,17 @@
 = Package Management Help
-Steve Willson
+Steve Willson steve.willson@gmail.com
 
+Compilation of commands and links for using the APT package manager.
+
+== Adding a repository
+
+Edit the file `/etc/apt/sources.list` to add a repository
+
+Execute `sudo apt-get update` to check that repo
+
+== Check where a package will be downloaded from
 
 How to determine what binaries are in a metapackage?
-
 
 I am interested in using *xxxxxx* binary, what package should I install?
 

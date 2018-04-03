@@ -1,7 +1,9 @@
 = mimikatz - copy, paste, GO!
+Steve Willson steve.willson@gmail.com
 
+This tutorial demonstrates how easy it is to steal credentials from a local machine if you have administrative control of that machine.
 
-This tutorial is meant to show how easy it is to steal credentials from a local machine if you have administrative control of that machine.
+More information about mimikatz can be found at: https://adsecurity.org/?page_id=1821
 
 WARNING: *Only do this in a VM! Do not download mimikatz on a work computer.*
 
