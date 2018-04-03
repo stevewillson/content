@@ -11,9 +11,33 @@ Execute `sudo apt-get update` to check that repo
 
 == Check where a package will be downloaded from
 
+This command will display which package will be downloaded from and which version will be downloaded
+
+ $ sudo apt-cache policy <PACKAGE_NAME>
+
 How to determine what binaries are in a metapackage?
 
-I am interested in using *xxxxxx* binary, what package should I install?
+== Check information about a package
+
+ $ sudo apt-cache <PACKAGE_NAME>
+
+This will show information about a package
+
+Get more information about these commands.
+
+ $ man apt-cache
+
+== How to determine which package to install for a particular binary
+
+use the `dpkg -S` option.
+
+ $ which dig
+
+ $ dpkg -S /usr/bin/dig
+
+This will return that the `dnsutils` package contains the `dig` binary
+
+
 
 
 

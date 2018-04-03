@@ -3,28 +3,64 @@ Steve Willson 2/4/18
 
 There are many times when something on Linux doesn't work. This guide is meant to be an introduction to some techniques to find out why it's broken.
 
-Use tmux and vim
+Use `tmux` and `vim`
 
-tmux (terminal multiplexer) allows you to have multiple terminals in one terminal. You're able to switch between terminals using keyboard combinations. One downside is that copy and paste doesn't work all that well.
+`tmux` (terminal multiplexer) allows you to have multiple terminals in one terminal. You're able to switch between terminals using keyboard combinations. One downside is that copy and paste doesn't work all that well.
 
 Commonly used keyboard shortcuts
 
-Ctrl+b - this is the key combination to preface other commands
+`Ctrl+b` - this is the key combination to preface other commands
 
-Ctrl+b " - split the terminal horizontally
-Ctrl+b % - split the terminal vertically
+`Ctrl+b "` - split the terminal horizontally
+`Ctrl+b %` - split the terminal vertically
 
-Ctrl+b o - switch between terminals
-Ctrl+b c - create a new pane
-Ctrl+b x - kill the current pane
-Ctrl+b q - list the numbers of the current terminals
+`Ctrl+b o` - switch between terminals
+`Ctrl+b c` - create a new pane
+`Ctrl+b x` - kill the current pane
+`Ctrl+b q` - list the numbers of the current terminals
 
-Ctrl+b t - show a clock
+`Ctrl+b t` - show a clock
+`
+`Ctrl+b arrow key` - resize the pane (hold `Ctrl+b` down while resizing)
 
-Ctrl+b arrow key - resize the pane
-
-Vim useful commands
+== Vim useful commands
 
 use the `/` key to search for text and then press `ENTER`, the cursor will move to the next occurance of that text, you can press `n` to move forward one occurance. Press `cw` to change that word, then you will need to leave `INSERT MODE` by pressing `ESC`
+
+== Pager Useful commands
+
+=== Use `less` to view a file
+
+Pipe the output of a command (use `|`) to `less` to search through the output of that command.
+
+ex: `sudo apt-cache policy dnsutils | less`
+
+=== Searching through output with `less`
+
+Use `/` to perform a DOWN search through a file. `n` to view the next result and `N` to view the previous result.
+
+Use the keys following keys to move around the pager
+
+`j` - DOWN
+`k` - UP
+`spacebar` - go forward 1 page
+`q` - quit out of the pager
+`G` (shift + g) - go to the end of the output
+`1G` - go to the first line of the output
+`<NUMBER>G` - go to line `<NUMBER>` of the output
+
+
+== Watching a logfile
+
+Log files are located in the `/var/log/` directory. 
+
+Use the `tail -f <FILE>` command to view a file as it is appended to.
+
+ $ sudo tail -f /var/log/auth.log
+
+This command will view authentication requests to the linux machine
+
+This command is powerful when used in combination with `tmux` because you are able to open a pane to watch a log file and then use another pane to perform a log generating action.
+
 
 
