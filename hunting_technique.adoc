@@ -1,0 +1,30 @@
+= A Hunting Technique
+Presented by Ryan Kazanciyan elasticON 2018
+
+== Ask a question
+
+"How often do legitimate Windows applications run PowerShell encoded commands?
+
+Identify what questions need to be answered
+
+== Get unexpected results
+
+"Oops. 10% of our endpoints produce 1000s of false positives per day. Too much noise.
+
+Query the system, determine which data source(s) should be used to answer the question.
+
+== Learn and refine
+
+"Let's apply some client-side filters to the data and try again."
+
+Determine if the data source is sufficient to answer the question
+
+If necessary, go back to "Ask a question" to refine
+
+== Add to workflow
+
+"Eureka!" Now let's collect, centralize, and analyze the data over time.
+
+== Success!
+
+"Find all the evil things!"

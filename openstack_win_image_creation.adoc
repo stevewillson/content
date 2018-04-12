@@ -1,0 +1,61 @@
+= Windows Image Build Process
+ 
+== Process for building new Windows images that will work optimally with the VTA:
+
+.Requirements
+* Linux build environment, 8GB RAM, 4 cores
+* Packages `qemu-kvm` and `qemu-utils`
+* ISO of OS from Microsoft Volume License Support Center (VLSC). Make sure that the image is from a reputable source
+* Latest Red-Hat signed VirtIO drivers (stable) https://fedoraproject.org/wiki/Windows_Virtio_Drivers
+* cloudbase-init installation binary for target arch (stable) https://cloudbase.it/cloudbase-init/#download
+* Latest VMware vmmouse driver, pulled directly from https://packages.vmware.com/tools/releases/latest/windows/index.html .  You will have to extract the vmmouse driver from the iso and binary, and then copy it to the VM. You don't need anything else except the inf file. Follow the guide at https://kb.vmware.com/s/article/2032184 to extract the drivers.
+* zero-filled raw disk image file, ex.
+
+ $ qemu-img create windowsxx.raw xxG
+
+.Use the following values for the image sizes
+* Windows 10/2016 - 16GB
+* Windows 7/8/2012 R2 - 24GB
+
+== Installation Steps
+
+. Install Windows using kvm
+
+``` 
+kvm -m {{ memory in MB}} \
+    -smp {{ number of cores to allocate}} \
+    -drive file=path/to/raw/disk,if=virtio,format=raw \
+    -drive file=path/to/virtio/iso,media=cdrom,index=2 \
+    -drive file=/path/to/installation/iso,media=cdrom,index=1 \
+    -net nic,model=virtio \
+    -net user \
+    -show-cursor \
+    -boot d
+```
+
+[start=2]
+. Install the VirtIO viostor and netkvm drivers *during* Windows installation
+. Set a random user password
+. Install the vmmouse driver. You can do this by going to device manager (if you have a gui) and installing it over the default Microsoft mouse driver.  If you don't have a gui, you can use pnputil.
+. Perform *all* Windows updates (this will take some time)
+
+When rebooting the system, use a form of the command below to start the system.
+
+``` 
+kvm -m {{ memory in MB}} \
+    -smp {{ number of cores to allocate}} \
+    -drive file=path/to/raw/disk,if=virtio,format=raw \
+    -net nic,model=virtio \
+    -net user \
+    -show-cursor \
+    -boot c
+```
+
+[start=6]
+. Clean up all remnants of Windows updates by deleting old packages (use either Windows disk cleaner or `Dism.exe /online /Cleanup-Image /StartComponentCleanup` AND `Dism.exe /online /Cleanup-Image /StartComponentCleanup /resetbase`)
+. Shrink partition down to minimum size + 512M using aomei disk partition standard (https://www.disk-partition.com/download-home.html)
+. Uninstall aomei after resize and remove all remnants of utility.
+. Take note of the final partition size in Windows
+. Install cloudbase-init, selecting com1 as the serial port during installation and leaving all other options as default. At end, select the box that says `run sysprep` and then check the box below that says `shutdown when complete`.
+.  When the image is shut down, make a copy of it.  use qemu-img resize to shrink the raw disk image to the size of the Windows partition, rounded up to the nearest G.  For Windows 10 and 2016, this should be about 9GB.  For Windows 7/8/2012, this will be around 16GB.
+

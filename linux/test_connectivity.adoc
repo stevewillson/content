@@ -1,0 +1,12 @@
+= Debugging Linux Instance with no connectivity
+
+Ran `sosetup -f sosetup.conf`
+
+ $ ip addr
+
+sosetup changes the file `/etc/network/interfaces` when configuring the host.
+
+Need to actually have a sniffing interface setup 
+
+
+

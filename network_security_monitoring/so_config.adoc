@@ -1,0 +1,13 @@
+= Security Onion Configuration
+
+Want to allow password login for ssh
+
+Edit `/etc/ssh/sshd_config`
+
+Change to `PasswordAuthenticadtion yes`
+
+Restart ssh
+
+ $ sudo service ssh restart
+
+

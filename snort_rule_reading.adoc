@@ -1,0 +1,29 @@
+= How to Read SNORT Rules
+
+In security onion, the SNORT rules are stored at
+
+`/etc/nsm/rules`
+
+The script `rule-update` will merge local.rules into downloaded.rules, update `sid-msg.map` and restart snort/suricata and barnyard.
+
+Reference: https://github.com/Security-Onion-Solutions/security-onion/wiki/AddingLocalRules
+
+Rules for snort are stored in `/etc/nsm/rules/downloaded.rules`
+
+There are links within rules that point to what they are designed to detect, follow the links to read more about a particular alert.
+
+Threats can be viewed at the Microsoft Threat Encyclopedia: https://www.microsoft.com/en-us/wdsi/threats
+
+Microsoft List Summary, What to do now, and Technical Information for malware.
+
+
+== Snort Rules
+
+https://www.snort.org/rules_explanation
+
+Writing Snort Rules: http://manual-snort-org.s3-website-us-east-1.amazonaws.com/node27.html
+
+dsize - tests packet payload size
+
+byte_jump - move the 
+

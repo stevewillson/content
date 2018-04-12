@@ -1,0 +1,11 @@
+= Testing connectivity between windows hosts
+Steve Willson steve.willson@gmail.com
+
+Problem - test connectivity between windows hosts with powershell
+
+
+PSSESSION
+
+How to initiate a TCP connection between two windows machines
+
+

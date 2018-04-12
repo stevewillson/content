@@ -1,0 +1,73 @@
+= Security Onion Tools on a VM
+ 
+== Process for setting up an image of Security Onion
+
+.Requirements
+* Linux build environment, 8GB RAM, 4 cores
+* Packages `qemu-kvm` and `qemu-utils`
+* raw disk image file, ex:
+
+ $ qemu-img create ubuntu14.raw xxG
+
+* Security Onion ISO
+
+.Use the following values for the image sizes
+* Ubuntu 14 - more than 20GB - we're using this for setting up Security Onion
+
+
+== Host Computer Setup
+
+Ensure that virtualization technology is enabled `VTx`
+
+Go to the BIOS, select `Advanced` - enable Virtualization Technology and Virtualization Technology for Directed I/O
+
+== Installation Steps
+
+. Install Ubuntu using kvm
+
+----
+kvm -m {{ memory in MB}} \
+    -smp {{ number of cores to allocate}} \
+    -drive file=path/to/raw/disk,if=virtio,format=raw \
+    -drive file=/path/to/installation/iso,media=cdrom,index=1 \
+    -net nic,model=virtio \
+    -net user
+----
+
+[start=2]
+
+. Go through the installation steps for Security Onion
+
+When rebooting the system, use a form of the command below to start the system.
+
+----
+kvm -m {{ memory in MB}} \
+    -smp {{ number of cores to allocate}} \
+    -drive file=path/to/raw/disk,if=virtio,format=raw \
+    -net nic,model=virtio \
+    -net user \
+    -show-cursor \
+----
+
+Ensure that the networking is configured properly
+
+Use the following commands to install security onion with the elastic packages
+
+The new security Onion ISO defaults to Elastic Stack
+
+----
+echo "debconf debconf/frontend select noninteractive" | debconf-set-selections
+rm -rf /var/lib/apt/lists/*
+apt-get update
+#Add the Security Onion stable repository:
+apt-get -y install software-properties-common
+add-apt-repository -y ppa:securityonion/stable
+apt-get update
+#Install the securityonion-all metapackage:
+apt-get -y install securityonion-all syslog-ng-core
+apt-get -y install securityonion-elastic
+so-elastic-download
+so-elastic-configure
+----
+
+
