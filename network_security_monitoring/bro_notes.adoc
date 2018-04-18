@@ -1,0 +1,47 @@
+= Bro Monitoring
+
+Visit website at http://try.bro.org/#/trybro
+
+Bro is event driven, you can control any action by making it event driven.
+
+two events always raised
+
+* bro_init()
+* bro_done()
+
+Bro log files
+https://www.bro.org/sphinx/script-reference/log-files.html
+
+Bro can load a script from other programming files using the @load directive
+
+== Functions
+
+Can declare functions, cannot be nested. Can do string concatenation with the `+` symbol.
+
+== Variables
+
+.Scopes
+* `local` - scope is restricted to the body of a function, will be assigned its initial value each time the function body is executed
+* `global` 
+
+When an error is encountered in a Bro script, it will then print out an error message with where the error is encountered.
+
+== Primitive Datatypes
+
+static type system - the type of data a variable holds is fixed
+
+REs use `flex's` syntax
+
+Domain specific types - `time`, `interval`, `port`, `addr`, `subnet`
+
+== Operators
+
+Many basic operators are present in Bro
+
+== For Loops
+
+foreach style of loop.
+
+Vectors guarantee that the loop will take place in the expected order.
+
+
