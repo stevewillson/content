@@ -1,0 +1,25 @@
+= OpenStack Cyber Broadband Handrail (CYBBH) instructions
+
+.Steps to register for an OpenStack Account
+. Open Chrome/Firefox
+. Navigate to https://register.cybbh.space (signin with email cert)
+. Copy password and follow instructions on page (take note of your username)
+. Open new tab and go to link from previous step
+. Create new password
+
+.Login to the CyberSchool Gitlab Server
+. Navigate to https://git.cybbh.space and login
+. Navigate to https://git.cybbh.space/steve.willson/heat
+.. Could also go get from github... https://github.com/stevewillson/heat
+. Click on "win_network.yaml"
+. Click on the "Open raw" button and copy the URL address
+
+.Start a new Stack in OpenStack
+. Navigate to https://vta.cybbh.space
+. Use Domain = ipa, username and password from previous steps
+. Click on `Orchestration`
+. Click on `Stacks`
+. Click on `Launch Stack` button
+. In new popup window, choose Source = URL, paste the URL for the HEAT template for "win_network.yaml", click next
+. Name the stack whatever you want (tasteful), password for username is from step 5
+. Username = user, password = pass for VM’s after created.
