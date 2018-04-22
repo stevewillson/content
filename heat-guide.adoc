@@ -1,0 +1,321 @@
+:doctype: book
+:stylesheet: ../tech.css
+
+= Heat Tutorial
+
+MAJ Rodriguez 10AUG17
+
+This document provides a brief introduction to OpenStack Heat.
+
+// Available at https://git.cybbh.space/CTEDadmin/CyFDP/builds/artifacts/master/file/Outreach/heat.pdf?job=genpdf
+
+[quote, https://wiki.openstack.org/wiki/Heat]
+____
+Heat is the main project in the OpenStack Orchestration program.
+It implements an orchestration engine to launch multiple composite cloud applications based on templates in the form of text files that can be treated like code.
+A native Heat template format is evolving, but Heat also endeavours to provide compatibility with the AWS CloudFormation template format, so that many existing CloudFormation templates can be launched on OpenStack.
+Heat provides both an OpenStack-native ReST API and a CloudFormation-compatible Query API.
+____
+
+{empty} +
+
+The Heat project is the foundation of all courseware that uses the IaaS BB-H VTA here at the Cyber School.
+It provides a mechanism to easily create/destroy/modify virtual environments (x86, ppc, arm, etc.) for the purposes of training & education.
+It also provides an avenue for individual users to self-develop. 
+On a limited basis, it can support multi-user training when no other environments are available.
+
+With all this in mind, it is critically important to:
+  
+  * Know how the heat <<fundamentals>>
+  * Know how to modify and update existing templates
+  * Know how to create your own templates when no others are available
+  
+== [#fundamentals]#Heat Fundamentals#
+
+Heat (by itself) provides no additional OpenStack functionality.
+It is purely an abstraction layer that executes API calls on your behalf in an organized, repeatable, user-friendly manner.
+When you execute a heat template that has the below resources:
+
+[[template.yaml]]
+[source,yaml]
+.example.yaml
+----
+  my-network:
+    type: OS::Neutron::Net
+    properties:
+      name: my-network
+      
+  my-subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      allocation_pools:
+        - start: 10.0.0.5
+          end: 10.0.0.250
+      cidr: 10.0.0.0/24
+      gateway_ip: 10.0.0.254
+      dns_nameservers: 10.50.255.254
+      name: my-subnet
+----
+
+{empty} +
+
+Heat is executing the following on your behalf:
+
+[[template.sh]]
+[source,sh]
+.example.sh
+----
+openstack network create my-network
+openstack subnet create                         \
+--gateway 10.0.0.254                            \
+--network my-network                            \
+--dns-nameserver 10.50.255.254                  \
+--allocation-pool start=10.0.0.5,end=10.0.0.250 \
+--subnet-range 10.0.0.0/24                      \
+----
+
+{empty} +
+
+The end result is the same, but the implications of being able to define your resources in a stateful manner rather than a procedural one are numerous.
+
+Here is an example of a full, but simple heat template that:
+
+ * Creates a network called {{your_last_name}}_network
+ * Creates a subnet called {{your_last_name}}_subnet
+ * Creates a router called {{your_last_name}}_router
+ * Connects {{your_last_name}}_router to the public network (internet)
+ * Connects {{your_last_name}}_router to {{your_last_name}}_network via {{your_last_name}}_subnet
+ * Creates a server (VM) using the cirros image and connects it to {{your_last_name}}_subnet (and the rest of the internet)
+
+[[cirros.yaml]]
+[source,yaml]
+.cirros.yaml
+----
+heat_template_version: 2017-02-24
+
+description: Sample Template for Heat Guide
+
+parameters:
+
+  student_id:
+    type: string
+    label: Student ID
+    description: Student ID Number
+    default: 0
+
+  first_name:
+    type: string
+    label: First Name
+    description: First Name
+    default: 
+    constraints:
+      -  length: { min: 1, max: 15 }
+         description: First name must be no longer than 15 characters
+      -  allowed_pattern: "[a-zA-Z]*"
+         description: First name may only contain letters
+
+  last_name:
+    type: string
+    label: Last Name
+    description: Last Name
+    default: 
+    constraints:
+      -  length: { min: 1, max: 15 }
+         description: Last name must be no longer than 15 characters
+      -  allowed_pattern: "[a-zA-Z]*"
+         description: Last name may only contain letters
+  
+resources:
+
+  stu-network:
+    type: OS::Neutron::Net
+    properties:
+      name:
+        str_replace:
+          template: lastName_Network
+          params:
+            lastName: { get_param: last_name }
+
+  stu-subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      allocation_pools:
+        - start:
+            str_replace:
+              template: 10.studentID.0.5
+              params:
+                studentID: { get_param: student_id }
+          end:
+            str_replace:
+              template: 10.studentID.0.250
+              params:
+                studentID: { get_param: student_id }
+      cidr:
+        str_replace:
+          template: 10.studentID.0.0/24
+          params:
+            studentID: { get_param: student_id }
+      gateway_ip:
+        str_replace:
+          template: 10.studentID.0.254
+          params:
+            studentID: { get_param: student_id }
+      network: { get_resource: stu-network }
+      dns_nameservers:
+        str_split: 
+          - ','
+          - str_replace:
+              template: 10.studentID.0.1,172.16.0.254
+              params:
+                studentID: { get_param: student_id }            
+      name:
+        str_replace:
+          template: lastname_subnet
+          params:
+            lastname: { get_param: last_name }
+
+  stu-router:
+    type: OS::Neutron::Router    
+    properties:
+      name:
+        str_replace:
+          template: lastname_router
+          params:
+            lastname: { get_param: last_name }
+      external_gateway_info: {"network": Public}
+
+  stu-router-interface:
+    type:  OS::Neutron::RouterInterface
+    properties:
+      router_id: { get_resource: stu-router }       
+      subnet_id: { get_resource: stu-subnet }
+
+  server0:
+    type: OS::Nova::Server
+    properties:
+      name:
+        str_replace:
+          template: lastname-cirros
+          params:
+            lastname: { get_param: last_name }
+      image: cirros
+      flavor: m1.nano
+      networks: 
+        - network: { get_resource: stu-network }
+----
+
+{empty} +
+
+=== Template Structure
+
+Most of the templates that you encounter will be YAML files and will have 3-5 different sections<<1>>:
+
+  . version
+  . description
+  . parameters (optional)
+  . resources
+  . outputs (optional)
+  
+==== Parameters
+
+Parameters are where the user's input will be received by the template.
+They are things that you (or your end user) define when you launch a stack, after entering a stack name and your account password.
+These values can be incorporated throughout your template, or they can be used to perform complex calculations so your template can make decisions about how to proceed.
+
+==== Resources
+
+Resources are the 'things' that you are having heat create on your behalf.
+They can include, but are not limited to:
+
+  * Servers
+  * Networks
+  * Security Groups
+  * Subnets
+  * Ports
+  * Routers
+  * Swift Containers
+  
+==== Outputs
+
+Outputs are things that are created by your heat template that are to be used by you or your end users
+For example:
+
+[[output.yaml]]
+[source,yaml]
+.output.yaml
+----
+outputs:
+  floating_ip:
+    description: Floating Address
+    value: { get_attr : [stu-float-ip, floating_ip_address] }
+----
+
+Would create an output that would pass the value for 'stu-float-ip' back to the end user as a string.
+The end user would then take this IP address and SSH/RDP to it to perform whatever task they have given.
+
+For a full listing of all possible resources, see https://docs.openstack.org/heat/latest/template_guide/openstack.html[this].
+
+You can get more detailed information about general template structure https://docs.openstack.org/heat/latest/template_guide/hot_spec.html#template-structure[here].
+
+=== Template Versioning
+
+At the very top of every heat template, you have a mandatory versioning field:
+
+[[version.yaml]]
+[source,yaml]
+.version.yaml
+----
+heat_template_version: 2017-02-24
+----
+
+This field lets the orchestrator know how to interpret the template that follows.
+Each version of OpenStack (Released roughly every 6 months) brings with it new and improved features that you can utilize.
+For example in the current Ocata release (2017-02-24) we support the following functions:
+
+[[functions.yaml]]
+[source,yaml]
+.functions.yaml
+----
+digest
+filter
+get_attr
+get_file
+get_param
+get_resource
+list_join
+map_merge
+map_replace
+repeat
+resource_facade
+str_replace
+str_replace_strict
+str_split
+yaql
+if
+----
+
+and the following conditionals
+
+[[conditionals.yaml]]
+[source,yaml]
+.conditionals.yaml
+----
+equals
+get_param
+not
+and
+or
+----
+
+These functions and conditionals are what give heat an incredible amount of flexibility and power.
+The function that Cyber School uses most often is str_replace, which lets us take parameters and individualize resources per-student, per-class, or however the instructor desires.
+
+For additional information on available versions and available functions, go https://docs.openstack.org/heat/latest/template_guide/hot_spec.html#heat-template-version[here].
+
+
+{empty} +
+{empty} +
+
+[bibliography]
+== References
+- [[[1]]] J. Villarreal Pelegrino, "A quick introduction to OpenStack Heat," Superuser, 31 Jan., 2017, Available: http://superuser.openstack.org/articles/quick-intro-openstack-heat/ [Accessed: 6 Aug., 2017]. 
