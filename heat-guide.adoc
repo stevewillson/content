@@ -1,5 +1,5 @@
 :doctype: book
-:stylesheet: ../tech.css
+:stylesheet: ./tech.css
 
 = Heat Tutorial
 
