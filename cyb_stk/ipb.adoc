@@ -52,3 +52,245 @@ Area of Operations - we should get our AO from or higher HQ, -> most likely we w
 It is our job to educate others about Cyber and how it works
 
 We operate on other people's networks so it is our job to synchronize our actions with high HQ. 
+
+How to define the AO?
+
+What are some ways to define an AO?
+
+* CDR AO
+* VLAN
+* DMZ
+* Physical Links
+* Domain
+* Admin Boundaries
+
+=== Area of Interest
+
+Area of concern to the commander
+Includes the Area of Influence
+Adjacent areas
+Extends into enemy territory
+
+Enemy territory? - Servers owned by the enemy?
+
+C2 Nodes - enemy control
+Physical location - people's location that are operating on the network
+
+=== Area of Influence (AoI)
+
+Commander has the ability to affect this area.
+
+=== Outputs of Step 1
+
+Common Operational Picture (COP) of the OE
+
+Save time and effort by 
+
+==== Success
+
+
+
+==== Failure
+
+Command will chase red herrings
+
+Wastes time and energy
+
+
+
+
+When you evaluate the threat - do you use intel to think about one threat?
+
+== Step 2 - Describe the Battlefield's Effects
+
+=== Outputs
+
+MCOO
+
+=== Adversary Overlay
+
+ID 
+
+Weather considerations - need to know the current weather around the world to determine if there is a activity limiting weather incident
+
+Current events going 
+
+=== Modified Combined Obstacle Overlay / OCOKA
+
+
+==== Conventional
+
+Key Terrain - area that gives a marked advantage to either combatant
+
+Avenues of approach - how you get where you are going
+
+
+==== Cyber
+
+Fields of fire - sensors with trained operators, use sensors to 'see' what is going on in the network
+
+Sensors
+Log aggregators
+* Scanners 
+
+Cover and Concealment - enclaves, OPSEC profile, tools in the environment, 
+
+Obstacles - ePO, policies, user, existing admin and technical controls in the environment
+
+Key Terrain - need to understand the mission to determine key terrain.
+* From friendly perspective - commander's mission
+* Enemy perspective - what are they interested in?
+
+What is the purpose of key terrain - something (physical, logical, or cyber persona) that control of provides a marked advantage to either combatant
+
+Avenues of Approach - 3 layers
+
+
+=== Tactical Graphics
+
+Use the tactical graphics to communicate what we are doing to a commander
+
+=== PMESII / ASCOPE crosswalk
+
+Political Military Economic Social Information Infrastructure 
+
+Areas Structures Capabilities Organizations People Events
+
+=== Resources
+
+ID Resources to gather information for our Cyber Operations
+
+Need to put resources where they will do the most good.
+
+== Step 3 - Evaluate the Threat
+
+Common output is ID who the ADV are, how each adv operates, adv order of battle, doctrinal template, ID adv broad courses of action
+
+Defend, Reinforce, Attack, Withdraw, and Delay (DRAW-D)
+
+=== ID the type of threat
+
+.Types
+* Nationstate - may try to operate subtly
+* Transnational non-state actors
+* Criminal Organization Actors - may be looking to make money, non-idealogy
+* Individual Actors or Small Groups - idealogically motivated
+* Insider Threat - anyone who uses their access to willingly or unwittingly to harm national security interests 
+
+=== Know the threat
+
+* Ideology
+* Objectives
+* Environment/Geography
+* External Support
+* Phasing/Timing
+* Org/Ops Patterns
+* Target Selection
+* Leadership
+
+=== Tactics / Options
+
+ID the intent and capability to penetrate our networks
+ID global threat similar patterns
+Techs specific to the threat
+Malware used
+methods for lateral movement
+
+=== Order of Battle
+
+C2 infrastructure
+Social networking hierarchy
+What does the adv want from our networks?
+Insider threat?
+Named Area of Interest (NAI) - know intent and caps, we want to watch these areas
+
+=== Adversary capabilities
+
+Need to know the enemy's capabilities
+
+=== CARVER Method
+
+Criticality - how important is this system?
+Accessibility - what are ways to interact with the system
+Recuperability - how quickly can we get back to running?
+Vulnerability - what ways can they get in?
+Effects - secondary and tertiary effects of the action
+Recognizability - how quickly will we recognize that something happened, how can we ID that something happened?
+
+ID intel gaps and put up RFIs to answer questions.
+
+=== Use a attack framework to evaluate the threat
+
+Cyber Kill Chain
+
+7 steps - use in the IPB to determine where the enemy is
+
+MITRE ATT&CK
+
+TTPs that an adv uses to get into a network
+
+==== Success
+
+allow the commander to understand the threat
+
+allow the commander to react to the enemy
+
+==== Failure
+
+
+== Step 4 Determine Threat COAs
+
+=== Develep enemy MLCOA and MDCOA
+
+Cyber is a mission, not an intel discipline
+
+Develop COAs based on adv cyber caps as a complement to the ML/MDCOA
+
+continue to refine COAs as time and new info allow
+
+Analysts should ID many COAs for the enemy (3-5?) then brief, then we can select the MLCOA and MDCOA.
+
+The team leader or the commander will make the final decision about the COAs
+
+Intel will recommend PIRs but will not make the final decision
+
+=== Focus Areas
+
+ID threat's objs and desired end state
+
+Determine system caps and vulns
+
+ID full set of en COAs
+
+Evaluate and prioritize each COA
+
+Develop each en COA
+
+=== Broad Course of Action goals
+
+* Defend
+* Reinforce
+* Attack
+* Withdraw
+* Delay
+
+==== Success
+
+able to narrow possible COAs to one most likely to happen -> will help us in stopping the enemy
+
+==== Failure
+
+enemy will not be detected by us -> we will not have focus
+
+
+== Further Research
+
+China's 5 year plan
+
+Van Eck Phreaking
+
+=== Things to get from an Intel Analyst
+
+Adversary Threat Manuals +
+Malware Reports for threat +
+Updated SNORT Signatures
