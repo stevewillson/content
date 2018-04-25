@@ -1,0 +1,150 @@
+= Registry Usage, Analysis, and WMIC
+
+
+CIM - Common Information Model
+
+- common base for mangaed elments within an IT environment
+
+defines a specific set of objects
+
+
+Everything is an OBJECT in Windows
+
+Remote WMI connections are made through DCOM
+
+DCOM is the enhanced version of MSRPC - Microsoft Remote Procedure Call
+
+Microsoft needed a way to make new OS's
+
+Used a distributed model - all worked on different parts of the OS
+
+Used this model - WMI
+
+WMI properties - 
+
+* Default root namespace CIMv2
+
+Namespace - decentralized MS group that was working on a particular feature
+
+Namespaces contain classes 
+
+Collections of classes that contain objects
+
+Objects have methods (function)
+
+Some objects can be in two classes
+
+
+
+
+Enter into WMIC shell using `wmic`
+
+Spawns a child process from `cmd.exe` and allows you to enter other commands
+
+
+Enter `wmic /?` to see a help list
+
+
+
+Syntax `wmic /node:localhost printer list status`
+
+Each wmic command calls a WMI object followed by a list of porperties, switches and verbs
+
+
+
+Hoxfix - will be installed and does not require a reboot - integrates into the system on the fly - doesn't require a reboot
+
+Patch - fixes something in the OS, requires a reboot
+
+
+To see what hotfixes are applied `wmic qfe list brief`
+
+Use the Get-CimInstance command
+
+
+`Get-CimInstance`
+
+`Get-WmiObject`
+
+They return different objects!
+
+
+The default namespace for querying a CIM instance is the CIMv2 namespace
+
+For WMI a 
+
+
+WinRM uses port 5985 - allows 
+
+WS-MAN - 
+
+Need to have this port enabled to use ENDGAME
+
+
+Get-WmiObject -namespace root\cimv2 -list
+
+This starts a wmic process on the back end and then passes the input back to the cmdlet
+
+Get-WmiObject -namespace root\cimv2 -class win32_desktop
+
+`Get-WmiObject -query 'Select * from win32_bios' | ft -property manu*`
+
+
+Invoking a query through the get-wmiobject cmdlet, you are able to search using the WQL syntax
+
+WMI is MS implementation of CIM
+
+Remote connections are made through DCOM
+
+What is the DCOM security? - something that should be audited
+
+MS RPC - Remote procedure call - when a process needs to make a remote call - channel to share information between computers,
+Like a remote function call
+
+Client-server - client requests the server to execute a function
+
+Initial request goes to the endpoint mapper and then the endpoint mapper tells what ports it is listening on
+
+== Remote Commands
+
+Powershell commands do remoting through WinRM 5985
+
+wmic - will use the DCOM service and may not work 
+
+
+
+== Windows Registry Usage and Analysis Class
+
+
+HKLM 
+
+HKEY_CURRENT_CONFIG - information gathered at runtime, regenerated at boot time and is not stored on disk
+
+
+
+HKU - HKEY_USERS - contains subkeys
+
+
+HKPD - HKEY_PERFORMANCE_DATA - translates runtime information to performance data
+
+HKEY_DYN_DATA - only for Win 95/98/ME does PnP and network performance statistics
+
+
+=== Talking about the registry
+
+HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\\Start Page
+
+HKCU
+Software - key
+MS IE and Main are subkeys
+Start Page - is a value
+What start page contains is value data
+
+
+
+SID
+
+S-1-5-21-927890586-368569855467682326-1005
+
+S - denotes SID
+1 - SID version

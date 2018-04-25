@@ -1,0 +1,18 @@
+= Windows Command Line
+
+`echo %time%`
+
+`systeminfo | find "Time Zone"`
+
+`help`
+
+`set` to get environment variables
+
+
+== Windows Event Logs
+
+Launch windows event log viewer `eventvwr` 
+
+`sfc` for system file checker - will check whether files are good on the computer.
+
+

@@ -1,0 +1,40 @@
+= PowerShell Introduction
+
+REPL - read - eval - print loop
+
+$psversiontable - shows what version of powershell you are running
+
+Powreshell started with Windows XP
+
+Can downgrade the version of powershell
+
+PowerShell 2.0 doesn't keep logs
+
+PowerShell is dependent on .NET classes - to use powershell you need a certain level of the .NET framework.
+
+PowerShell Core 6.0 - can run on Linux and OSX
+
+PowerShell ISE
+
+Top Portion - notepad like, can write whatever
+
+Run (F5) can be used to execute the script
+
+Syntax highlighting - important 
+
+
+PowerShell cmdlets have VERB - NOUN syntax
+
+Install PowerShell on a linux system:  https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-powershell-core-on-macos-and-linux?view=powershell-6
+
+Can write a script in a text editor, the extension should be `.ps1`
+
+Change the execution policy to run scripts. The execution policy determines how you can run scripts on the machine.
+
+`get-executionpolicy -list` shows the different execution policies for the computer
+
+WMIC is microsofts implementation of WBEM and CIM
+
+Pipe takes the information from point a to point b, it will pass the object along the pipeline to the next command
+
+

@@ -1,0 +1,122 @@
+
+= Security Software
+
+.5 Types of Files for AppLocker
+* .exe
+* .msi
+* scripts (.ps1 .bat ...)
+* .dll - can control 
+* packaged apps and packaged app installers (.appx)
+
+AppLocker - 
+can be setup to whitelist files by hash, path
+
+One rule above all - explicit deny
+
+At the end there is an implicit deny
+
+MS recommends only using allow statements, because there is an implicit deny at the end
+
+AppLocker weaknesses -
+* if done by path, user can move the file to an allowed path
+* can change the hash and maintain the same function for the binary file
+* can use forged security certificates
+
+AppLocker advantages
+* application inventory
+* protecting against unwanted software
+* licensing conformity
+
+Default rule template for AppLocker - allows anything in the Admin owned,
+
+expected to add and then 
+
+Adding default rules in AppLocker
+
+
+Create default rules - under actions
+
+
+
+
+Can use GPOs to enforce AppLocker rules on enterprise versions of windows, and windows 7ultimate
+
+Can test using the cmdlets
+
+get-applockerpolicy -effective -xml > OUTPUT_FILE
+
+test-applockerpolict -xmlpolicy OUTPUT_FILE -user everyone -path c:\PATH, c:\windows other path...
+
+== Windows Defender
+
+Block at first sight - can be used to send samples of malware to microsoft and verify that programs that are running are good.
+
+Open the Windows Defender Security Center
+
+Microsoft http://aka.ms/ioavtest to test 
+
+== BitLocker
+
+Provides protection for data at rest
+
+By default - use AES 128 bit - can be configured
+
+As of November 2017 - now uses the XTS AES - FIPS compliant
+
+
+
+Use gp editor to turn on bitlocker
+
+Then right click on C: and turn on bitlocker
+
+then restart
+
+
+
+== Windows Filtering
+
+Networking Devices Basics
+
+Hub - operates at layer 1
+
+Switch - layer 2 - uses MAC address, separates collision domains
+
+=== Networking Terms
+
+ACL - rules at the router that permit or deny traffic
+
+Last statement is an implicit deny
+
+.Two types of ACLs
+* Standard ACL
+* Extended ACL
+
+Both can be applied outbound and inbound
+Read through top to bottom
+
+Run packet tracer for commands
+
+== Linux Firewalls
+
+netfilter - kernel level packet filtering framework
+
+How to interact with netfilter
+
+Iptables - default for many linux distributions
+
+Uncomplicated firewall
+
+Check status `sudo ufw status`
+
+
+Iptables
+
+Can filter on input forward and output chains
+
+Actions that can be taken are accept, reject and drop
+
+
+FirewallD - default firewall on Redhat, Centos and fedora OS
+
+
+

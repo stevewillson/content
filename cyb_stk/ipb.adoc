@@ -1,0 +1,54 @@
+= IPB
+
+Know the badguys are doing things -> 
+
+Knowing what is going on and preparing the battlefield.
+
+.4 Steps of IPB
+* Define the Battlefield Environment
+* Describe th Battlefield's Effects
+* Evaluate the Threat
+* Determine Threat COAs
+
+Need to have technical experts sit down with intel analysts during the IPB process to ensure that you have the informatin necessary.
+
+.Reference
+* ADP 2-0
+* ADRP 2-0
+* FM 34-130
+* JP 3-15
+* JP 2-0
+
+.IPB is
+* Analytical methodology - need to be able to ingest information and process it to think about it
+* Reduces uncertainties - 
+** Enemy
+** Environment
+** Terrain
+* Builds a database - collecton of organized and linked data in one spot
+* Analyze database to present pictures to use throughout the operation
+* Continuing process - continues throughou the operaion
+
+Calling it `Intelligence Preparation of the Battlefield` seems to remark that it is done to `prepare` the battlefield
+
+Prioritize what we think the enemy will do - helps us determine how we will fight
+ID key enemy assets
+ID activities (or lack of) of enemy
+ID facts and assumptions about enemy and battlefiel environment
+
+Think of IPB in terms of a CPT
+
+MDMP and IPB are integrated - IPB is a continuous process
+
+== Define the Battlfield Environment
+
+ID specific features of the environment
+
+Road to War - what happened before to get us here
+Area of Intelligence Responsibility - your responsibility to take intel that you find and report it up
+
+Area of Operations - we should get our AO from or higher HQ, -> most likely we will define this ourselves
+
+It is our job to educate others about Cyber and how it works
+
+We operate on other people's networks so it is our job to synchronize our actions with high HQ. 

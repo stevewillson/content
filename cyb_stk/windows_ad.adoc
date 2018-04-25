@@ -1,0 +1,291 @@
+= AD DS
+
+centralized system ffor manaaging users
+
+AD DS
+
+* Centralized directory
+
+OU 
+Forests 
+Trees
+
+DNS
+
+DC - servers with the AD DS server role installed - 
+
+Global catalog server - DC taht stores the copy of the global catalog
+
+AD DS data store - onyl accessible through 
+
+consists of the ntds.dit file
+
+
+Domains 
+What is a domain - logical grouping of computers based on permissions 
+
+
+Maintained by 
+
+Policy
+Users
+Groups
+Computers
+
+
+Trees - domain controllers can talk
+
+Trees - there is a trust factor between trees?
+
+Schema - defines all objects that can be stored, class and attribute
+
+
+
+Domains are used to group and amane objects in an organization
+* administrative oundary for applying polciies to groups of objects
+
+replication boundary for replicating data between domain controllers
+
+TREES - hierarchy of domains in AD DA
+
+shares a contiguous namespace with the parent domain
+can have addl child domains
+by default create a two-way transitive trust with other domaisn
+
+Forests - collection of one or more domain trees
+
+share a common schema
+share common config partition
+
+share common global catalog to enable searching
+enable trusts between all domains in the forest
+share the enterprise admins and schema admins groups
+
+Organizational Units (OU)
+
+AD containers 
+
+    
+Trusts - provide a mech for users to gain access to resources in another domain
+Directional - flows from the trusting domain to the trusted domain
+Transitive - trust rel is extended beyond a two-domain trust to iclude other trusted domains
+
+all domains in a forest trust the other domains in the forest
+
+AD DS Objects
+* User - enables network access for a user
+* InetOrgPerson - user acct - 
+
+
+
+Wants every CPT to have this foundational base - 
+
+Is it configured correctly?
+What are the misconfigurations?
+
+How can we see what happened?
+Auditing configured correctly?
+
+Need to understand Windows Auth 
+
+== NTFS
+
+=== Managing Permissions
+
+What are permissions? - privileges granted to specific users, groups, or computers
+* enables them to perform a task or access a resource
+
+Windows has 4 permission sets
+
+* NTFS permissions - controls access to files and folders on TNFS formatted disk volumes
+* Share permissions - control accessto files and folders shared on a network
+* Registry permissions - manage access to the Windows registry
+* Active Directory permissions control access to specific resources within an Active Directory domain
+
+How does windows determine which permission will take precedence? - The most restrictive permission will take precedent
+
+=== Permissions Architecture
+
+element being protected has an access control list (ACL)
+ACL is made up of access control entries (ACE)
+Each entry contains a security principal 
+* user group or computer being granted permission
+* permission assigned to user
+
+ACL is a collection of individual permissions, in the form of ACE
+
+=== Standard and Special Permissions
+
+standard permissions - 6 of them -> 
+
+special permissions - 14 of them
+
+Assigning permissions for each element 
+
+Two types of ACE - allow or deny
+
+Additative or Subtractive
+
+Inheriting Permissions
+
+the tendency of permissions to flow downward through a file system or other hierarchy is called permission inheritance
+
+parent element pass their permissions down to their subordinate elements. 
+inheritance greatly simplifies management of permissions
+
+inheritance can be managed two ways:
+* turn off inheritance
+** an ACE is configured to now pass permissions down
+
+Turn off inheritance - windows will ask what you would like to do for the file permissions
+
+=== Copying and Moving NTFS Files
+
+* NFTS perms are affected when files are moved or copied
+when copying a file or folder
+** copy file to a folder within NTFS volume, inherits folder permissions
+** copy file to a folder between NFGS volumes, inherits folder permissions
+
+* when moving a file or folder
+** move file to a folder between NTFS volumes, inherits folder permissions unless using ROBOCOPY
+*** when copying files -> objects will receive the new permissions of the destination folder
+** move file to a folder within NTFS volume, retain permissions regardless what permissions the folder may have
+* copy of move file from FAT32 to NTFS volume, inherits folder permissions
+
+If you move a file the local users will not have the accounts created, but the SIDs will be displayed on the permissions 
+
+
+Security Identifiers
+
+a user presents a SID (access token) to access an object
+
+NTFS will go through the permissions for the object and add or subtract permissions based on the SID's access
+
+Right click -> "Security" (Add/Remove/Edit)
+
+As an admin, can change permissions -> will gray out permissions that are inherited
+
+If an owner of a file is deleted -> the SID will be shown
+
+Six standard permissions
+full control
+modify
+read and execute
+list folder contents
+read
+write
+
+=== Full Control
+
+can modify folder and file permissions
+
+can take ownership and change permissions
+
+=== Modify
+
+can't take ownership or change permissions
+
+=== Read and Execute
+
+view the names of files and subfolders
+
+=== Read
+
+can't execute
+
+=== Write
+
+can just write, but not read
+
+== Changing advanced permissions
+
+can use icacls.exe program to manage file permissions
+
+== Resource Ownership
+
+every file and folder on an NTFS drive has an owner
+
+owner is the person who created the file or folder
+
+the owner always has the ability to modify the permissions, even if current permissions settings deny them access
+
+the person who creates a file (owner) becomes a member of a special identiyy group called "Creator Owner Gropu"
+
+this group is assigned the allow access permission
+
+others with the "Take Ownership" permission can become the owner
+
+
+
+
+== Auditing
+
+=== Why Audit?
+
+Someone said to
+
+
+=== Audit policy
+
+need to have synchronized clocks
+
+validate settings/formats
+
+adequate storage
+
+deploy a SIEM
+
+=== Audit policy
+
+logs specific activities
+
+monitor windows security log to understand activities
+
+identify events that warrant further investigation
+
+=== What can be audited?
+
+audit policy setting - 
+
+RESEARCH what default things should be turned on
+
+=== What matters most for auditing?
+
+Windows Event ID
+
+4688 - New Process Executed
+
+4624 - Some account logged in
+
+5140 - A share was accessed
+
+5156 - windows firewall network connection by process
+
+7045 - service added to the endpoint
+
+4633 - file and registry auditing
+
+
+
+=== Auditing Access to files and folders
+
+add auditing entries to SACL of file
+
+Properties -> SEcurity -> Advanced
+
+Discretionary ACLs - access to these files
+
+System ACLs - system events that are audited
+
+Evaluating events in the security log - 
+
+use a SIEM that will aggregate the data
+
+
+
+
+Lab 
+
+Take ownership of a file to edit the file permissions -> if you overwrite the file permissions then you will not be able to see the previous permissions
+
+can change the file permissions
