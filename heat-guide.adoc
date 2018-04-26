@@ -3,7 +3,7 @@
 
 = Heat Tutorial
 
-MAJ Rodriguez 10AUG17
+Julianna Rodriguez 10AUG17
 
 This document provides a brief introduction to OpenStack Heat.
 
