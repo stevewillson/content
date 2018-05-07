@@ -1,0 +1,171 @@
+= Create an instance that will interact with the python-openstackclient
+
+== Steps to create an instance that will interact with python-openstackclient
+
+Create an instance using the following template file
+
+----
+heat_template_version: '2016-10-14'
+
+description: >
+  Linux instance that will access the OpenStack VTA
+  Version: 29JAN18
+
+parameters:
+  inst_name:
+    type: string
+    default: gen_ex_start
+  flavor:
+    type: string
+    default: cy.large
+  image:
+    type: string
+    default: "Debian Stretch"
+  username:
+    type: string
+    default: user
+  password:
+    type: string
+    hidden: true
+    default: pass
+
+resources:
+  gen_ex_router:
+    type: OS::Neutron::Router
+    properties:
+      name: gen_ex_router
+      external_gateway_info:
+        network: public
+
+  gen_ex_router_interface:
+    type:  OS::Neutron::RouterInterface
+    properties:
+      router: { get_resource: gen_ex_router }
+      subnet: { get_resource: gen_ex_subnet }
+
+  gen_ex_network:
+    type: OS::Neutron::Net
+    properties:
+      name: gen_ex_network
+      port_security_enabled: false
+
+  gen_ex_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      cidr: 192.168.100.0/24
+      network: { get_resource: gen_ex_network }
+      name: gen_ex_subnet
+      dns_nameservers: [ "10.50.255.254" ]
+      gateway_ip: 192.168.100.1
+
+  host_port:
+    type: OS::Neutron::Port
+    properties:
+      network_id: { get_resource: gen_ex_network }
+      port_security_enabled: false
+
+  host:
+    type: OS::Nova::Server
+    properties:
+      name: { get_param: inst_name }
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks:
+        - port: { get_resource: host_port }
+      user_data_format: RAW
+      user_data: { get_resource: host_config }
+
+  host_config:
+    type: OS::Heat::SoftwareConfig
+    properties:
+      config:
+        str_replace:
+          template: |
+            #!/bin/bash
+            export DEBIAN_FRONTEND=noninteractive
+            echo 127.0.0.1 $(hostname) >> /etc/hosts
+            # add a user specified by the host
+            useradd $username -m -U -s /bin/bash
+            echo "$username:$password" | chpasswd
+            usermod -aG sudo $username
+            reboot
+          params:
+            $username: { get_param: username }
+            $password: { get_param: password }
+----
+
+Start the stack with the command
+
+ $ openstack stack create -t gen_ex_start.yaml gen_ex_start
+ 
+I am unable to connect the the VTA at `https://vta.cybbh.space:5000/v3`
+
+ $ wget https://vta.cybbh.space:5000/v3
+  
+----
+--2018-01-2921:48:46--https://vta.cybbh.space:5000/v3
+Resolvingvta.cybbh.space(vta.cybbh.space)...10.50.10.0
+Connectingtovta.cybbh.space(vta.cybbh.space)|10.50.10.0|:5000...
+----
+
+== Troubleshooting
+ 
+ $ ip route get 10.50.10.0
+
+----
+10.50.10.0 via 192.168.100.1 dev eth0 src192.168.100.6
+cache
+----
+
+ $ arp -a
+ 
+----
+? (192.168.100.1) at fa:16:3e:f8:0d:7d [ether] on eth0
+----
+
+ $ traceroute 10.50.10.0
+ 
+----
+traceroute to 10.50.10.0 (10.50.10.0), 30hopsmax, 60 byte packets
+1 192.168.100.1 (192.168.100.1) 1.562 ms 1.561 ms 1.557 ms
+2***
+...
+30***
+----
+  
+  
+== Added a static on the `gen_ex_router`
+
+To 10.50.10.0/32 via 10.50.255.254
+
+ $ nmap 10.50.10.0 -Pn -p 5000
+
+----
+Starting Nmap 7.40 (https://nmap.org) at 2018-01-29 22:06 UTC
+Nmap scan report for vta.cybbh.space (10.50.10.0)
+Host is up.
+PORT STATE SERVICE
+5000/tcp filtered upnp
+
+Nmap done: 1 IP address (1 host up) scanned in 2.07 seconds
+----
+
+ $ nmap 10.50.10.0 -p 5000
+
+----
+Starting Nmap 7.40 (https://nmap.org) at 2018-01-29 22:06 UTC
+Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn
+Nmap done: 1 IP address (0 hosts up) scanned in 3.04 seconds
+----
+
+Tried assigning a floating IP address to the 'gen_ex_start' instance. - did not change any results.
+
+Also added a static route to 10.50.0.0/16 via 10.50.10.254 - did not change any results.
+
+== Added an incorrect static route
+
+To 10.50.0.0/16 via 10.50.10.254
+
+This affected the router! It broke the gen_ex_start instance's connection to the internet, could not ping 8.8.8.8 .
+
+Static routes do have some affect on neutron routers.

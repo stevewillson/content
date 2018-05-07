@@ -10,7 +10,6 @@
 .Login to the CyberSchool Gitlab Server
 . Navigate to https://git.cybbh.space and login
 . Navigate to https://git.cybbh.space/steve.willson/heat
-.. Could also go get from github... https://github.com/stevewillson/heat
 . Click on "win_network.yaml"
 . Click on the "Open raw" button and copy the URL address
 

@@ -1,6 +1,24 @@
-= Content and how-tos
+= README
 
-This repository is a collection of projects and notes.
+Start with the link:https://git.cybbh.space/steve.willson/notes/blob/master/initial_openstack_instructions.adoc[initial_openstack_instructions.adoc] file. You now have access to the Virtual Training Area and the Cyber School Gitlab version control system.
 
-* `website` - contains writeups about configuring a website
+For building HEAT templates, start with the link:https://git.cybbh.space/steve.willson/notes/blob/master/heat-guide.adoc[heat-guide.adoc]
 
+
+.Links:
+* https://vta.cybbh.space
+* https://git.cybbh.space
+* https://ipa.cybbh.space
+
+
+.Resources:
+* link:https://cdtc.cert.org/lms[Cyber Defense Training Cloud]
+* https://www.sans.org/security-resources/
+
+
+
+.TODO
+* Git class and resources
+* How to use openstack class
+* How to set up a website (hosting, domain name registration, DNS service, firewall config)
+* Creating slides using reveal.js -> can we present using these?
