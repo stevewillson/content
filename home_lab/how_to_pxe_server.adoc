@@ -1,0 +1,83 @@
+= How to Setup a PXE Server
+
+Goal set up a PXE server to be able to download ISOs and remotely install operating systems
+
+Following guide at https://www.ostechnix.com/how-to-install-pxe-server-on-ubuntu-16-04/
+
+
+Install the necessary files
+
+ $ sudo apt-get install apache2 tftpd-hpa inetutils-inetd
+
+Edit the file `/etc/default/tftp-hpa` and append the following.
+
+----
+RUN_DAEMON="yes"
+OPTIONS="-l -s /var/lib/tftpboot"
+----
+
+Add the line below to `etc/inetd.conf`
+
+----
+tftp    dgram   udp    wait    root    /usr/sbin/in.tftpd /usr/sbin/in.tftpd -s /var/lib/tftpboot
+----
+
+Restart tftp server `sudo systemctl restart tftpd-hpa`
+
+
+Copy the files from the image that you want to boot to /mnt/
+
+ $ sudo mount -o loop ubuntu-16.04-server-amd64.iso /mnt/
+
+Copy the files to the tftpboot folder
+
+ $ sudo cp -fr /mnt/install/netboot/* /var/lob/tftpboot/
+
+Make a directory for ubuntu files
+
+ $ sudo mkdir /var/www/html/ubuntu
+
+Copy the files to that directory
+
+ $ sudo cp -fr /mnt/* /var/www/html/ubuntu
+
+Edit the `var/lib/tftpboot/pxelinux.cfg/default` file
+
+----
+label linux
+    kernel ubuntu-installer/amd64/linux
+    append ks=http://192.168.2.1/ks.cfg vga=normal initrd=ubuntu-installer/amd64/initrd.gz
+ramdisk_size=16432 root=/dev/rd/0 rw  --
+----
+
+Replace the IP address with the PXE server's IP address
+
+`192.168.2.1` in this case
+
+
+
+
+
+== Install the DHCP server
+
+ $ sudo apt-get install isc-dhcp-server
+
+Edit the config file `/etc/default/isc-dhcp-server`
+
+Set the interfaces to the appropriate interface where DHCP requests should be served.
+
+----
+INTERFACES="enx0050b617c64c"
+----
+
+Need to assign an IP address to that interface in the `/etc/network/interfaces` file NOT in the DHCP address pool, bring the interface up and then restart the isc-dhcp-server.
+
+ $ sudo systemctl restart isc-dhcp-server
+
+Have an error with having 1 interface that has a DHCP address and another where a DHCP server is running.
+
+It appears that the network manager doesn't wait for the wired link to be brought up before continuing on and reporting that there is no listening interface.
+
+https://bugzilla.redhat.com/show_bug.cgi?id=565921#c8
+
+
