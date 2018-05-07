@@ -1,0 +1,149 @@
+= DDI Kit / ECK / Incident Response
+
+Goal: to provide Soldiers who have never seen the kit to get initial training
+
+Layout kit component by component - will layout manufacturer specifications
+
+Need to understand about networking
+
+== DDI Kit
+
+Defensive DCO Infrastructure Kit v1B
+
+The 1C will have a new firewall and router - will be fielded out soon
+
+DDIv1B +
+Will become DDS - Defensive DCO System - will be small
+
+=== Component Overview
+
+==== Dell Networking S3048-ON Switch
+
+Good for virtualization
+Top of Rack switch
+
+Supports 'jumbo frame' for high end performance in virtual environments
+
+==== Dell Poweredge R630
+
+1U server, 2 socket 1U server
+
+The R630 is the 'brains' and the powerhouse
+
+iDRACC Direct to easily or deploy
+
+256G ram - 
+
+==== Dell Poweredge R730
+
+2U server
+
+Storage 
+
+==== Dell Precision M6800
+
+Powerful laptop, lots of memory, overall very powerful
+
+More than capable to run security onion on the laptop directly
+
+Has `quiet fans`
+
+=== Assemble and Cable
+
+The endcaps can be stored on the side of the case
+
+Power is a concern for the kit, need to have enough power to operate the kit
+
+What is the power consumption of the kit?
+
+The kit is 110/220 compatable
+
+=== Initialize Master Laptop
+
+Download image from the NERD
+
+=== Configure DELL Switch
+
+Run commands from the script
+
+What actually happens with the config script?
+
+=== Initialize and Configure Servers
+
+PXE Boot to configure servers
+
+== ECK
+
+Need to go through DISA to get things configured correctly
+
+Executive Communications Kit
+
+Provides SIPR connectivity
+
+Provides secure comms
+
+
+=== How to connect to the secure gateway?
+
+DISA has a portal
+
+Enables a VPN connection into SIPR
+
+for support visit 
+
+http://www.disa.mil/enterprise-services/dectk-gw
+
+DISA just changed many IP addresses - test the ECK to make sure that it still works
+
+Keys may be used - will we get many keys for the ECK
+
+== Incident Response
+
+.6 Phases of IR
+* Phase 1 - Preparation
+* Phase 2 - Identification
+* Phase 3 - Containment
+* Phase 4 - Investigation
+* Phase 5 - Eradication
+* Phase 6 - Recovery
+
+SANS Forensics 508? Where do they get their IR process?
+Shouldn't this be a NIST?
+
+Principle - always treat an event like an incident
+
+=== Phase 1 - Preparation
+
+=== Phase 2 - Identification
+
+Gather artifacts +
+Understand the OE to understand what artifacts to collect
+
+=== Phase 3 - Containment
+
+Limit any damage and prevent further damage from occuring
+
+=== Phase 4 - Investigation
+
+What happened during the incident? +
+What data was accessed? Who? When?
+
+=== Phase 5 - Eradication
+
+Do things that will help the adversary get off the network and restore function to the network
+
+Always build a timeline of events - sometimes that doesn't happen +
+Criticality of the system trumps the timeline
+
+=== Phase 6 - Recovery
+
+Two steps - service restoration, system /network validation
+
+A common seventh step is compiling lessons learned
+
+
+
+
+== Future Research
+
+RedMine and MCSCOP - for collaboration

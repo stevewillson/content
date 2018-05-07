@@ -1,0 +1,133 @@
+= ICS SCADA
+
+CPT Devers
+
+ICS - anything that you can automate/ make easier by removing human interaction can be considered ICS
+
+SCADA - supervisory control and data acquisition - used to query devices and control them
+
+Where is SCADA?
+
+Electric power generation, transmission and distribution
+Water and sewage treatment
+manufacturing
+mass transit
+and more...
+
+16 programs designated by the gov't as critical infrastructure and key resources
+
+Many systems are analog, now many are digital
+
+== Components
+
+Programmable Logic Controller (PLC) - real time component
+
+Remote Terminal Unit - remote telemetry unit - can send and receive information to and from a component.
+
+Can be configured to default to certain values when connection is lost
+
+HMI - Human Machine Interface - way for a human to interact with system
+
+ICS Zones Purdue Model
+
+a method to build a network
+
+== Level 4 and 5 - Enterprise Zone
+
+Enterprise network
+
+Enterprise network services - Email
+
+== Level 3
+
+Manufacturing Zone -
+
+== Level 2 
+
+Control room workstation
+Alarm Alert Systems
+HMI
+
+== Level 1
+
+PLC / DCS distrib control system
+RTU
+
+== Level 0
+
+Sensors
+actuators
+valves
+
+If interrupted, the PLC should run through a safe shutdown
+
+
+Industrial Protocols
+
+Modbus
+
+CIP 
+BACnet
+
+CC-Link
+Ethernet/IP
+
+Profinet
+
+S3/S5/S7
+DNP3
+
+== Modbus
+
+Published in 1979, in 1999 released Modbus TCP
+
+Now we can route ICS traffic over TCP
+
+
+Modbus TCP runs on port 502
+
+Transaction ID - 2 bytes
+Protocol ID - 2 bytes
+length - 2 bytes
+unit id - 1 byte
+function code - 1 byte
+payload - ?? bytes
+
+
+Coils - 1 and 0
+Register - other discrete value that is not a 1 or 0
+
+Function codes
+01 - read coils
+02 - read discrete input
+03 - read holding registers
+04 - read analog input registers
+
+Standard Function
+opcode 0x2B
+subcode 0x0E
+
+== Online lab
+
+go to https://shodan.io
+
+
+Search for port: 502
+
+See how many devices are using Modbus? 
+
+*Do not attempt to connect to any devices*
+
+Additional Material
+
+ModbusPal - http://modbuspal.sourceforge.net/
+
+Setting up Lab to test ICS protocols - https://live.paloaltonetworks.com/t5/Learning-Articles/Creating-a-lab-to-test-ICS-SCADA-protocols/ta-p/187399/
+
+Understanding SCADA's Modbus protocol - youtube watch?v=oVDYaG2HlnU
+
+ICS Certification training = ics-cert-training.inl.gov/learn
+
+MODBUS scanning youtube z14tgdvZf_E
+
+
