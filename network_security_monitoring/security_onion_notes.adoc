@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Security Onion Notes
 Steve Willson 30MAR18
 

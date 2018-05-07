@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Communication Flows
 
 .Identifying Potential and Unauthorized Communication Flows

@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Security Onion Configuration
 
 Want to allow password login for ssh

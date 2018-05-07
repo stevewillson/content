@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Create an instance that will interact with the python-openstackclient
 
 == Steps to create an instance that will interact with python-openstackclient

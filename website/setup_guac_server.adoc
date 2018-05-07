@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Guac Server Setup
 Steve Willson steve.willson@gmail.com
 

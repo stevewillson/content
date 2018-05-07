@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Changing Domain Names
 Steve Willson steve.willson@gmail.com
 

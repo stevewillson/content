@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Windows Image Build Process
 :revdate: 5/8/18
  

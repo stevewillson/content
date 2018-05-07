@@ -1,4 +1,3 @@
-:stylesheet: ./boot-cyborg.css
 = Security Onion Tools on a VM
 :revdate: 5/7/18
  
