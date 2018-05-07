@@ -1,0 +1,26 @@
+= Building a host with a vulnerable piece of software and demoing the exploit
+
+Start Windows 10 image in openstack
+
+Trying local privilege escalation for WinPower 4.9.0.4 from exploitdb
+
+Read through the exploit at https://www.exploit-db.com/exploits/40848
+
+Follow the program to execute the exploit and add a new user
+
+*I didn't do this, it would be good to, but I just downloaded the compiled exploit*
+Download the JDK 1.8
+Download a java ide, I used eclipse
+
+Install the programs,
+Copy the code and compile the exploit
+
+Run the exploit
+
+I downloaded the exploit and followed the directions off of the website, I had to rename the file the same as the class name
+
+WindowsPowerExploit.class
+
+
+
+

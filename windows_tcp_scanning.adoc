@@ -1,0 +1,18 @@
+= Windows TCP Scanning
+
+Set up a new object a 
+
+----
+$ip = IP_ADDR
+$port = PORT
+$tcpConn = New-Object System.Net.Socket.TcpConnection($ip,$port)
+$tcpConn.Connected
+----
+
+Test that the connection is successful
+
+Capture traffic in Wireshark.
+
+Press `F5` to run the script within the PowerShell ISE.
+
+

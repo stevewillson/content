@@ -52,7 +52,7 @@ File locations
 
 `/etc/nginx/nginx.conf`
 
-Can test the config file using `nginx -t`
+Can test the config file using `nginx -t`,verify the config file works then `nginx -s reload`
 
 Review logs
 

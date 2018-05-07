@@ -74,4 +74,20 @@ https://github.com/Security-Onion-Solutions/security-onion/wiki/Elastic-Architec
 Docker containers based off CentOS7
 
 
+== Xplico
+
+xplico takes pcap files and extracts application layer data
+
+Will be EOL on 05JUN18.
+
+Removal instructions: https://github.com/Security-Onion-Solutions/security-onion/wiki/Xplico
+
+----
+sudo sed -i 's|XPLICO_ENABLED=yes|XPLICO_ENABLED=no|g' /etc/nsm/securityonion.conf
+
+sudo apt purge lame libgeoip-dev libjson-c-dev libmp3lame0 librecode0 php5-sqlite python3-httplib2 python3-psycopg2 recode securityonion-ndpi sqlite3 xplico
+
+sudo rm /home/*/Desktop/securityonion-xplico*
+----
+
 

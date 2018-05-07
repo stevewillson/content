@@ -1,22 +1,33 @@
 = Building a Security Onion HEAT Orchestration Template
 
-I would like to take a base Ubuntu 14.04 image and download the Security Onion packages to be able to rapidly test with this image.
+== Design
+
+Use a base Ubuntu 14.04 image and download the Security Onion packages to be able to rapidly test with this image.
 
 Follow the instructions for downloading at https://github.com/Security-Onion-Solutions/security-onion/wiki/InstallingOnUbuntu
 
 Also want to setup elastic stack, follow the instructions for setting up elastic stack.
 
-Generate a sample security onion.conf file
-
-Add the commands as user_data to a new nova server on a HEAT template.
-
-Need to download and run sosetup using an answer file, or install an X Window Manager.
-
 Need to generate the security onion setup.conf file
 
 https://github.com/Security-Onion-Solutions/security-onion/wiki/Automating-Setup
 
+== Technical Details
+
+Generate a sample security onion.conf file
+
+Add the commands as user_data to a new nova server on a HEAT template.
+
+Need to download and run sosetup using an answer file, or install an X Window Manager (use `task-lxde-desktop`)
+
+Install task-lxde-desktop for window manager
 
 
+
+== 4/4/18
+
+Add an extra interface for network monitoring for this sensor.
+
+Each sensor should have 2 interfaces. but the master only needs 1 interface
 
 
