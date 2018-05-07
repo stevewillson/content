@@ -61,7 +61,7 @@ cat << EOF > $OUTPUT_DIR/index.adoc
 = $BLOG_TITLE
 $AUTHOR $EMAIL
 :imagesdir: images
-:stylesheet: ./blog.css
+:stylesheet: ./boot-darkly.css
 
 $BLOG_SUBTITLE
 
@@ -78,6 +78,11 @@ EOF
 copy_images()
 {
     cp -r $CONTENT_DIR/images/ $OUTPUT_DIR
+}
+
+copy_stylesheet()
+{
+    cp -r $CONTENT_DIR/boot-darkly.css $OUTPUT_DIR
 }
 
 convert_content_adoc_to_html()
@@ -180,6 +185,7 @@ generate_blog()
     echo "Cloning or updating content"
     clone_or_update_content
     copy_images
+    copy_stylesheet
     echo "Generating web page"
     convert_content_adoc_to_html
 
