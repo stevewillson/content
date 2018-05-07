@@ -1,0 +1,67 @@
+= The process used to build the admin network
+
+I used the gen_ex tool to build the admin network
+
+gen_ex processes default files with 'config' files to generate networks.
+
+Contents of `./gen_ex/config/default/default_public_segment.yaml`
+
+
+----
+heat_template_version: 2016-10-14
+
+description: Version 23OCT17 public network segment, hosts or other network segments can be attached 
+
+resources:
+  DEFAULT_router:
+    type: OS::Neutron::Router    
+    properties:
+      name: DEFAULT_router
+      external_gateway_info:
+        network: public
+
+  DEFAULT_router_interface:
+    type:  OS::Neutron::RouterInterface
+    properties:
+      router: { get_resource: DEFAULT_router }
+      subnet: { get_resource: DEFAULT_subnet }
+
+  DEFAULT_network:
+    type: OS::Neutron::Net
+    properties:
+      name: DEFAULT_network
+      port_security_enabled: false
+
+  DEFAULT_subnet:
+    type: OS::Neutron::Subnet
+    properties:
+      cidr: 192.168.200.0/24
+      network: { get_resource: DEFAULT_network }
+      name: DEFAULT_subnet
+      dns_nameservers: [ "10.50.255.254" ]
+      gateway_ip: 192.168.200.1
+----
+
+The default_public_segment.yaml file is processed by init_network.py along with the admin_net1.yaml file
+
+Contents of `./gen_ex/config/network/admin_net1.yaml` file
+
+----
+admin:
+  network_name: admin
+  cidr_mask: 192.168.200.0/24
+  type: public
+----
+
+The file `./gen_ex/init_network.py` processes the `default_public_network.yaml` and the `admin_net1.yaml` file to set up a router, router interface, network, and subnet in its own stack.
+
+Usage:
+
+----
+$ source ~/stephen.l.willson-openrc.sh
+$ git clone https://git.cybbh.space/steve.willson/gen_ex.git
+$ cd gen_ex
+$ ./init_network.yaml ./config/network/admin_net1.yaml
+----
+
+This will attempt to create a stack 'admin' that contains a router, router interface, network, and subnet. If the stack already exists, it will not do anything.

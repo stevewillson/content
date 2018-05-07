@@ -1,0 +1,91 @@
+= Security Onion Debugging Notes
+
+
+== Cross cluster issues
+
+Cross cluster search
+
+.On the Dev Tools portion of kibana
+----
+GET _cluster/settings
+----
+
+This will show the cluster settings
+
+May need add the 'skip_unavailable' attribute to prevent an unavailable cluster from bringing elasticsearch down.
+
+In SO, file `/etc/nsm/crossclustertab` that is updated from the `GET _cluster/settings` area every minute by the cron job that runs `/usr/sbin/so-crossclustercheck`
+
+
+Each sensor has two files that describe the port that is used to build the ssh reverse tunnel to the master
+
+`/root/.ssh/securityonion_ssh.conf`
+
+`/etc/elasticsearch/elasticsearch.conf`
+
+Need to ensure that both of these files have the proper setting
+
+When you restart the autossh using `so-autossh-restart` the /root/.ssh/securityonion_ssh.conf file is used to set the reverse tunnel port
+
+Can view the command that created the reverse tunnel on the sensor by executing `ps -ef | grep autossh`
+
+
+
+== Architecture of ELK
+
+Elasticsearch - provides a way to ingest and index logs
+
+Logstash - gets logs from a source and then put them somewhere (where?)
+
+Kibana - visualization tool for elasticsearch, can perform queries against elasticsearch
+
+== Configuring the architecture
+
+Set up each sensor as a `heavy` node
+
+This creates a local cluster for elasticsearch with 1 node per cluster
+
+Elasticsearch cross cluster search
+
+create local elasticsearch instance
+configure autossh tunnel
+
+For each instance of SO
+
+config file is located in /etc/nsm/securityonion.conf
+
+config for logstash /etc/logstash/*-template.json
+
+Check cluster settings from master to cluster, the reverse ssh tunnel connects back to port 9300 on the sensor, what is hosted there?
+
+== Debugging security onion
+
+Many scripts are located in /usr/sbin/so-*
+
+They are bash scripts that configure many aspects of the system.
+
+=== SO Config files
+
+/etc/nsm/securityonion.conf
+/root/.ssh/securityonion_ssh.conf
+
+== Viewing Contents of a Docker Container
+
+Getting a shell inside a container
+
+`docker exec -it CONTAINER_NAME bash`
+
+.Questions
+
+* Where does logstash store files
+* What are the places to look for debugging information for kibana, elasticsearch, logstash?
+* How to configure logstash?
+* How to view the status of each cluster?
+
+
+
+
+
+
+
+

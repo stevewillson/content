@@ -1,9 +1,9 @@
 :doctype: book
-:stylesheet: ./tech.css
+:stylesheet: ../tech.css
 
 = Heat Tutorial
 
-Julianna Rodriguez 10AUG17
+MAJ Rodriguez 10AUG17
 
 This document provides a brief introduction to OpenStack Heat.
 
