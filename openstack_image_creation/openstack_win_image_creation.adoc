@@ -1,4 +1,5 @@
 = Windows Image Build Process
+:revdate: 5/8/18
  
 == Process for building new Windows images that will work optimally with the VTA:
 
