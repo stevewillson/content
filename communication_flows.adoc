@@ -1,0 +1,118 @@
+= Communication Flows
+
+.Identifying Potential and Unauthorized Communication Flows
+
+.Tasks Taught
+
+* Identify Network Connections using the CLI
+* Packet Analysis - Convert Hex to Binary and Decimal
+* Packet Analysis – Identify the Components of a Packet Header
+* Packet Analysis – Interpret Basic Trace File Statistics (Wireshark) (Capinfos) (summary statistics PPA)
+* Packet Analysis – Follow Streams and Reassemble Data
+* Packet Analysis – Detect Scanning and Discovery Processes
+* Packet Analysis – Analyze Address Resolution Protocol (ARP) Traffic
+* Packet Analysis – Analyze User Datagram Protocol (UDP) Traffic
+* Packet Analysis – Analyze Transmission Control Protocol (TCP) Traffic
+* Packet Analysis – Analyze Hypertext Transfer Protocol (HTTP) Traffic
+* Packet Analysis – Analyze File Transfer Protocol (FTP) Traffic
+
+
+== Background - What are communication flows?
+
+Computers need to connect to other devices to send and receive information. Communication flows are those connections that computers establish to transmit information.
+
+=== NAT and Publicly Routable IP Addresses
+
+There is a shortage of IPv4 addresses, there are only 4.29 billion (2^32) possible IPv4 addresses, not enough for all of the devices that are connected to the internet. We use Network Address Translation to convert internally routable IP addresses (see RFC 1918) to publicly routable IP addresses. This translation is done at a router and allows many devices to connect to other computers using one publicly routable IP address.
+
+https://tools.ietf.org/html/rfc1918
+
+== Protocols used by computers to communicate
+
+What are RFCs? - https://en.wikipedia.org/wiki/Request_for_Comments
+What RFCs govern these protocols?
+
+* IP - https://tools.ietf.org/html/rfc791
+* TCP - https://tools.ietf.org/html/rfc793
+* UDP - https://tools.ietf.org/html/rfc768
+
+=== IP 
+
+Differences between TCP and UDP
+
+https://www.diffen.com/difference/TCP_vs_UDP
+
+=== TCP
+
+Connection oriented, verifies communication reached its destination
+
+.What are some examples of protocols that use TCP?
+
+HTTP, SSH
+
+=== UDP
+
+Connectionless, doesn't guarentee delivery
+
+.What are some examples of protocols that use UDP?
+
+Streaming services, VoIP
+
+=== ICMP
+
+PING
+
+== Monitoring network connections at the host level
+
+Good practice to use multiple tools to verify network connections. Also use a network appliance to verify network connections such as a router or switch.
+
+=== Linux
+
+Research the below command and explain the different flags (`-anotp`)
+
+----
+ss -anotp
+----
+
+=== Windows
+
+[source,powershell]
+----
+> Get-NetTCPConnection
+----
+
+.Topics
+* Packet Analysis – Identify the Components of a Packet Header
+* Packet Analysis – Interpret Basic Trace File Statistics (Wireshark) (Capinfos) (summary statistics PPA)
+* Packet Analysis – Follow Streams and Reassemble Data
+* Packet Analysis – Detect Scanning and Discovery Processes
+* Packet Analysis – Analyze Address Resolution Protocol (ARP) Traffic
+* Packet Analysis – Analyze User Datagram Protocol (UDP) Traffic
+* Packet Analysis – Analyze Transmission Control Protocol (TCP) Traffic
+* Packet Analysis – Analyze Hypertext Transfer Protocol (HTTP) Traffic
+* Packet Analysis – Analyze File Transfer Protocol (FTP) Traffic
+
+== Wireshark
+
+Install wireshark on Windows, capture traffic. Browse the internet and visit both HTTP and HTTPS sites. What do you observe?
+
+
+== Exercise
+
+Use wireshark:
+
+View the components of a packet header, does it align with link:https://www.sans.org/security-resources/tcpip.pdf[SANS TCP/IP Reference]?
+
+Visit a website that does not use HTTPS http://www.gordon.army.mil/ , can you see the plaintext traffic?
+
+Visit a website that uses HTTPS, can you see the plaintext traffic?
+
+Install nmap on another windows machine and conduct a default NMAP scan (`nmap <IP ADDR>`) against the Windows VM running Wireshark, what do you observe?
+
+Delete the ARP cache from the Windows VM running wireshark and capture traffic, do you see ARP traffic? For more information on ARP, visit https://en.wikipedia.org/wiki/Address_Resolution_Protocol . 
+
+Capture traffic in Wireshark and Identify UDP traffic
+
+Visit a website and identify TCP traffic, how does it differ from UDP traffic? Can you identify a TCP 3 way handshake?
+
+Transfer a file using FTP and observe the transfer through Wireshark. Can you use wireshark to extract the file?

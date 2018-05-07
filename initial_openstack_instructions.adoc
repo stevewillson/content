@@ -9,10 +9,12 @@
 
 .Login to the CyberSchool Gitlab Server
 . Navigate to https://git.cybbh.space and login
-. Navigate to https://git.cybbh.space/steve.willson/heat
-.. Could also go get from github... https://github.com/stevewillson/heat
-. Click on "win_network.yaml"
-. Click on the "Open raw" button and copy the URL address
+.. Review projects that you have access to, you are able to comment and suggest edits to files hosted by the USA Cyber School
+
+.Copy a HEAT template from Github
+. Navigate to https://github.com/stevewillson/heat
+. Click on `win_network.yaml` under the `windows` folder
+. Click on the `Open raw` button and copy the URL address
 
 .Start a new Stack in OpenStack
 . Navigate to https://vta.cybbh.space
@@ -20,6 +22,8 @@
 . Click on `Orchestration`
 . Click on `Stacks`
 . Click on `Launch Stack` button
-. In new popup window, choose Source = URL, paste the URL for the HEAT template for "win_network.yaml", click next
-. Name the stack whatever you want (tasteful), password for username is from step 5
-. Username = user, password = pass for VM’s after created.
+. In new popup window, choose Source = URL, paste the URL for the HEAT template for `win_network.yaml`, click `Next`
+. Choose a name for the stack
+. Choose a username and password, the server instances will initially be set with no password and will require you to change the password on your initial login
+
+TIP: Remember your username and password, you won't be able to recover them after the instance is created
