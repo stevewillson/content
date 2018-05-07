@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Setting up logstash
 
 

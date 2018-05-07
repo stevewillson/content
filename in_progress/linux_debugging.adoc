@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Intro to debugging in Linux
 Steve Willson 2/4/18
 

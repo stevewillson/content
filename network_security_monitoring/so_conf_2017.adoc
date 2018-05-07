@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Security Onion Conference 2017
 
 Security Onion 2017: Network Baseline Generation & Alerts w Bropy by Matt Domko

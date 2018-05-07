@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Setting up a Home Lab
 
 Goal - have the ability to connect remtely into a computer to do development work and experiment.

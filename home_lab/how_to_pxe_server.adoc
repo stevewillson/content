@@ -1,3 +1,5 @@
+:stylesheet: ./boot-cyborg.css
+
 = How to Setup a PXE Server
 
 Goal set up a PXE server to be able to download ISOs and remotely install operating systems

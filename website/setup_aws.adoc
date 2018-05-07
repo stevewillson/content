@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Setting up a Web Server on AWS
 
 .Steps

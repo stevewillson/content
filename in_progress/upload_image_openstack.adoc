@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Uploading an Image to OpenStack
 
 Goal: Download a QCOW2 image off of the internet and upload it into openstack.

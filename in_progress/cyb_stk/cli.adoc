@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Windows Command Line
 
 `echo %time%`

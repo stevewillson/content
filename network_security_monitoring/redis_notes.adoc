@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Redis Notes
 
 Tutorial available at: try.redis.io

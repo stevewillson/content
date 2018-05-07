@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Security Onion Script notes
 
 == /usr/sbin/so-common

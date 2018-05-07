@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Setup a VNC Server
 
 I want to be able to use guacamole to access a VNC server from the home lab, I need to setup a vnc server

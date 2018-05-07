@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Bro Monitoring
 
 Visit website at http://try.bro.org/#/trybro

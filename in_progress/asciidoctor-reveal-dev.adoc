@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Development for asciidoctor-reveal.js
 Steve Willson steve@colorado.edu
 

@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Building a Security Onion HEAT Orchestration Template
 
 == Design

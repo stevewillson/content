@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = A Hunting Technique
 Presented by Ryan Kazanciyan elasticON 2018
 

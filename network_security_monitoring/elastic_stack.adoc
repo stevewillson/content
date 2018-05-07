@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Setting up elastic stack on a VM
 
 For playing around with elastic stack

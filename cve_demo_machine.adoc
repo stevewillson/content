@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Building a host with a vulnerable piece of software and demoing the exploit
 
 Start Windows 10 image in openstack

@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = DDI Kit / ECK / Incident Response
 
 Goal: to provide Soldiers who have never seen the kit to get initial training

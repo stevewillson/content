@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Who What Where When Effective Threat Hunting
 
 https://www.sans.org/reading-room/whitepapers/analyst/who-what-where-when-effective-threat-hunting-36785

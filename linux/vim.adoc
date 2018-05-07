@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Vim Introductory Class
 
 == History of vi/vim

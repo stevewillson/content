@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Windows Image Build Process
  
 == Process for building new Windows images that will work optimally with the VTA:

@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = How to Read SNORT Rules
 
 In security onion, the SNORT rules are stored at

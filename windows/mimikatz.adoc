@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = mimikatz - copy, paste, GO!
 Steve Willson steve.willson@gmail.com
 

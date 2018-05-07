@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = OpenStack Cyber Broadband Handrail (CYBBH) instructions
 
 .Steps to register for an OpenStack Account

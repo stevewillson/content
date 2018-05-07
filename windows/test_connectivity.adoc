@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Testing connectivity between windows hosts
 Steve Willson steve.willson@gmail.com
 

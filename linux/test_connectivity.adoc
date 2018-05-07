@@ -1,3 +1,4 @@
+:stylesheet: ./boot-cyborg.css
 = Debugging Linux Instance with no connectivity
 
 Ran `sosetup -f sosetup.conf`
