@@ -1,0 +1,70 @@
+= Troubleshooting when Creating a Website
+
+This is meant to list common issues to check when creating a website, not an all inclusive list but will solve many problems
+
+== DNS
+
+DNS - ensure that your hostname resolves to your expected IP address
+
+If trying to direct to your home IP, use `ipchicken.com` or do a search for `what is my IP address`
+
+Verify your nameservers are what you expect them to be: `nslookup <HOSTNAME>`
+
+See what your hostname resolves to: `dig <HOSTNAME>`
+
+On linux install the `dnsutils` package
+
+== Firewall
+
+Verify that your firewall is configured to allow connections to the port you're trying to connect to
+
+80 or 443 or whatever port you host your website/service
+
+TIP: You can use ssh port forwarding to set up a tunnel from a trusted host to sidestep this issue
+
+Set up an SSH server on a computer
+
+On the host that the website is hosted enter:
+
+`ssh <USER>@<HOSTNAME> -D <SOCKS_PORT>`
+
+This creates a tunnel from the computer with the ssh server to the computer hosting the website
+
+Configure your browser on the ssh server computer to use a `SOCKS5 Proxy` and do not exempt localhost from the proxied addresses. Then attempt to connect to your host using the browser.
+
+In the browser `localhost:<PORT IP IS LISTENING ON>` you can verify that your website is working through the tunnel
+
+== Service is listening on host
+
+Verify that there is a service and it is listening
+
+`ss -anotp` Look for the expected port
+
+== Webserver is configured properly
+
+Verify website is set up 
+
+=== nginx
+
+File locations
+
+`/etc/nginx/sites-enabled/default`
+
+`/etc/nginx/nginx.conf`
+
+Can test the config file using `nginx -t`
+
+Review logs
+
+`/var/log/nginx/access.log`
+
+Use `tail -f /var/log/nginx/access.log` in a terminal to watch live as the access.log file is updated
+
+Also view `/var/log/nginx/error.log`
+
+== Encryption
+
+SSL - use letsencrypt.com to set up encryption
+
+
+

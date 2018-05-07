@@ -1,0 +1,17 @@
+= Packet Capture Fundamentals
+
+.Tasks to train
+* Packet Analysis - Convert Hex to Binary and Decimal
+* Packet Analysis – Identify the Components of a Packet Header
+* Packet Analysis – Use a CLI Packet Capture Tool to Capture Network Traffic
+* Packet Analysis – Use Berkeley Packet Filters to Filter a Packet Capture
+
+== Packet Analysis - Convert Hex to Binary and Decimal
+
+
+== Packet Analysis – Identify the Components of a Packet Header
+
+== Packet Analysis – Use a CLI Packet Capture Tool to Capture Network Traffic
+
+== Packet Analysis – Use Berkeley Packet Filters to Filter a Packet Capture
+
