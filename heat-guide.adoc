@@ -1,6 +1,5 @@
 :stylesheet: ./boot-cyborg.css
 :doctype: book
-:stylesheet: ./tech.css
 
 = Heat Tutorial
 
