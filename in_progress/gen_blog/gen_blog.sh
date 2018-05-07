@@ -28,7 +28,7 @@ GIT_CONTENT="git@github.com:stevewillson/content.git"
 CONTENT_DIR="/home/user/git/content/in_progress/gen_blog/content"
 OUTPUT_DIR="/home/user/git/content/in_progress/gen_blog/output"
 BASE_DIR="/home/user/git/content/in_progress/gen_blog"
-STYLESHEET="boot-cybord.css"
+STYLESHEET="boot-cyborg.css"
 
 # Functions to create the blog
 create_output_dir()
