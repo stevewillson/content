@@ -62,7 +62,7 @@ cat << EOF > $OUTPUT_DIR/index.adoc
 = $BLOG_TITLE
 $AUTHOR $EMAIL
 :imagesdir: images
-:stylesheet: $CONTENT_DIR/$STLESHEET
+:stylesheet: $CONTENT_DIR/$STYLESHEET
 
 $BLOG_SUBTITLE
 
@@ -134,7 +134,7 @@ generate_file_info_list(){
         echo "Timestamp: $TIMESTAMP"
         echo "Words: $WORDS"
         echo "Time to read: $TIME_TO_READ_MINUTES minute(s)"
-        echo;
+        echo
     fi
     done
 }
