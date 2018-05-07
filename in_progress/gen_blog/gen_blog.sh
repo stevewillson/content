@@ -10,7 +10,7 @@
 #
 #######################################
 
-DEBUG=1
+DEBUG=0
 
 # Blog title, subtitle, and author
 BLOG_TITLE="willson.tk"
@@ -28,6 +28,7 @@ GIT_CONTENT="git@github.com:stevewillson/content.git"
 CONTENT_DIR="/home/user/git/content/in_progress/gen_blog/content"
 OUTPUT_DIR="/home/user/git/content/in_progress/gen_blog/output"
 BASE_DIR="/home/user/git/content/in_progress/gen_blog"
+STYLESHEET="boot-cybord.css"
 
 # Functions to create the blog
 create_output_dir()
@@ -40,11 +41,11 @@ clone_or_update_content()
 {
     {
     # attempt to clone the repo
-        echo "Cloning content"
+        [ "$DEBUG" -eq 1 ] && echo "Cloning content"
         git clone $GIT_CONTENT $CONTENT_DIR
     } || {
     # if the clone fails, cd into the CONTENT_DIR and do a git pull
-        echo "Cloning failed, doing a pull"
+        [ "$DEBUG" -eq 1 ] && echo "Cloning failed, doing a pull"
         cd $CONTENT_DIR
         git pull
     }
@@ -61,7 +62,7 @@ cat << EOF > $OUTPUT_DIR/index.adoc
 = $BLOG_TITLE
 $AUTHOR $EMAIL
 :imagesdir: images
-:stylesheet: ./boot-darkly.css
+:stylesheet: $CONTENT_DIR/$STLESHEET
 
 $BLOG_SUBTITLE
 
@@ -82,7 +83,7 @@ copy_images()
 
 copy_stylesheet()
 {
-    cp -r $CONTENT_DIR/boot-darkly.css $OUTPUT_DIR
+    cp -r $CONTENT_DIR/$STYLESHEET $OUTPUT_DIR
 }
 
 convert_content_adoc_to_html()
@@ -182,15 +183,13 @@ EOF
 generate_blog()
 {
     create_output_dir
-    echo "Cloning or updating content"
+    [ "$DEBUG" -eq 1 ] && echo "Cloning or updating content"
     clone_or_update_content
     copy_images
     copy_stylesheet
-    echo "Generating web page"
+    [ "$DEBUG" -eq 1 ] && echo "Generating web page"
     convert_content_adoc_to_html
-
     generate_file_info_list
-
     create_index_adoc
     # add 'teasers' from the entries to the web page
     add_teasers_to_index
