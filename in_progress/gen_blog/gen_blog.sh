@@ -14,7 +14,7 @@ DEBUG=0
 
 # Blog title, subtitle, and author
 BLOG_TITLE="willson.tk"
-BLOG_SUBTITLE="because when all is said and done, more is said than done..."
+BLOG_SUBTITLE="because when all is said and done, more is said than done"
 AUTHOR="Steve Willson"
 
 # Contact info
@@ -25,9 +25,10 @@ EMAIL="steve.willson@gmail.com"
 
 # Blog locations
 GIT_CONTENT="git@github.com:stevewillson/content.git"
-CONTENT_DIR="/home/user/git/content/in_progress/gen_blog/content"
-OUTPUT_DIR="/home/user/git/content/in_progress/gen_blog/output"
-BASE_DIR="/home/user/git/content/in_progress/gen_blog"
+CONTENT_DIR="/home/user/blog/content"
+OUTPUT_DIR="/home/user/blog/output"
+BASE_DIR="/home/user/blog"
+WEBSERVER_DIR="/var/www/html"
 STYLESHEET="boot-cyborg.css"
 
 # Functions to create the blog
@@ -88,7 +89,11 @@ copy_stylesheet()
 
 convert_content_adoc_to_html()
 {
-    find $CONTENT_DIR -path "*.adoc" | while read adoc; do asciidoctor $adoc -D $OUTPUT_DIR; done
+    # put in the stylesheet
+    find $CONTENT_DIR -path "*.adoc" | while read adoc; do 
+        sed -i '1s/^/:stylesheet: \/home\/user\/blog\/content\/boot-cyborg.css\n/' $adoc;
+        asciidoctor $adoc -D $OUTPUT_DIR; 
+    done
 }
 
 display_web_page()
@@ -98,7 +103,7 @@ display_web_page()
 
 publish_web_page()
 {
-    cp $OUTPUT_DIR/* /var/www/html/
+    cp $OUTPUT_DIR/* $WEBSERVER_DIR
 }
 
 generate_index_html()
@@ -168,7 +173,7 @@ add_teasers_to_index()
 
 cat << EOF >> $OUTPUT_DIR/index.adoc
 
-== link:$OUTPUT_DIR/$FILENAME.html[$TITLE]
+== link:$FILENAME.html[$TITLE]
 Date: $DATE +
 $TIME_TO_READ_MINUTES minutes
 
@@ -193,7 +198,6 @@ generate_blog()
     create_index_adoc
     # add 'teasers' from the entries to the web page
     add_teasers_to_index
-
     generate_index_html
 }
 
