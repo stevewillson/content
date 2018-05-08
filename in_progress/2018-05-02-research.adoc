@@ -1,0 +1,12 @@
+= Questions researched on 02MAY18
+
+== Get CPU information within Linux
+
+ $ cat /proc/cpuinfo
+
+
+== How to generate traffic to test a SO instance for dropping packets
+
+Use the linux package `pktgen`.
+
+

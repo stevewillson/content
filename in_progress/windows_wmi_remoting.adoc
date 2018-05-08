@@ -1,0 +1,11 @@
+= Notes about configuring remoting to allow the McAfee ESM to collect logs from a windows 7 host.
+
+I need to enable a remote WMI connection.
+
+Attempting to debug by establishing a connection between two devices.
+
+IP 10.42.0.203 - Windows 7 client
+
+IP 10.42.0.59
+
+

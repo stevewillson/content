@@ -1,0 +1,24 @@
+= Documentation Build Process
+
+It should take a minimally formatted asciidoc file and output something that looks nice, with links to other documents that match some content?
+
+It should also have 'edit' buttons to help people jump into editing the documentation very quickly.
+
+Documentation will be stored on github (or another git server)
+
+Once a commit is done for master, then the documentation should get regenerated on the website instantly (people need to see their change)
+
+
+
+Flow
+
+Write Asciidoc
+What will control the look and feel of the asciidoc? - some CSS file?
+
+
+Structure of the documents?
+
+
+Should use python and bash only - no perl!
+
+

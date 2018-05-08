@@ -1,0 +1,30 @@
+= Investigating why Logstash is not taking in all of the packets
+
+== How logstash works
+
+== Generate traffic and ship to the SO instance using syslog-ng
+
+Recreate the lab environment as much as possible, try to get logstash to drop packets, how to test this?
+
+
+Setting up a SO instance that is running Elastic Stack, but does not have a network sensor component.
+
+I will forward logs from syslog-ng to the master computer
+
+Need to learn how to forward logs from a computer to a master to ingest
+
+== Architecture
+
+Bro is running on the sensor logging files, syslog-ng does the logging, then syslog-ng ships the raw files to logstash that is listening on port 6050 of the master server.
+
+
+
+== Steps
+
+Install bro
+
+Followed the guide at 
+
+https://www.digitalocean.com/community/tutorials/how-to-install-bro-on-ubuntu-16-04
+
+Install syslog-ng

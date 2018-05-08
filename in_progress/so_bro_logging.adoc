@@ -1,0 +1,27 @@
+= Debugging why I can't see bro logs
+
+* Check that the interface is receiving traffic
+
+I would like to bridge the wifi adapter (wlp2s0) to a NIC on a VM to capture traffic in bro
+
+On the host
+
+ $ tcpdump -i wlp2s0
+
+I see lots of traffic...
+
+On the VM, I bridged `eth0` to `wlp2s0` in the Virtual Network Editor
+
+
+Show that it is bridged 
+
+ $ ps -ef | grep wlp2s0
+
+----
+root     13719  1679  0 03:45 ?        00:00:00 /usr/bin/vmnet-bridge -s 12 -d /var/run/vmnet-bridge-0.pid -n 0 -iwlp2s0
+----
+
+Restart the VM 
+
+The interface `eth0` should be seeing traffic from `wlp2s0` if it is in promiscuous mode
+

@@ -1,0 +1,32 @@
+=
+
+Agentless
+
+Provides you visibility into what is on the network
+
+
+
+Control Fabric
+
+Allows you to automate functions between other devices
+
+Next-Gen NAC Capabilities
+
+Vuln assessment system that there is another device on the network.
+
+Allows you to move from periodic scanning to continuous monitoring
+
+Improves IT productivity through automation
+
+
+
+Agentless - ? How what is the architecture???
+
+Scalable?
+
+Control Fabric
+
+
+Flexible and customized - can see anything on the network
+
+

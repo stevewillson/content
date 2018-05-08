@@ -1,0 +1,34 @@
+=== Setting up a VMware SO Home Lab
+
+Desired endstate - 
+
+1 SO instance (forward node) that gathers traffic from the Host - ships bro logs through syslog-ng to the master
+
+1 SO instance (master) that ingests the syslog-ng traffic and then saves it to the database
+
+The SO forward node should be able to see the traffic on the wireless interface of the VMware Host, I would like to capture that traffic.
+
+Follow instructions at
+
+https://github.com/Security-Onion-Solutions/security-onion/wiki/VMWare-Walkthrough
+
+
+
+Enable the wireless card to be bridged 
+
+ $ iw dev wlp2s0 interface add newwifi type managed 4addr on
+
+
+
+
+Found a solution!!
+
+Use ethernet to connect to another computer and share the internet connection from that comptuer. Bridge the NIC in VMware to the physical connection and then traffic will show up inside the VM.
+
+
+
+
+
+
+
+

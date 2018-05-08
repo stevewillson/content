@@ -1,0 +1,77 @@
+= Configuring Salt in Security Onion
+
+== Setting up the environment
+
+Install the Security Onion ISO in VMware
+
+One NIC is set to 'NAT' and the other is set to 
+
+Add a new network adapter, select 'LAN Segment' and put in 'management1' for the LAN segment name.
+
+Start the VMs
+
+== Configuring Security Onion
+
+Select the 'sosetup' script from the desktop.
+
+Choose 'eth1' as the management interface.
+
+Set to 'static' IP address and make the master '10.0.0.5/24'
+
+For the salt minions, set the IP addresses to 10.0.0.10 and .11 /24
+
+Set the domain to 'test.local'
+
+DNS and Default Gateway to 10.0.0.5 (the master machine)
+
+== Sensor Config
+
+For the sensors, choose 'existing' to configure the sensors.
+
+Enter the IP address of the master and the username that will be used to login
+
+I am attempting to change to a network created using the 'virtual network editor'. The local LAN NIC did not seem to work...
+
+== VM Setup
+
+Set the VMs to each have 4096MB of RAM
+
+Set each to have 2 processors with 2 cores (4 total)
+
+
+
+== I was not able to use static IP addresses with the 'NAT' configuration
+
+It allows me to connect via ssh, but then after a couple of keystrokes, I am not able to enter any commands. I have to terminate ssh via 'ENTER ~ .'
+
+Now, attempting to use the 'DHCP' config option through sosetup.
+
+The master sensor pulled an IP of 172.16.159.131
+
+THIS IS CAUSED BY OSSEC
+I was able to briefly connect, but then the connection dropped. I am beginning to think this is a VMware issue. How can I check? What logfile will display this information?
+
+
+
+I am attempting to remove the other NIC and start the VM with 1 NIC to test if I can use that as the management interface.
+
+It seems that even having it bridged to the host will not work, maybe I'm trying to do too much with the processor, I will only run two VMs with 1 proc each
+
+
+It turns out it was OSSEC - the host monitoring tool that was blocking the IP connections over SSH and adding hosts to the hosts.deny file.
+
+I disabled OSSEC using the following command
+
+ $ sudo service ossec-hids-server stop
+
+How can this host monitor be disabled?
+
+Need to add the sensor using the so-allow command with the 's' option.
+
+Then execute the salt 'ping' test
+
+ $ sudo salt '*' test.ping
+
+
+
+

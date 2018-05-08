@@ -1,0 +1,47 @@
+== Setting up McAfee ePO and SIEM
+
+Connect the ePO server to the SIEM for integration
+
+
+Create an account for the SIEM user on the ePO server
+
+Looks like windows ePO
+
+User mapping - 
+
+
+
+Login to the ePO server
+
+ePolicy Orchestrator login
+
+create a new permissions set for the SIEM integration
+
+create a new user account - on the ePO dashboard
+configure permissions
+
+Login to the SIEM server
+
+select physical display,
+
+click to 'add device'
+
+mcafee ePO
+
+Add the device name
+
+Select the receiver - local receiver ELM
+
+IP address
+
+Username created for the ePO server
+
+'Connect'
+
+Now enter the password of the SQL database
+
+
+
+Get a list of all McAfee productes
+
+

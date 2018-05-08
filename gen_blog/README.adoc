@@ -10,15 +10,13 @@ Steve Willson 5/7/18
 
 === Design
 
+* Asciidoc files on a static webpage
 * Clean look, white text on a black background
 * Each entry will have a Title, author, date, time to read, text (5? lines of text will be shown on the main page)
-* Each entry will have a link back to the main page
 * Links to other pages in the blog, arrange the content by date (reverse with newest entries on top)
 * Metadata tags for blog entries?
-
-* Don't care about view statistics, running javascript, just display asciidoc formatted pages right now
-
-Display asciidoc files on a static webpage
+* Don't care about view statistics, running javascript, just display asciidoc formatted pages
+* Each entry will have a link back to the main page
 
 === Setup
 
@@ -29,12 +27,11 @@ Treat the generation of the blog as something that can be auto-deployed from a g
 * Copy the public key to github (or similar git hosting site)
 * Set up a cron job for the webserver to check in with the git server using ssh (hourly?), copy files that have changed to a specified directory (`~/blog`?) and then use asciidoctor and a bash script to generate the content and write the content to `/var/www/html/`
 
-
 === Home Page generation
 
 Generate the header
 Generate the 'contact me' area
-Select the first 10 lines of each of the adoc files (reverse sorted by date)
+TODO: Select the first 10 lines of each of the adoc files (reverse sorted by date) - not done yet, not sure how to do this...
 
 Set the following parameters
 BLOG_TITLE, BLOG_SUBTITLE, TWITTER, WEBSITE, GITHUB, EMAIL

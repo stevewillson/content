@@ -1,0 +1,7 @@
+= Configuring McAfee ESM
+
+Click the `Configuration` tab
+
+Select the `Local Receiver-ELM` tab
+
+Select `Add Device` icon

@@ -1,0 +1,33 @@
+Army started 9 years ago using HBSS
+
+added some tech to do removable media
+
+HIPS
+
+NSA creates tippers from attacks
+
+ePO is the c and c for all McAfee products
+
+== Installing ePO
+
+Start up a new instance of Windows Server, I am using Windows Server 2016.
+
+Download setup from McAfee portal - I wasn't able to enter the digits for the captcha so I registered on another computer and then provided the link to the other computer.
+
+I added *.mcafee.com to the trusted internet sites and turned the security for trusted internet sites to `Low` in the internet explorer settings. SmartScreen Filter blocked the download for the `.zip` file otherwise.
+
+Extract the `.zip` file
+
+4gb ram in a testing environment
+
+welcome screen - select `Next`
+
+Express Installation
+
+Custom Installation - Choose `Custom`
+
+SQL Express or SQL Server
+
+
+
+

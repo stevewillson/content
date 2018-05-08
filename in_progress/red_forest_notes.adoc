@@ -1,0 +1,7 @@
+= Red Forest Notes
+
+Reference; https://social.technet.microsoft.com/wiki/contents/articles/37509.what-is-active-directory-red-forest-design.aspx
+
+tldr
+
+The Enhanced Security Administrative Environment (ESAE) offering is designed to help thwart a critical element of these credential theft attacks by limiting exposure of administrative credentials.
