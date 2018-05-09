@@ -1,0 +1,46 @@
+
+= Configure a Windows Server 2016 Machine
+Steve Willson
+5/9/18
+
+The walkthrough goes through how to set up a Windows Server 2016 machine to be a Domain Controller for a lab setup
+
+== Download Images
+
+Start up the following HEAT template in OpenStack: +
+https://github.com/stevewillson/heat/blob/master/windows/win_epo_network.yaml
+
+This will create 2 instances of Windows Server 2016 and 3 instances of Windows 10.
+
+== Configure Windows as a Domain Controller
+
+* In the `Server Manager > Dashboard` select `Manage` in the upper right corner
+* Select `Add Roles and Features`
+** The `Add Roles and Features Wizard` will appear
+* At `Before You Begin` click `Next`
+* At `Installation Type` select `Role-based or feature-based installation` and click `Next`
+* At `Server Selection` select `Select a server from the server pool` and click `Next`
+* At `Server Roles` leave the defaults selected and select the following additional options
+** `Active Directory Domain Services`
+** `DNS Server`
+** `Network Policy and Access Services` 
+* At `DNS Server` click `Next`
+* At `AD DS` click `Next`
+* At `Network Policy and Access Services` click `Next`
+* At `Role Services` leave `Network Policy Server` selecdted and click `Next`
+* At `Confirmation` click `Install`
+
+The server will take a few minutes to install the selected options.
+
+== Add computers to the domain
+
+Set the computer's DNS server to point to the DNS server (the DC)
+
+Create a computer object for the new computer that you would like to add
+
+Attempt to change the computers domain to the DC domain. You will need to use the admin account to add the computer.
+
+You can add the Windows 10 machines to the domain following the same procedure.
+
+NOTE: The setup of the DC should be automated so that it is automatically setup when the instance starts, can do this through the 'user_data' portion of the HEAT template.
+
