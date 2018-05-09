@@ -1,0 +1,17 @@
+= Comparing Splunk to Elasticstack
+
+https://blog.takipi.com/splunk-vs-elk-the-log-management-tools-decision-making-guide/
+
+== Logstash, Beats and Splunk Forwarders
+
+Logstash is known for its long startup times
+
+ELK doesn't include user management features in basic ELK
+
+Export dashboard to PDF - still an issue in Kibana? Not as of Elastic Stack v5
+
+https://www.upguard.com/articles/splunk-vs-elk
+
+
+
+

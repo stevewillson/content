@@ -1,0 +1,52 @@
+Needed to add a config portion to the /etc/dhcp/dhcp.conf file below the area where pools are assigned
+
+----
+allow booting;
+allow bootp;
+option option-128 code 128 = string;
+option option-129 code 129 = text;
+next-server 192.168.1.105;
+filename "pxelinux.0";
+----
+
+Have a problem with the dhcp server assigning a DHCP address to it's own interface.
+
+Stop the DHCP server,
+Start the interface with a static address outside of the DHCP pool
+Start the DHCP server again?
+
+ $ sudo systemctl stop isc-dhcp-server
+ $ sudo ifdown enx0050b617c64c
+ $ sudo ifup enx0050b617c64c
+ $ sudo systemctl start isc-dhcp-server
+
+Now, how to automate the process so it is set and forget?
+
+Select the 'linux' option from the PXE Boot Menu
+
+Need to create a kickstart file `ks.cfg`
+
+
+Now, want to set up the DHCP server on the wlan0
+
+Edit the following files
+
+`/etc/dhcp/dhcp.conf`
+
+`/etc/default/isc-dhcp-server` add the INTERFACE on which to listen
+
+`/var/lib/tftpboot/pxelinux.cfg/default`
+
+Having a problem with the DHCP server.
+
+Checking the config file at /etc/dhcp/dhcp.conf
+
+Set the DNS to be 8.8.8.8
+
+See a request for 192.168.0.100 from an address with MAC 00:50:b6:17:c6:4c
+
+That was a dhclient process still running on the old interface. Killed it with `sudo kill -9 PID`
+
+Didn't create a kickstart file, just set up the PXE server to install the Ubuntu server image over the network.
+
+

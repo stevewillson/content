@@ -1,0 +1,16 @@
+= Use Cases for Elasticsearch
+Aaron Katz 2016
+
+Analysis of logs
+
+Many consumer internet sites are using elasticsearch.
+
+Used by many - ebay, Github, bluemix search for twitter
+
+Can be used to search through large volumes of information.
+
+Wikimedia - billions of realtime full text searches
+
+Security Incident and Event Management - use case
+
+

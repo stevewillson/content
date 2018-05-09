@@ -1,0 +1,75 @@
+= Scalable Endpoint Data - Ryan Kazanciyan
+Steve Willson 4/10/18
+
+What data should you prioritize for detection and response?
+
+== Wide variety of endpoint data
+
+* EDR - Endpoint detection and response
+* EPP - Endpoint protection
+
+== EDR telemetry - continuously record what is happening 'black box' flight recorder
+
+RSA Conference - endpoint security offerings
+
+== MITRE ATT&CK Framework
+
+MITRE ATT&CK framework - taxonomy for intrusion capability
+
+Data sources per MITRE ATT&CK - useful starting point for what to detect.
+
+Need to look at many different sources of data for effective incident response
+
+== You cannot capture everything, constantly
+
+What can you reasonably centralize and view?
+
+There is a resource constraint - network and per system resource constraints
+
+On-endpoint - you have all of the evidence
+
+How to search all of that at scale?
+
+Can use YARA (pattern matching engine for searching for threat indicators) to search on hosts.
+
+Windows Full Disk Encryption - Event 39 and 40 for inserted RemovableDevice - lists the GUID
+
+Problem - endpoints are noisy and have many different version
+
+Trade offs - 
+
+Security Infrastructure is overhead - not used to do the job
+
+== Lets focus on the important systems
+
+Attacks look for ways to get to important systems through a pathway from interfacing systems
+
+Allowed an attacker to get a foothold and then use a path to get there
+
+== Cognitive load
+
+Security analysts are overloaded
+
+Need to iterate on a hunting technique
+
+. Ask a question
+. Get unexpected results
+. Learn and refine (goto 1)
+. Add to workflow
+. Operationalize
+
+If question 1 is painful, then this will diminish the security team's ability 
+
+Security platform to consolidate the EDR
+
+Need to have a point to aggregate data from disparate sources
+
+SIEM - promised that would provide insight into all data, but don't seem to provide what they promised
+
+Finding a story in the data
+
+Most popular tool for IR is Excel...
+
+Security analytics feature in elastic stack
+
+Ukranian powergrid hack in 2015
