@@ -40,6 +40,7 @@ create_output_dir()
 # Get or update the content from the git server
 clone_or_update_content()
 {
+    [ "$DEBUG" -eq 1 ] && echo "Cloning or updating content"
     {
     # attempt to clone the repo
         [ "$DEBUG" -eq 1 ] && echo "Cloning content"
@@ -90,6 +91,7 @@ copy_stylesheet()
 convert_content_adoc_to_html()
 {
     # put in the stylesheet
+    [ "$DEBUG" -eq 1 ] && echo "Generating web page"
     find $CONTENT_DIR -path "*.adoc" | while read adoc; do 
         sed -i '1s/^/:stylesheet: \/home\/user\/blog\/content\/boot-cyborg.css\n/' $adoc;
         asciidoctor $adoc -D $OUTPUT_DIR; 
@@ -111,42 +113,43 @@ generate_index_html()
     asciidoctor $OUTPUT_DIR/index.adoc
 }
 
-generate_file_info_list(){
-
+generate_file_info_list()
+{
     rm -f $BASE_DIR/file_info.log
 
     find $CONTENT_DIR -path "*.adoc" | while read adoc; do 
-    FULLPATH=$(echo $adoc | sed 's/\.[^.]*$//');
-    FILENAME=$(basename $FULLPATH);
-# some files don't have a revdate, it should be added by the blog author, if there is not revdate, assume that it was made 2 years ago, this should put the post at the bottom of the index
-    DATESTR=$(grep revdate $OUTPUT_DIR/$FILENAME.html | cut -d">" -f2 | cut -d"<" -f1)
-    if [ -z "$DATESTR" ]; then 
-        DATE=$(date --date="2 years ago" +"%x")
-    else
-        DATE=$(date --date="$DATESTR" +"%x")
-    fi
-    TIMESTAMP=$(date --date="$DATE" +"%s");
-    WORDS=$(wc -w $adoc | cut -d" " -f1);
-    TIME_TO_READ_MINUTES=$(( (199 + $WORDS) / 200));
-    # associative arrays aren't working for me...
-    # generate a file with 
-    echo "$FILENAME,$TIMESTAMP,$DATE,$WORDS,$TIME_TO_READ_MINUTES" >> $BASE_DIR/file_info.log
-    #FILEDATE["$FILENAME"]="$TIMESTAMP"
-    if [ $DEBUG -eq 1 ]; then  
-        echo "----------------------------"
-        echo "Filename: $FILENAME"
-        echo "Date: $DATE"
-        echo "Timestamp: $TIMESTAMP"
-        echo "Words: $WORDS"
-        echo "Time to read: $TIME_TO_READ_MINUTES minute(s)"
-        echo
-    fi
+        FULLPATH=$(echo $adoc | sed 's/\.[^.]*$//');
+        FILENAME=$(basename $FULLPATH);
+        # some files don't have a revdate, it should be added by the blog author, if there is not revdate, assume that it was made 2 years ago, this should put the post at the bottom of the index
+        DATESTR=$(grep revdate $OUTPUT_DIR/$FILENAME.html | cut -d">" -f2 | cut -d"<" -f1)
+        if [ -z "$DATESTR" ]; then 
+            DATE=$(date --date="2 years ago" +"%x")
+        else
+            DATE=$(date --date="$DATESTR" +"%x")
+        fi
+        TIMESTAMP=$(date --date="$DATE" +"%s");
+        WORDS=$(wc -w $adoc | cut -d" " -f1);
+        TIME_TO_READ_MINUTES=$(( (199 + $WORDS) / 200));
+
+        # associative arrays aren't working for me...
+        # generate a file with 
+        echo "$FILENAME,$TIMESTAMP,$DATE,$WORDS,$TIME_TO_READ_MINUTES" >> $BASE_DIR/file_info.log
+        if [ $DEBUG -eq 1 ]; then  
+            echo "----------------------------"
+            echo "Filename: $FILENAME"
+            echo "Date: $DATE"
+            echo "Timestamp: $TIMESTAMP"
+            echo "Words: $WORDS"
+            echo "Time to read: $TIME_TO_READ_MINUTES minute(s)"
+            echo
+        fi
     done
 }
 
 
 add_teasers_to_index()
 {
+    # reverse sort the logfile by date created, store in sort_file.log
     sort -r -t, -k2 $BASE_DIR/file_info.log > $BASE_DIR/sort_file.log
     for FILE in $(cat $BASE_DIR/sort_file.log); do
     FILENAME=$(echo $FILE | cut -d"," -f1);
@@ -188,15 +191,12 @@ EOF
 generate_blog()
 {
     create_output_dir
-    [ "$DEBUG" -eq 1 ] && echo "Cloning or updating content"
     clone_or_update_content
     copy_images
     copy_stylesheet
-    [ "$DEBUG" -eq 1 ] && echo "Generating web page"
     convert_content_adoc_to_html
     generate_file_info_list
     create_index_adoc
-    # add 'teasers' from the entries to the web page
     add_teasers_to_index
     generate_index_html
 }
