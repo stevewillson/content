@@ -8,7 +8,7 @@ Reference: https://medium.com/@airman604/dumping-active-directory-password-hashe
 
 Set up a Windows Server 2016 instance.
 
-Add some accounts
+Add some accounts, make some users have the same passwords.
 
 Open a `cmd.exe` prompt as an administrator.
 
@@ -22,40 +22,42 @@ activate instance NTDS
 create
 ----
 
-This will create a snapshot and show it's UUID. Mount the snapshot
+This creates a snapshot and shows it's UUID. Mount the snapshot
 
 ----
 mount UUID
 ----
 
-This will display where the snapshot is mounted.
+This displays where the snapshot is mounted.
+
+Open another `cmd.exe` prompt as an administrator.
 
 Copy the file `ntds.dit`
 
 `copy C:\$SNAP_LOTSOFNUMBERS_VOLUMEC$\Windows\NTDS\ntds.dit C:\`
 
-Create a copy of the SYSTEM registry hive
+Create a copy of the SYSTEM registry hive.
 
 `reg.exe save HKLM\SYSTEM C:\sys_reg_hive`
 
-Copy these files onto the machine with `secretdump.py`
+Copy these files onto a machine with `secretdump.py`
 
-I used pscp.exe to copy the files. To a linux machine that had the following modules installed on it.
+I used pscp.exe to copy the files to a linux machine that has the following modules installed on it.
 
 ----
 pip install pyasn1
 pip install impacket
 ----
 
-You can find out where the `secretsdump.py` file is located using the following command `locate secretsdump.py`, be sure to do `sudo updatedb` first though.
+Locate the `secretsdump.py` file using the command `locate secretsdump.py`, be sure to do `sudo updatedb` first.
 
-Change the current directory to where `secretsdump.py` is located. You can copy the `sys_reg_hive` and `ntds.dit` files to that directory as well.
+Change the current directory to where `secretsdump.py` is located. Copy the `sys_reg_hive` and `ntds.dit` files to that directory as well.
 
 ----
 ./secretsdump.py -system sys_reg_hive -ntds ntds.dit LOCAL > ~/output
 ----
 
-This will redirect the output to the file `output`
+This will store the usernames and hashes in the file `output`
 
 The output will look something like this:
 
@@ -67,32 +69,32 @@ Impacket v0.9.15 - Copyright 2002-2016 Core Security Technologies
 [*] Searching for pekList, be patient
 [*] PEK # 0 found and decrypted: 0e096b829e4a01ee1e294d6dba4a8c74
 [*] Reading and decrypting hashes from /home/user/hashdump/ntds.dit 
-Administrator:500:aad3b435b51404eeaad3b435b51404ee:1d6a05fe437e9baa4dac1c8a992ded40:::
-Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d163e931b73c59d7e0c089c0:::
-DefaultAccount:503:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
-cloudbase-init:1000:aad3b435b51404eeaad3b435b51404ee:84a4945e3e7fe0e3bbe084d31af09ebf:::
-Admin:1001:aad3b435b51404eeaad3b435b51404ee:2db97f61efe10ef9303a118cec3e3632:::
-user:1002:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
-USER-SERVER1$:1003:aad3b435b51404eeaad3b435b51404ee:0a4edfaa86b2ce519673299acc33944e:::
-krbtgt:502:aad3b435b51404eeaad3b435b51404ee:2dbdb685a10e54161fa8a1ca51cb8701:::
-test.local\bob:1106:aad3b435b51404eeaad3b435b51404ee:1d6a05fe337e9baa4dac1c8a992ded40:::
-USER-SERVER2$:1107:aad3b435b51404eeaad3b435b51404ee:f8cea5f703d8bbac79d75a471138a418:::
+Administrator:500:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+Guest:501:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+DefaultAccount:503:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+cloudbase-init:1000:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+Admin:1001:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+user:1002:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+USER-SERVER1$:1003:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+krbtgt:502:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+test.local\bob:1106:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
+USER-SERVER2$:1107:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:::
 [*] Kerberos keys from /home/user/hashdump/ntds.dit 
-cloudbase-init:aes256-cts-hmac-sha1-96:068eeecb446f33e2461e621a0cad41c216a29de0024275a29e0c2f8e9ac50eb9
-cloudbase-init:aes128-cts-hmac-sha1-96:13103e6a72590faee95e46dcaabb503b
-cloudbase-init:des-cbc-md5:dce3fe806d6e43e9
-USER-SERVER1$:aes256-cts-hmac-sha1-96:dc9dff81ec00edb84271bd7dd8227e76b66f82a811b714561db117eeb76836d9
-USER-SERVER1$:aes128-cts-hmac-sha1-96:1338ce5f8da7c7790c0ee8fc25160b77
-USER-SERVER1$:des-cbc-md5:797a5d6461d067a4
-krbtgt:aes256-cts-hmac-sha1-96:6e23717a766ab504607be9e7fb9f3824899ff2f7a18681b8fd28b92415f71737
-krbtgt:aes128-cts-hmac-sha1-96:04e7d5126f5fb8c1f4930db88cde8300
-krbtgt:des-cbc-md5:61a815b5a15de351
-test.local\bob:aes256-cts-hmac-sha1-96:7a4df88f75f96459bcd964873ffa657c3fd6490cd1456dbadfe931983eb5aa0b
-test.local\bob:aes128-cts-hmac-sha1-96:fc70390ceb4489c4470e51dc84b7cc64
-test.local\bob:des-cbc-md5:7f61020ed2ec9437
-USER-SERVER2$:aes256-cts-hmac-sha1-96:cb92a07495cd23dfef4705d23df62f0eddb85b37fc1950ddb09623e9a1938582
-USER-SERVER2$:aes128-cts-hmac-sha1-96:c46fd053991e55621bf2c624f08feb90
-USER-SERVER2$:des-cbc-md5:544cf1614ff7fd58
+cloudbase-init:aes256-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+cloudbase-init:aes128-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+cloudbase-init:des-cbc-md5:XXXXXXXXXXXXXXXX
+USER-SERVER1$:aes256-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+USER-SERVER1$:aes128-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+USER-SERVER1$:des-cbc-md5:XXXXXXXXXXXXXXXX
+krbtgt:aes256-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+krbtgt:aes128-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+krbtgt:des-cbc-md5:XXXXXXXXXXXXXXXX
+test.local\bob:aes256-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+test.local\bob:aes128-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+test.local\bob:des-cbc-md5:XXXXXXXXXXXXXXXX
+USER-SERVER2$:aes256-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+USER-SERVER2$:aes128-cts-hmac-sha1-96:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+USER-SERVER2$:des-cbc-md5:XXXXXXXXXXXXXXXX
 [*] Cleaning up... 
 ----
 
@@ -102,7 +104,7 @@ Here is a bash script to check to see if there are identical hashes.
 #!/bin/bash                                                                     
 DEBUG=0                                                                         
 
-cat output  | grep -v '[*]' | grep ':' | tr ':' ' ' |awk '{print $4 "," $1}' > output1
+cat output  | grep -v '[*]' | grep ':' | tr ':' ' ' | awk '{print $4 "," $1}' > output1
 
 sort -k1 output1 > output2                                                      
 
@@ -111,9 +113,9 @@ HASH="not"
 NEW_USERNAME="true"                                                             
 NEW_HASH="equal"                                                                
 
-for FILE in $(cat output2); do                                                  
-    NEW_HASH=$(echo $FILE | cut -d"," -f1);                                     
-    NEW_USERNAME=$(echo $FILE | cut -d"," -f2);                                 
+for LINE in $(cat output2); do                                                  
+    NEW_HASH=$(echo $LINE | cut -d"," -f1);                                     
+    NEW_USERNAME=$(echo $LINE | cut -d"," -f2);                                 
     if [ "$NEW_HASH" = "" ]; then                                               
         if [ $DEBUG -eq 1 ]; then                                               
             echo "skipping line"                                                
@@ -122,7 +124,7 @@ for FILE in $(cat output2); do
     fi                                                                          
     if [ $DEBUG -eq 1 ]; then                                                   
         echo "----------"                                                       
-        echo "Line is $FILE"                                                    
+        echo "Line is $LINE"                                                    
         echo "New"                                                              
         echo $NEW_HASH                                                          
         echo $NEW_USERNAME                                                      
