@@ -7,6 +7,8 @@ Steve Willson 5/7/18
 
 * Ability to set a heading, each adoc page should link back to the main page?
 * Configure 'contact me' information (github, twitter, email, website)
+* Want to include 'tags' to have a way to limit the posts to specific tags, also do a cool 'word art' based on the frequency of the tags usage with a link to the tags page
+
 
 === Design
 

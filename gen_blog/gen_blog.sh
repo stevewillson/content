@@ -173,12 +173,17 @@ add_teasers_to_index()
     FULLPATH=$(find $CONTENT_DIR -name "$FILENAME.adoc")
     TITLE=$(grep '<title>' $OUTPUT_DIR/$FILENAME.html | cut -d'>' -f2 | cut -d'<' -f1)
     CONTENT=$(head -n 20 $FULLPATH)    
+    if [ "$TIME_TO_READ_MINUTES" -eq 1 ]; then
+        MINUTES="minute"
+    else
+        MINUTES="minutes"
+    fi
 
 cat << EOF >> $OUTPUT_DIR/index.adoc
 
 == link:$FILENAME.html[$TITLE]
-Date: $DATE +
-$TIME_TO_READ_MINUTES minutes
+$DATE +
+$TIME_TO_READ_MINUTES $MINUTES
 
 EOF
 

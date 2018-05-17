@@ -10,6 +10,6 @@ Computers
 
 Configure the router to allow connections to the internal computers from the internet
 
-May add a guacamole server to allow connections to computers through HTML5
+Add a guacamole server to allow connections to computers through HTML5
 
 
