@@ -1,36 +1,36 @@
 
 = How to Setup a PXE Server
+Steve Willson
+4/21/18
 
-Goal set up a PXE server to be able to download ISOs and remotely install operating systems
+Goal: set up a PXE server to be able to download ISOs and remotely install operating systems
 
-Following guide at https://www.ostechnix.com/how-to-install-pxe-server-on-ubuntu-16-04/
-
+Reference: https://www.ostechnix.com/how-to-install-pxe-server-on-ubuntu-16-04/
 
 Install the necessary files
 
  $ sudo apt-get install apache2 tftpd-hpa inetutils-inetd
 
-Edit the file `/etc/default/tftp-hpa` and append the following.
+Append the following lines to `/etc/default/tftp-hpa` 
 
 ----
 RUN_DAEMON="yes"
 OPTIONS="-l -s /var/lib/tftpboot"
 ----
 
-Add the line below to `etc/inetd.conf`
+Add the following line to `/etc/inetd.conf`
 
 ----
 tftp    dgram   udp    wait    root    /usr/sbin/in.tftpd /usr/sbin/in.tftpd -s /var/lib/tftpboot
 ----
 
-Restart tftp server `sudo systemctl restart tftpd-hpa`
+Restart the tftp server `sudo systemctl restart tftpd-hpa`
 
-
-Copy the files from the image that you want to boot to /mnt/
+Copy the files from the image that you want to boot to `/mnt/`
 
  $ sudo mount -o loop ubuntu-16.04-server-amd64.iso /mnt/
 
-Copy the files to the tftpboot folder
+Copy the files to the `/var/log/tftpboot` folder
 
  $ sudo cp -fr /mnt/install/netboot/* /var/lob/tftpboot/
 
@@ -55,10 +55,6 @@ Replace the IP address with the PXE server's IP address
 
 `192.168.2.1` in this case
 
-
-
-
-
 == Install the DHCP server
 
  $ sudo apt-get install isc-dhcp-server
@@ -71,7 +67,7 @@ Set the interfaces to the appropriate interface where DHCP requests should be se
 INTERFACES="enx0050b617c64c"
 ----
 
-Need to assign an IP address to that interface in the `/etc/network/interfaces` file NOT in the DHCP address pool, bring the interface up and then restart the isc-dhcp-server.
+Assign an IP address to that interface in the `/etc/network/interfaces` file that is NOT in the DHCP address pool, bring the interface up and then restart the `isc-dhcp-server`.
 
  $ sudo systemctl restart isc-dhcp-server
 
@@ -82,3 +78,54 @@ It appears that the network manager doesn't wait for the wired link to be brough
 https://bugzilla.redhat.com/show_bug.cgi?id=565921#c8
 
 
+Need to add a config portion to the `/etc/dhcp/dhcp.conf` file below the area where pools are assigned
+
+----
+allow booting;
+allow bootp;
+option option-128 code 128 = string;
+option option-129 code 129 = text;
+next-server 192.168.1.105;
+filename "pxelinux.0";
+----
+
+Have a problem with the dhcp server assigning a DHCP address to it's own interface.
+
+Stop the DHCP server,
+Start the interface with a static address outside of the DHCP pool
+Start the DHCP server again?
+
+ $ sudo systemctl stop isc-dhcp-server
+ $ sudo ifdown enx0050b617c64c
+ $ sudo ifup enx0050b617c64c
+ $ sudo systemctl start isc-dhcp-server
+
+Select the 'linux' option from the PXE Boot Menu
+
+Now, set up the DHCP server on the wlan0 interface
+
+Edit the following files
+
+`/etc/dhcp/dhcp.conf`
+
+`/etc/default/isc-dhcp-server` add the INTERFACE on which to listen
+
+`/var/lib/tftpboot/pxelinux.cfg/default`
+
+Having a problem with the DHCP server.
+
+Checking the config file at /etc/dhcp/dhcp.conf
+
+Set the DNS to be 8.8.8.8
+
+See a request for 192.168.0.100 from an address with MAC 00:50:b6:17:c6:4c
+
+That was a dhclient process still running on the old interface. Killed it with `sudo kill -9 PID`
+
+== Future work
+
+Now, how to automate the process so it is set and forget?
+
+Didn't create a kickstart file, just set up the PXE server to install the Ubuntu server image over the network.
+
+For easier configuration of machiens, create a kickstart file `ks.cfg`

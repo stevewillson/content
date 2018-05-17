@@ -1,4 +1,6 @@
 = Windows Image Build Process
+Steve Willson
+5/8/18
  
 == Process for building new Windows images that will work optimally with the VTA:
 

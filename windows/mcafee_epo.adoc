@@ -1,0 +1,27 @@
+
+= How to setup a McAfee ePO Lab
+Steve Willson
+5/10/18
+
+== Requirements
+
+2 Windows Server instances
+Windows host computers
+
+Download the McAfee ePO trial to server A
+
+Set up one of the Windows Server instances as a domain controller (server B)
+
+Add server A to the domain established by server B.
+
+Setup SQL server on server A (included with the epo trial).
+
+Need to learn how to configure the SQL server. - I am not able to get this to work at this time.
+
+Run the setup executable in the ePO trial folder.
+
+
+
+
+
+

@@ -1,6 +1,9 @@
-= Vim Introductory Class
 
-== History of vi/vim
+= Vim Introductory Class
+Steve Willson
+1/18/18
+
+== Brief vi intro
 
 vi is installed on most linux machines, it is the **vi**sual mode for the *ex* line editor.
 
@@ -62,4 +65,8 @@ There are just a few vi commands that you need to know to be successful, after t
 === INSERT MODE
 `ESC` - enter COMMAND MODE
 
+== Further Reading
+
+* Practical Vim, Second Edition - Drew Neil
+* Learning the vi and Vim Editors - Arnold Robbins, Elbert Hannah, and Linda Lamb
 

@@ -1,9 +1,11 @@
-= Changing Domain Names
-Steve Willson steve.willson@gmail.com
 
-I recently lost the service for the `willson.ga` domain name, now I am switching to `willson.tk` from Freenom for 1 year.
+= How to set up a new domain name
+Steve Willson 
+2/13/18
 
-Need to put in the proper nameservers when registering the domain name with freenom. I use cloudflare (free) for DNS nameservers. I used the following (provided by cloudflare):
+The domain `willson.ga` expired, now I am switching to `willson.tk` from Freenom for 1 year.
+
+It is necessary to set up the proper nameservers when registering the domain name with freenom. I use cloudflare (free) for DNS nameservers. I used the following (provided by cloudflare):
 
 ----
 austin.ns.cloudflare.com
@@ -34,11 +36,11 @@ server {
 }
 ----
 
-And add a `server` entry for `willson.tk` and `www.willson.tk`
+Add a `server` entry for `willson.tk` and `www.willson.tk`
 
-Create a new file under `/etc/nginx/sites-available/` for `willson.tk` domain name.
+Create a new file under `/etc/nginx/sites-available/` for the `willson.tk` domain name.
 
-Use the nginx commands to test the configuration
+Use the following nginx commands to test the configuration
 
 Verify that the configuration files have correct syntax
 
@@ -54,7 +56,7 @@ Request the page, and watch what happens
 
 Verify that `willson.tk` can be reached.
 
-== Generate a certificate
+== Generate a certificate to configure encryption
 
 Download `certbot` and use the following command to test whether you can generate a certificate
 

@@ -1,6 +1,9 @@
-= Setup a VNC Server
 
-I want to be able to use guacamole to access a VNC server from the home lab, I need to setup a vnc server
+= Setup a VNC Server
+Steve Willson
+4/8/18
+
+Goal: Use guacamole to access a VNC server from the home lab, I need to setup a vnc server
 
 == Install tightvncserver
 
@@ -12,7 +15,6 @@ Start the VNC server
 
 You will be prompted for a password, truncated to length 8
 
-
 I used the following command to start a VNC server connected to kvm to run a VM off of a home lab computer
 
 ----
@@ -20,19 +22,17 @@ kvm -m 4096 /
 -drive file=so_lin.raw,if=virtio,format=raw -drive file=securityonion-14.04.5.11.iso,media=cdrom,index=1 -net nic,model=virtio -net user -vnc 0.0.0.0:2 -k en-us -net nic,model=virtio
 ----
 
-At first, I didn't have the `-k en-us` field, but then the keyboard wansn't responding, so I added `-d en-us` to specify the keyboard and then I was able to type in the `sosetup` program to enter a sudo password.
+At first, I didn't have the `-k en-us` field, but then the keyboard wansn't responding, I added `-d en-us` to specify the keyboard and then I was able to type in the `sosetup` program to enter a sudo password.
 
-But first, I was able to login without having the `-k en-us`.
+At first, I was able to login without having the `-k en-us`.
 
-Add another interface for the vm!
+== Add another interface for the VM
 
 VNC listens on port 5900+X, I used '2' in this case so I attempt to connect to port 5902 with remmina.
 
 Open Remmina, enter the address IP_ADDR:2 ex: `192.168.1.154:2`
 
 Now I have a connection to the VNC server on port 5902
-
-
 
 == Connect through guacamole
 

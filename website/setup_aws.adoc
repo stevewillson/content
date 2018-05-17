@@ -1,4 +1,6 @@
 = Setting up a Web Server on AWS
+Steve Willson
+2/3/18
 
 .Steps
 * Set up a new instance

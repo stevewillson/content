@@ -1,7 +1,8 @@
 = Guac Server Setup
-Steve Willson steve.willson@gmail.com
+Steve Willson 
+1/25/18
 
-Use guacamole to get a terminal through HTML5
+Goal: Use guacamole to get a terminal through HTML5
 
 Chase Wright's docker setup script will attempt to install docker-ce, use the digital ocean website below to install docker-ce from the docker repository.
 
