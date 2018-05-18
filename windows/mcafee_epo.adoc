@@ -20,8 +20,51 @@ Need to learn how to configure the SQL server. - I am not able to get this to wo
 
 Run the setup executable in the ePO trial folder.
 
+This will install the ePolicy Orchestrator server.
+
+I installed the server on Windows 2016, need to download and use Firefox to open the browser. I tried with IE and it froze.
 
 
 
+Login with the credentials specified.
+
+
+Open up a host and download the McAfee Agent on that host.
+
+Can navigate to the ePO server on a domain connected machine, log in, and then download the McAfee Agent. 
+
+
+== Configuring Rogue System Detection
+
+Go to `Guided Configuration` and select Rogue System Detection to check that piece of software in.
+
+Can do AD Sync or Manual sync to add machines to the configuration.
+
+
+== AD Sync
+
+Can set up a regular task to ensure that McAfee syncs with AD,
+
+What is the best practice for regular syncing? Daily hourly? How often?
+
+To set up an automatic sync go to `Menu > Automation > Server Tasks` 
+
+Select `Active Directory Synchronization / NT Domain` task action in the Actions page of the Server Task Builder.
+
+To do a manual sync, go to Menu (3 bars in upper right), select System Tree and then select `Group Details`. Make sure that you have `My Group` selected on the left (or whatever group that you would like to Sync with AD.)
+
+
+== Adding a computer to a domain
+
+First, set the DNS server to be the proper DNS server set up by AD
+
+Then go to `This PC` properties and select the Change Domain button and enter the desired domain set up by the DC.
+
+Then enter an administrator to add the comptuer to the domain, the workstation will now be added to the domain in the `Computers` OU.
+
+
+== Configuration -> Registered Servers
+
+Add a server as an LDAP server, be sure to type in the right username password combination.
 
 
