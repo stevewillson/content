@@ -92,7 +92,7 @@ convert_content_adoc_to_html()
 {
     # put in the stylesheet
     [ "$DEBUG" -eq 1 ] && echo "Generating web page"
-    find $CONTENT_DIR -path "*.adoc" | while read adoc; do 
+    find $CONTENT_DIR -path "*.adoc" -not -path "*./in_progress*" | while read adoc; do 
         sed -i '1s/^/:stylesheet: \/home\/user\/blog\/content\/boot-cyborg.css\n/' $adoc;
         asciidoctor $adoc -D $OUTPUT_DIR; 
     done
