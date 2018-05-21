@@ -92,9 +92,10 @@ convert_content_adoc_to_html()
 {
     # put in the stylesheet
     [ "$DEBUG" -eq 1 ] && echo "Generating web page"
-    find $CONTENT_DIR -path "*.adoc" -not -path "*./in_progress*" | while read adoc; do 
+    find $CONTENT_DIR -name "*.adoc" -not -path "$CONTENT_DIR/in_progress/*" | while read adoc; do 
         sed -i '1s/^/:stylesheet: \/home\/user\/blog\/content\/boot-cyborg.css\n/' $adoc;
         asciidoctor $adoc -D $OUTPUT_DIR; 
+        [ "$DEBUG" -eq 1 ] && echo "Output file for $adoc"
     done
 }
 
@@ -117,7 +118,7 @@ generate_file_info_list()
 {
     rm -f $BASE_DIR/file_info.log
 
-    find $CONTENT_DIR -path "*.adoc" | while read adoc; do 
+    find $CONTENT_DIR -path "*.adoc" -not -path "$CONTENT_DIR/in_progress/*" | while read adoc; do 
         FULLPATH=$(echo $adoc | sed 's/\.[^.]*$//');
         FILENAME=$(basename $FULLPATH);
         # some files don't have a revdate, it should be added by the blog author, if there is not revdate, assume that it was made 2 years ago, this should put the post at the bottom of the index
