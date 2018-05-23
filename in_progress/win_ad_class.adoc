@@ -1,0 +1,102 @@
+= Windows Active Directory Notes
+Steve Willson
+5/19/18
+
+== Active Directory
+
+What is it
+
+`DC` - Domain Component
+The collection of the domain components make up the fully qualified domain name
+`OU` - Organizational Unit
+`CN` - Common Name
+
+Parts of the X.500 Directory Specification - defines nodes in an LDAP directory
+
+LDAP data interchange format (LDIF)
+
+
+== Determin `Effective Permissions`
+
+AD does inheritance and you will need to determine the effective permissions to be able to effecitvely lock down AD permissions
+
+
+
+
+== AD Schema
+
+extendable - You can add more to it
+
+DC - servers that control AD DS
+
+Users
+Computers
+
+Can group them together in Groups
+
+Put users into groups and assign permissions to groups
+
+Organizational Units - groups for administrative purposes
+
+
+Can give someone admin permissions over a particular OU
+
+Can delegate tasks to someone in the OU to have permissions over the OU
+
+Domain is all the users and computer accounts that are tied 
+
+Domains
+
+Can create a subdomain that inherits the schema of the other domains
+
+Trees
+Forests 
+Trusts
+
+transitive trust - when a subdomain is created, you can create a implicit 
+
+What does it mean to trust a domain?
+
+Can create permissions for users in one of the other domains
+
+Can give permissions to user accounts from other domains
+
+
+Multiple trees make up a tree
+
+Multiple trees make up a forest
+
+When creating a subdomain - implicit two way transitive trust
+
+When connection forests - there is a one way explicit trust
+
+
+
+Replication and replication strategies - ways that the DCs copy the data to other domain controllers
+
+Sites - you combine different DCs to establish a site
+
+Can create read only domain controllers to prevent people from updating the remote domain controllers
+
+Have Read Write
+
+Global Catalogs - indexes of all the data stored in the domain controllers
+
+
+
+== Microsoft DNS
+
+Use the windows DNS, it does more than
+
+Reverse DNS - maps IP to a name
+Dynamic DNS - updates ip addresses
+
+WINS competitor 
+
+Should have the microsoft server be the DHCP server as well
+
+DHCP - can set up redundancy for DHCP servers
+DNS
+
+
+

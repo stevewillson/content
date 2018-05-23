@@ -1,0 +1,49 @@
+= McAfee Rogue System Detection
+Steve Willson
+5/21/18
+
+Can create a query that will display all of the rogue systems detected.
+Also want to create a query that will display the locations where the sensors are installed.
+
+
+
+What is monitoring - where are the scanners configured
+
+What networks are covered
+
+What are they detecting
+
+What should be done with rogue systems?
+
+
+
+Genearate a list of hosts on the network, 1 per managed subnet and apply a tag to them, then install RSD to systems that have that tag assigned.
+
+Reference: https://kc.mcafee.com/corporate/index?page=content&id=KB83947&actp=null&viewlocale=en_US&showDraft=false&platinum_status=false&locale=en_US
+
+.Overall steps
+* Generate a list of hosts, 1 per subnet
+* Remove the IP address from the list and just copy the hostname out
+* Create a new tag for these systems
+* Use those hostnames to set a tag on the system
+* Set RSD to install on systems with those tags, add a new Client Task
+
+
+
+Why can't I see that RSD is installed?
+
+
+No Rugue System Sensor properties are available at this time.
+
+In
+
+Menu > Software > Product Deployment
+
+Can install a product now
+
+
+== How to delete client tasks,
+
+Need to delete the 'root' task, many client tasks will have 'Delete' grayed out, but then you can see where that object inherits the task from.
+
+

@@ -68,3 +68,27 @@ Then enter an administrator to add the comptuer to the domain, the workstation w
 Add a server as an LDAP server, be sure to type in the right username password combination.
 
 
+
+== Ports used (default)
+
+Agent wake up communication port 8081
+
+Why does an install fail sometimes? Bad password, the domain is improperly set
+
+I'm not able to log in to the machines typically
+
+
+
+Future Work
+
+Read about the HIPS firewall to create configurations to block ingress and egress traffic
+
+Read about rogue system detection to enumerate and block bad systems
+
+Researc best practices automatically setting up a windows server with machines joined as a domain
+
+PowerShell desired state configuration?
+
+I want to set up infrastructure, then make a template for a default setup,
+
+just to configure a sample Domain controller and lots of users
