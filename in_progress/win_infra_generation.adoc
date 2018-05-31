@@ -31,4 +31,6 @@ Sample Environment
 
 
 
+Use the DSC to install the SQL server on a machine
+
 

@@ -1,0 +1,30 @@
+= ACAS Notes from Class
+
+Monthly working group for ACAS - 4th Wednesday of month at 1000 and 1300 EST
+
+DEPS Website for ACAS - discussion for ACAS
+
+Patches.csd.disa.mil for ACAS Best Practices Guide
+
+HP responded to the RFP and put in nessus scanner with security scanner and passive scanner.
+
+Components of ACAS
+
+Security Center - here to update plugins
+Comprised of tools
+Nessus - scans for vulnerabilities IAVMs, and compliance scan, 8834
+PVS - makes this a continuous monitoring solution, can connect to a SPAN port, also uses plugins and scripts to ID a passive vuln, 8835
+3D Tool - need to configure through security center, can display a topology of the network, port 443
+
+vuln is a weakness that can lead to a compromise
+
+Questions
+Is PVS used?
+
+CMRS - cont monitoring and risk scoring
+
+quantitative - score based
+
+13-670 - implement of ACAS - have 7 days to fix critical or high vulns
+
+Task order - 14-0294 - task order for using CMRS
