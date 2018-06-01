@@ -28,3 +28,217 @@ quantitative - score based
 13-670 - implement of ACAS - have 7 days to fix critical or high vulns
 
 Task order - 14-0294 - task order for using CMRS
+
+ACAS can scan the mobile device server
+
+Queries - can save filters to view for dashboards
+
+
+Scans - 
+active scans
+an agent can be run on the server and then results can be reported back
+scan policies - can set up a policy with a name
+audit files with 
+
+credentials - can set up credentials stored in
+
+blackout windows - set up times not to scan
+
+CMRS need to put things in the scan report
+
+Assets - need to ensure that their assets are properly listed?
+named container that contains a list of IP address or DNS results
+
+workflow 
+* alerts - can find vulnerabilities that match certain conditions
+* tickets - built in ticketing system - scaled down ticketing system
+
+Can 'accept risk rules' on the workflow tab
+
+Can change the severity of a vulnerability using the 'recast risk rules'
+
+Users groups roles
+
+Can adjust 
+
+About Security Center
+
+System Logs - can see system logs
+
+
+Feeds - 
+can go to DOD patch repository, download plugins, and then upload them to the ACAS servers.
+
+The feed contains templates - Tenable makes reports and other templates for use
+
+
+Notifications
+
+Plugins - can upload custom plugins using the 'Upload Custom Plugins' 
+
+Security Center Help - can get there through the user icon and then help
+
+Can adjust time zone on the ACAS server  
+
+
+== Building Blocks for ACAS
+
+Things that an Admin has to do before scanning
+
+Admin
+Security Manager
+Operator / Analyst
+
+Set people up for roles - 
+
+Scan Zones
+
+Put zones in and associate a nessus scanner with that zone
+
+Then you scan a particular IP range
+
+
+How to integrate data from another sec center?
+
+can set up repo to copy their data
+they can provide their scan data
+
+
+`Scan Zone`
+range of IPs and an assoc nessus scanner
+
+Repositorys
+
+hold scan results - folder where scan results are written
+
+Set up repo to include scans for a particular IP range
+
+Admin sets up the Organization and sets up the repo
+
+The admin gives the organization the rights to a repo, the ORG does not 'own' the repo
+
+
+DISA puts plugins on the DOD Patch Repository
+
+Plugin lists
+1-10000 - PBS
+10001-900000 - active nessus
+900000 - 999999 - custom plugin
+1,000,000+ - compliance plugins
+
+
+Isolated and Stand alone networks
+
+can install sec center and nessus using the kickstart file
+can use a VM with sec center and a nessus scanner as a VM
+can run the nessus scanner on a stand alone laptop and then carry
+
+nessus scanners are licensed through the security center - ACAS is not licensed to run a stand alone nessus scanner
+
+Organization - group of individuals who are responsible for a set of common tasks
+
+Scan Zone - defined static range of IP addrs with an assoc nessus scanner
+
+== Vulnerability Scanning
+
+Create scan policy
+Create a scan
+Launch a scan
+View the scan results
+
+=== Create a host discovery scan
+
+scan 
+
+Create a host discovery policy
+
+'Add' - use a tenable template
+
+Host Discovery
+
+Policies - host discovery
+
+Templates can be updated by the feed from tenable
+
+Can add a scan, set the IP range, and then click the 'play' button.
+Can see the scan running
+
+Find the scan results by clicking on the 
+
+Can troubleshoot using the All Vulnerabilities 
+
+Gear icon - 'View' to see results
+Can use this area to see the scan results and the authentication attempted (if attempting to use auth)
+
+Can add restricted IP addresses to not scan those.
+
+
+Discovery Scan
+Operating System Scan
+Basic network scan - dependent on OS scan - has plugins baked in
+
+Create a custom vuln scan - can set up dependent based on basic network scan
+
+custom vuln scan - 
+
+Scan sequence - sec center 
+
+Retrieve scan settings from SC
+Host Disc
+Port scan
+Service detection
+OS Detection
+Scan for Vuln Detection
+
+*If the scan job doesn't have credentials, then it will try to guess*
+
+Will run a vuln scan based only on what nessus thinks the host is
+
+*DISA wants you to run a monthly credentialed scan*
+
+Add new scan
+
+Basic Network Scan
+
+will try to scan 30 simultaneous hosts, 4 checks per host (DEFAULT) 
+
+
+
+Custom vulnerability scan
+
+policies -> add -> custom advanced tab
+
+Provides total control over the policy
+
+Can configure many options using the custom scan
+* wake on LAN
+
+Can change your AV grace period - most DOD systems allow 7 days of AV out of date
+
+Plugins tab - shows all plugins that are enabled for this instance.
+
+Module 5-7 - Best Practices - goes through how nessus does its scanning, seems like only modules that are targeted at the guessed OS
+
+Can add an unlimited number of WIN credentials - Module 5-10
+
+TIP: Recommend to just scan windows hosts and then the linux hosts - depends on the network.
+
+Some students only scan 2500 hosts at a time
+
+Scanning Blackout Windows - prevents scans from happening at a certain time
+
+can set a particular, by repository, if you have a blackout window set for a particular repository, then scans for other repositories will run
+
+blackout windows will prevent scheduled scans from running
+
+== Review for Vuln Scanning
+
+Components of an Active Vuln Scan consist of a policy, credentials, scan zone, schedule, repository, and target list
+
+Can track hosts issued new IP address - should enable for DHCP
+
+common ports - 4605 ports that are common ports
+
+
+
+
