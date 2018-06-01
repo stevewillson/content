@@ -28,6 +28,45 @@ Custom Installation - Choose `Custom`
 
 SQL Express or SQL Server
 
+How to configure the SQL server?
 
 
 
+Troubleshooting
+
+List the services that are listening on TCP ports,
+
+PowerShell
+
+`netstat -a -b`
+
+How to get a list of SQL servers in the environment?
+
+Use the registry to get a list of the SQL servers
+
+Hive: HKLM\Software\Microsoft\Microsoft SQL Server
+
+Go to SQL Server Config Manager
+
+Enable Named Pipes and TCP, turn off dynamic ports and set port to use TCP 1434
+
+Ensure that the SQL Browser Is Started in the Sql Server Configuration manager
+
+Fields that I used:
+
+----
+Database Server: USER-EPO-SERVER\SQLEXPRESS
+Database Name: ePO_USER-EPO-SERVER
+
+Domain: USER-EPO-SERVER (system NOT domain joined)
+Windows Authentication 
+SQL Server TCP Port - pre populated 49782 - why?
+----
+
+I restarted the installer and was able to configure the SQL database.
+
+I was not able to use Internet Explorer to connect to the ePO dashboard. I used firefox.
+
+I needed to specify 'https://' prior to the IP ADDR and the port to connect to ePO
+
+https://IP_ADDR:8443
