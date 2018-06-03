@@ -241,4 +241,81 @@ common ports - 4605 ports that are common ports
 
 
 
+== Assest Lists
+
+named lists of ip or dns names that can be used to name a list of 
+
+can attach an asset list to a person - responsibility
+
+Types
+* Static
+* Dynamic - built based off a query
+* DNS - put in based on DNS name, close to a static
+* LDAP - built based on a query
+
+Can create a combination asset list
+
+Click 'assets' on the top of the menu
+
+Can share asset lists, 
+
+When exporting, it appears that the definition is Base64 encoded
+
+If you share an asset list with others, need to make sure they are able to see them from their organization
+
+Dynamic asset list is generated based of the scan results that have already taken place.
+
+== Active Vuln Analysis
+
+How to scan specific machines to prove that they are remediated.
+
+Can view a vulnerability detail list
+
+Can see the duration of the scan to troubleshoot which machines are taking a long time
+
+Recommend putting credentialed and uncredentialed scans in different repositories.
+
+Not a requirement to run a non-credentialed scan, but it can be a way to see what an outsider sees from your network
+
+IAVM Number is listed in the Cross References section
+
+
+Vulnerabilities Page
+
+will show a cumulative list of all the vulnerabilities that are present
+
+Crit - 7 days
+
+Medium - local guidelines
+
+
+Need to review the task order for ACAS scanning
+
+Remediation Summary - will show what patches are required to fix vulnerabilities
+
+
+Analysis Tools
+* IAVM Summary - id host and # plugin by iavm
+* MS Bulletin - updateing
+* Software List - will show what is on host, check for approved/not approvied
+* Remediation Summary - show soln for fixing vulns
+
+== Filters
+
+vuln
+id numbers
+dates
+workflow - can check to see if vulns have been accepted
+target - can filter by hosts/Domain names
+
+
+can save a query and then load the query
+
+Can generate an asset list from a filter to use
+
+complete with day2_session5
+
+
+
+
 
