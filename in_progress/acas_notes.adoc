@@ -313,9 +313,136 @@ can save a query and then load the query
 
 Can generate an asset list from a filter to use
 
-complete with day2_session5
+=== Launch Redediation Scan
+
+Can rescan for a particular vulnerability to show that it has been remediated
+
+Will prepopulate with settings 
+
+=== Accept Risk
+
+Can 'accept risk' of a vulnerability - it will not show up any more in reports - can put in an expiration date
+
+Will accept for your entire organization
+
+=== Recast Risk
+
+Can change the severity of a vulnerability 'recast the risk'
+
+=== Queries
+
+Analysis > Queries
+
+Can share queries
+
+Can build queries for reports, ticketing, scan results
 
 
+== Passive Vulnerability Analysis
+
+monitoring network at the packet layer
+
+passive vulnerability scanning
+
+passive attack scripting language - scripting languate that PVS is written in
+
+2 network interfaces - 1 for management, 1 for sniffing
+
+Where to put the PVS? Monitor the border and then key networks that you're interested in
+
+If storing in the same database, can sort by the plugin type
+
+== Compliance Auditing and Vulnerability Scanning
+
+Compliance module is used for commercial modules, DISA provides compliance modules
+
+Security and Compliance
+
+Audit files - bundle of scripts that contain specific configuration, file permission and access control tests to be performed.
+
+Tenable Network sec template
+DISA - .zip files, .xccdf DISA stig automated benchmark files
+NIST - .xccdf - automated benchmark files
+
+ACAS only scans for an reports on automated checks
+
+Someone running the scans or administrators can upload audit files
+
+The compliance checks will be imported and listed as plugins - in the 1,000,000 plugin ID range
+
+Tests will PASS, FAIL, or be UNABLE TO DETERMINE
+
+Download AUDIT FILES, can read the sourcecode of an audit file - XML document
+
+SCANS > AUDIT FILES > ADD > Custom 'Advanced' > Choose File (Choose .xccdf)
+
+=== Compliance Auditing
+
+Add Policy > SCAP and OVAL Auditing 
+
+Active > Scans > Add
+
+Choose policy and name, select repository
+
+DISA recommends that you have a separate Repository for compliance scans
+
+Reused the 'severity' field in the compliance checks, if FAILED put 'HIGH', if passes put 'INFORMATIONAL', if UNABLE TO GET RESULTS put 'Medium'
+
+* 10 points for a 'HIGH'
+* 3 points for  a 'MEDIUM'
+* 0 points for an 'INFORMATIONAL'
+
+Need to review scan results to troubleshoot the scan results, can see an 'authentication failure' or 'wrong credentials' when troubleshooting scans
+
+Can view the list of vulnerabilities by 'Vulnerability Summary' or 'IP Summary'
+
+Can filter to just view those with 'HIGH' severity
+
+== Reporting
+
+6 report formats
+
+CSV
+PDF
+RTF
+
+More formats for CMRS
+
+ASR
+ARF
+CyberScope - xml
 
 
+Scans fill database up, reports query database to show information in a useful way
 
+From repository - can generate reports
+
+Report definition - XML format - can be used to have a consistent report format
+
+Can add the definition tab
+Distribution - select who will receive the report
+
+Can add new templates through the security center feed
+
+=== Custom Reports
+
+Can copy reports and modify them to take certain elements of a pre-built report
+
+== Dashboards
+
+Options > Add Dashboard
+
+Dashboards just query the repositories, they do not run new scans
+
+Add a component
+
+Can set an update frequency for the dashboard
+
+Export dashboards, can keep references or remove all references
+
+Assurance report cards - many organizations have policies
+Behind each report card is a list of policies
+
+CCC - Critical Cyber Controls
+
+Through module 11
