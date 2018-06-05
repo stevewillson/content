@@ -446,3 +446,62 @@ Behind each report card is a list of policies
 CCC - Critical Cyber Controls
 
 Through module 11
+
+
+== Installation
+
+Security Center runs on Red Hat 6 at least or newer
+
+Nessus and PVS run on Red Hat or Windows
+
+3d tool runs only on Windows
+
+Kickstart RHEL 6 image
+
+Need to get license for security center, nessus scanners are licensed off of the security center
+
+Total users * repositories * asset lists = # (should be less than 1,000,000)
+
+This is a recommendation for best practices
+
+Steps
+* Get sec center license
+* get installation media
+* read documentation
+* modify firewall
+
+Licenses expire every year in february - need to renew yearly
+
+=== Nessus installation
+
+4 cores - 8-12 gb ram
+
+8834 port for nessus to be open, tells it that it is managed by security center
+
+PVS 4 cores 8-12 gb
+
+8835 port for PVS 
+
+License from security center,
+
+Need to limit the PVS scan pool, it will be set to ingest IPs
+
+== Administration of ACAS
+
+can set a date to remove the active vulnerability data (default 365 days)
+
+passive data is held for 7 days
+
+=== Admin best practices
+
+should enforce separation of duties
+
+Can assign someone an asset list that limits what they can see in the database
+
+== Scan Zone
+
+run a scan off of a scan zone, and then the results will be put into the repository
+
+schedule scans so that the network is not overloaded with traffic.
+
+up to 15-2
