@@ -29,6 +29,7 @@ quantitative - score based
 
 Task order - 14-0294 - task order for using CMRS
 
+<<<<<<< HEAD
 == Best Practice Guide
 
 Use of Nessus web interface should be limited to initial setup, troubleshooting, and disconnected environments.
@@ -51,3 +52,481 @@ Scanning through a firewall can be done, but requires scan policy tuning, firewa
 Security Center <-> Nessus via XML-RPC on TCP port 8834
 
 
+=======
+ACAS can scan the mobile device server
+
+Queries - can save filters to view for dashboards
+
+
+Scans - 
+active scans
+an agent can be run on the server and then results can be reported back
+scan policies - can set up a policy with a name
+audit files with 
+
+credentials - can set up credentials stored in
+
+blackout windows - set up times not to scan
+
+CMRS need to put things in the scan report
+
+Assets - need to ensure that their assets are properly listed?
+named container that contains a list of IP address or DNS results
+
+workflow 
+* alerts - can find vulnerabilities that match certain conditions
+* tickets - built in ticketing system - scaled down ticketing system
+
+Can 'accept risk rules' on the workflow tab
+
+Can change the severity of a vulnerability using the 'recast risk rules'
+
+Users groups roles
+
+Can adjust 
+
+About Security Center
+
+System Logs - can see system logs
+
+
+Feeds - 
+can go to DOD patch repository, download plugins, and then upload them to the ACAS servers.
+
+The feed contains templates - Tenable makes reports and other templates for use
+
+
+Notifications
+
+Plugins - can upload custom plugins using the 'Upload Custom Plugins' 
+
+Security Center Help - can get there through the user icon and then help
+
+Can adjust time zone on the ACAS server  
+
+
+== Building Blocks for ACAS
+
+Things that an Admin has to do before scanning
+
+Admin
+Security Manager
+Operator / Analyst
+
+Set people up for roles - 
+
+Scan Zones
+
+Put zones in and associate a nessus scanner with that zone
+
+Then you scan a particular IP range
+
+
+How to integrate data from another sec center?
+
+can set up repo to copy their data
+they can provide their scan data
+
+
+`Scan Zone`
+range of IPs and an assoc nessus scanner
+
+Repositorys
+
+hold scan results - folder where scan results are written
+
+Set up repo to include scans for a particular IP range
+
+Admin sets up the Organization and sets up the repo
+
+The admin gives the organization the rights to a repo, the ORG does not 'own' the repo
+
+
+DISA puts plugins on the DOD Patch Repository
+
+Plugin lists
+1-10000 - PBS
+10001-900000 - active nessus
+900000 - 999999 - custom plugin
+1,000,000+ - compliance plugins
+
+
+Isolated and Stand alone networks
+
+can install sec center and nessus using the kickstart file
+can use a VM with sec center and a nessus scanner as a VM
+can run the nessus scanner on a stand alone laptop and then carry
+
+nessus scanners are licensed through the security center - ACAS is not licensed to run a stand alone nessus scanner
+
+Organization - group of individuals who are responsible for a set of common tasks
+
+Scan Zone - defined static range of IP addrs with an assoc nessus scanner
+
+== Vulnerability Scanning
+
+Create scan policy
+Create a scan
+Launch a scan
+View the scan results
+
+=== Create a host discovery scan
+
+scan 
+
+Create a host discovery policy
+
+'Add' - use a tenable template
+
+Host Discovery
+
+Policies - host discovery
+
+Templates can be updated by the feed from tenable
+
+Can add a scan, set the IP range, and then click the 'play' button.
+Can see the scan running
+
+Find the scan results by clicking on the 
+
+Can troubleshoot using the All Vulnerabilities 
+
+Gear icon - 'View' to see results
+Can use this area to see the scan results and the authentication attempted (if attempting to use auth)
+
+Can add restricted IP addresses to not scan those.
+
+
+Discovery Scan
+Operating System Scan
+Basic network scan - dependent on OS scan - has plugins baked in
+
+Create a custom vuln scan - can set up dependent based on basic network scan
+
+custom vuln scan - 
+
+Scan sequence - sec center 
+
+Retrieve scan settings from SC
+Host Disc
+Port scan
+Service detection
+OS Detection
+Scan for Vuln Detection
+
+*If the scan job doesn't have credentials, then it will try to guess*
+
+Will run a vuln scan based only on what nessus thinks the host is
+
+*DISA wants you to run a monthly credentialed scan*
+
+Add new scan
+
+Basic Network Scan
+
+will try to scan 30 simultaneous hosts, 4 checks per host (DEFAULT) 
+
+
+
+Custom vulnerability scan
+
+policies -> add -> custom advanced tab
+
+Provides total control over the policy
+
+Can configure many options using the custom scan
+* wake on LAN
+
+Can change your AV grace period - most DOD systems allow 7 days of AV out of date
+
+Plugins tab - shows all plugins that are enabled for this instance.
+
+Module 5-7 - Best Practices - goes through how nessus does its scanning, seems like only modules that are targeted at the guessed OS
+
+Can add an unlimited number of WIN credentials - Module 5-10
+
+TIP: Recommend to just scan windows hosts and then the linux hosts - depends on the network.
+
+Some students only scan 2500 hosts at a time
+
+Scanning Blackout Windows - prevents scans from happening at a certain time
+
+can set a particular, by repository, if you have a blackout window set for a particular repository, then scans for other repositories will run
+
+blackout windows will prevent scheduled scans from running
+
+== Review for Vuln Scanning
+
+Components of an Active Vuln Scan consist of a policy, credentials, scan zone, schedule, repository, and target list
+
+Can track hosts issued new IP address - should enable for DHCP
+
+common ports - 4605 ports that are common ports
+
+
+
+== Assest Lists
+
+named lists of ip or dns names that can be used to name a list of 
+
+can attach an asset list to a person - responsibility
+
+Types
+* Static
+* Dynamic - built based off a query
+* DNS - put in based on DNS name, close to a static
+* LDAP - built based on a query
+
+Can create a combination asset list
+
+Click 'assets' on the top of the menu
+
+Can share asset lists, 
+
+When exporting, it appears that the definition is Base64 encoded
+
+If you share an asset list with others, need to make sure they are able to see them from their organization
+
+Dynamic asset list is generated based of the scan results that have already taken place.
+
+== Active Vuln Analysis
+
+How to scan specific machines to prove that they are remediated.
+
+Can view a vulnerability detail list
+
+Can see the duration of the scan to troubleshoot which machines are taking a long time
+
+Recommend putting credentialed and uncredentialed scans in different repositories.
+
+Not a requirement to run a non-credentialed scan, but it can be a way to see what an outsider sees from your network
+
+IAVM Number is listed in the Cross References section
+
+
+Vulnerabilities Page
+
+will show a cumulative list of all the vulnerabilities that are present
+
+Crit - 7 days
+
+Medium - local guidelines
+
+
+Need to review the task order for ACAS scanning
+
+Remediation Summary - will show what patches are required to fix vulnerabilities
+
+
+Analysis Tools
+* IAVM Summary - id host and # plugin by iavm
+* MS Bulletin - updateing
+* Software List - will show what is on host, check for approved/not approvied
+* Remediation Summary - show soln for fixing vulns
+
+== Filters
+
+vuln
+id numbers
+dates
+workflow - can check to see if vulns have been accepted
+target - can filter by hosts/Domain names
+
+
+can save a query and then load the query
+
+Can generate an asset list from a filter to use
+
+=== Launch Redediation Scan
+
+Can rescan for a particular vulnerability to show that it has been remediated
+
+Will prepopulate with settings 
+
+=== Accept Risk
+
+Can 'accept risk' of a vulnerability - it will not show up any more in reports - can put in an expiration date
+
+Will accept for your entire organization
+
+=== Recast Risk
+
+Can change the severity of a vulnerability 'recast the risk'
+
+=== Queries
+
+Analysis > Queries
+
+Can share queries
+
+Can build queries for reports, ticketing, scan results
+
+
+== Passive Vulnerability Analysis
+
+monitoring network at the packet layer
+
+passive vulnerability scanning
+
+passive attack scripting language - scripting languate that PVS is written in
+
+2 network interfaces - 1 for management, 1 for sniffing
+
+Where to put the PVS? Monitor the border and then key networks that you're interested in
+
+If storing in the same database, can sort by the plugin type
+
+== Compliance Auditing and Vulnerability Scanning
+
+Compliance module is used for commercial modules, DISA provides compliance modules
+
+Security and Compliance
+
+Audit files - bundle of scripts that contain specific configuration, file permission and access control tests to be performed.
+
+Tenable Network sec template
+DISA - .zip files, .xccdf DISA stig automated benchmark files
+NIST - .xccdf - automated benchmark files
+
+ACAS only scans for an reports on automated checks
+
+Someone running the scans or administrators can upload audit files
+
+The compliance checks will be imported and listed as plugins - in the 1,000,000 plugin ID range
+
+Tests will PASS, FAIL, or be UNABLE TO DETERMINE
+
+Download AUDIT FILES, can read the sourcecode of an audit file - XML document
+
+SCANS > AUDIT FILES > ADD > Custom 'Advanced' > Choose File (Choose .xccdf)
+
+=== Compliance Auditing
+
+Add Policy > SCAP and OVAL Auditing 
+
+Active > Scans > Add
+
+Choose policy and name, select repository
+
+DISA recommends that you have a separate Repository for compliance scans
+
+Reused the 'severity' field in the compliance checks, if FAILED put 'HIGH', if passes put 'INFORMATIONAL', if UNABLE TO GET RESULTS put 'Medium'
+
+* 10 points for a 'HIGH'
+* 3 points for  a 'MEDIUM'
+* 0 points for an 'INFORMATIONAL'
+
+Need to review scan results to troubleshoot the scan results, can see an 'authentication failure' or 'wrong credentials' when troubleshooting scans
+
+Can view the list of vulnerabilities by 'Vulnerability Summary' or 'IP Summary'
+
+Can filter to just view those with 'HIGH' severity
+
+== Reporting
+
+6 report formats
+
+CSV
+PDF
+RTF
+
+More formats for CMRS
+
+ASR
+ARF
+CyberScope - xml
+
+
+Scans fill database up, reports query database to show information in a useful way
+
+From repository - can generate reports
+
+Report definition - XML format - can be used to have a consistent report format
+
+Can add the definition tab
+Distribution - select who will receive the report
+
+Can add new templates through the security center feed
+
+=== Custom Reports
+
+Can copy reports and modify them to take certain elements of a pre-built report
+
+== Dashboards
+
+Options > Add Dashboard
+
+Dashboards just query the repositories, they do not run new scans
+
+Add a component
+
+Can set an update frequency for the dashboard
+
+Export dashboards, can keep references or remove all references
+
+Assurance report cards - many organizations have policies
+Behind each report card is a list of policies
+
+CCC - Critical Cyber Controls
+
+Through module 11
+
+
+== Installation
+
+Security Center runs on Red Hat 6 at least or newer
+
+Nessus and PVS run on Red Hat or Windows
+
+3d tool runs only on Windows
+
+Kickstart RHEL 6 image
+
+Need to get license for security center, nessus scanners are licensed off of the security center
+
+Total users * repositories * asset lists = # (should be less than 1,000,000)
+
+This is a recommendation for best practices
+
+Steps
+* Get sec center license
+* get installation media
+* read documentation
+* modify firewall
+
+Licenses expire every year in february - need to renew yearly
+
+=== Nessus installation
+
+4 cores - 8-12 gb ram
+
+8834 port for nessus to be open, tells it that it is managed by security center
+
+PVS 4 cores 8-12 gb
+
+8835 port for PVS 
+
+License from security center,
+
+Need to limit the PVS scan pool, it will be set to ingest IPs
+
+== Administration of ACAS
+
+can set a date to remove the active vulnerability data (default 365 days)
+
+passive data is held for 7 days
+
+=== Admin best practices
+
+should enforce separation of duties
+
+Can assign someone an asset list that limits what they can see in the database
+
+== Scan Zone
+
+run a scan off of a scan zone, and then the results will be put into the repository
+
+schedule scans so that the network is not overloaded with traffic.
+
+up to 15-2
+>>>>>>> 3401db420083f7c0cc8dc44f0996744a2fefe992

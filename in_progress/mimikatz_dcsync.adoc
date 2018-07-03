@@ -6,7 +6,7 @@ Reference: https://adsecurity.org/?p=1729
 
 Reference: https://silentbreaksecurity.com/invoke-dcsync-because-we-all-wanted-it/
 
-Goal: retrieve password hashes from all users logged in to a domain controller using the mimikatz DCSync function
+Goal: retrieve password hashes from all user accounts on a domain controller using the mimikatz DCSync function
 
 WARNING: Only do this in a lab environment.
 
@@ -36,6 +36,3 @@ Download from: https://gist.github.com/monoxgas/9d238accd969550136db
  $ Import-Module ./Invoke-DCSync.ps1
 
  $ Invoke-DCSync -PWDumpFormat
-
-
-

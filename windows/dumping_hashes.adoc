@@ -2,7 +2,7 @@
 Steve Willson
 5/14/18
 
-Tested on Windows Server 2016
+NOTE: Tested on Windows Server 2016
 
 Reference: https://medium.com/@airman604/dumping-active-directory-password-hashes-deb9468d1633
 
