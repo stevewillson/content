@@ -28,3 +28,26 @@ quantitative - score based
 13-670 - implement of ACAS - have 7 days to fix critical or high vulns
 
 Task order - 14-0294 - task order for using CMRS
+
+== Best Practice Guide
+
+Use of Nessus web interface should be limited to initial setup, troubleshooting, and disconnected environments.
+
+It is the responsibility of the deploying organization to purchase RHEL prior to deploying ACAS
+
+Review scheduled tasks to ensure that users are not scheduling multiple tasks for the same time
+
+Review dashboards that are created, should be made by 1 user and shared, not multiple users? PAGE 13
+Refresh frequency of a dashboard should be less than 1 day.
+
+Track how often the data changes, and then don't set the frequency more often than the data changes.
+
+How are their scanners deployed? Distributed or consolidated?
+
+Should HBSS be deployed to Nessus? PAGE 15, see ACAS HBSS integration guide.
+
+Scanning through a firewall can be done, but requires scan policy tuning, firewall, and host configurations
+
+Security Center <-> Nessus via XML-RPC on TCP port 8834
+
+
