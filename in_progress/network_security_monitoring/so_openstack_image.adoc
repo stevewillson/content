@@ -68,8 +68,73 @@ Once setup is complete, login to the Security Onion instance and install the nec
 
 For Security Onion 16, rsync and openssh-server are already installed.
 
+----
+kvm -m 4096 \
+-drive file=./so_test.raw,if=virtio,format=raw \
+-net nic,model=virtio \
+-net user \
+-show-cursor 
+----
+
+This will boot Security Onion without the ISO image loaded
+
+Start a root shell
+
+ $ sudo su
+
+== Configure MySQL not to prompt for root password
+
+ $ echo "debconf debconf/frontend select noninteractive" | debconf-set-selections
+
+== Remove MAC Address
+
+ $ echo "" > /lib/udev/rules.d/75-persistent-net-generator.rules
+
+== Disable Firewall
+
+Edit file /etc/init/ufw.conf and comment out lines 9-11 that have to do with starting UFW by placing a `#` before the lines.
+
+== Enable Boot Log
+
+Edit the `/etc/default/grub` and set the following parameter
+
+----
+GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0"
+----
+
+ $ update-grub
 
 
+== Edit Cloud-init
+
+May need to install the cloud-init package
+
+ $ dpkg-reconfigure cloud-init
+
+Only select the EC2 data source
+
+Edit the file `/etc/cloud/cloud.cfg` for the username created to login
+
+----
+system_info:
+    distro: ubuntu
+    default_user
+        name: so_admin
+----
+
+== Final Steps
+
+Shutdown the Security Onion instance and on the host OS perform the following
+
+May need to install `libguestfs-tool` package to perform the sysprep
+
+ $ virt-sysprep -a IMAGE_NAME
+
+ $ virt-sparsify --compress IMAGE_NAME IMAGE_NAME_CLOUD
+
+I needed to convert from RAW to QCOW2 format to compress the image. Also had to specify a 'tmp' directory because my current tmp directory did not have enough space.
+
+ $ virt-sparsify --convert qcow2 --compress IMAGE_NAME.raw IMAGE_NAME_CLOUD.qcow2 --tmp .
 
 
 
