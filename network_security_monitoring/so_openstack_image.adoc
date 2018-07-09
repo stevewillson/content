@@ -60,11 +60,15 @@ Choose a memorable password that is sufficiently complex
 
 Setup will not take some time copying the files to the disk. 
 
-Once setup is complete, login to the Security Onion instance and install the following packages:
+Once setup is complete, login to the Security Onion instance and install the necessary packages
 
  $ sudo apt-get update
 
  $ sudo apt-get install cloud-utils cloud-initramfs-growroot rsync openssh-server
+
+For Security Onion 16, rsync and openssh-server are already installed.
+
+
 
 
 
