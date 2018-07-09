@@ -13,7 +13,8 @@ publish_blog:
 
 clean:
 	rm -rf $(OUTPUT_DIR)
-	rm -rf $(BASE_DIR)/file_info.log
-	rm -rf $(BASE_DIR)/sort_file.log
+	rm -rf $(BASE_DIR)/*
+	#rm -rf $(BASE_DIR)/file_info.log
+	#rm -rf $(BASE_DIR)/sort_file.log
 
 
