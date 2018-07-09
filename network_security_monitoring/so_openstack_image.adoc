@@ -1,0 +1,75 @@
+= Build an OpenStack Image for Security Onion
+Steve Willson
+7/6/18
+
+This will allow you to build an OpenStack image for security onion.
+
+
+.Steps
+. Start a new instance that has enough resources to setup an OpenStack image of Security Onion
+. Download latest Security Onion
+. Start SO on the image under qemu
+. install cloud-init 
+
+== Download latest Security Onion
+
+Follow steps at https://github.com/Security-Onion-Solutions/security-onion/blob/master/Verify_ISO.md
+
+Download and install the lxde desktop environment
+
+`sudo apt-get install task-lxde-desktop`
+
+
+Attach a new volume to the OpenStack creattttttion instance, make a filesystem
+
+ $ mkfs.ext4 DEVICE
+
+Mount the new filesystem
+
+ $ sudo mount DEVICE MOUNT_POINT
+
+Create a new raw image file on the          mount point
+
+ $ sudo qemu-img create 
+
+Start security onion using the following KVM command:
+
+
+
+----
+kvm -m 4096 \
+-drive file=./so_test.raw,if=virtio,format=raw \
+-drive file=/home/user/so_create/securityonion-16.04.4.2.iso,media=cdrom,index=1 \
+-net nic,model=virtio \
+-net user \
+-show-cursor 
+----
+
+This will display a qemu window that will display the Security Onion instance
+
+Begin the installation, choose 'Download Updates'
+
+Choose 'Use LVM' when prompted.
+
+Use parameters: admin
+Computer name: computer
+Username: so_admin
+Password: 
+
+Choose a memorable password that is sufficiently complex
+
+Setup will not take some time copying the files to the disk. 
+
+Once setup is complete, login to the Security Onion instance and install the following packages:
+
+ $ sudo apt-get update
+
+ $ sudo apt-get install cloud-utils cloud-initramfs-growroot rsync openssh-server
+
+
+
+
+
+FUTURE RESEARCH: USE A qcow2 image format
+
+
