@@ -2,8 +2,11 @@
 Steve Willson
 7/6/18
 
-This will allow you to build an OpenStack image for security onion.
+Guide to build an OpenStack image for Security Onion.
 
+== Overview
+
+This image will use the Security Onion ISO, install the ISO to a disk and then create an OpenStack compatable image from that installation.
 
 .Steps
 . Start a new instance that has enough resources to setup an OpenStack image of Security Onion
@@ -11,16 +14,13 @@ This will allow you to build an OpenStack image for security onion.
 . Start SO on the image under qemu
 . install cloud-init 
 
-== Download latest Security Onion
+== Configure environment to build the instance
 
-Follow steps at https://github.com/Security-Onion-Solutions/security-onion/blob/master/Verify_ISO.md
+I used a Debian instance that did not come with a GUI. Install the LXDE desktop environment for a lightweight window manager.
 
-Download and install the lxde desktop environment
+ $ sudo apt-get install task-lxde-desktop
 
-`sudo apt-get install task-lxde-desktop`
-
-
-Attach a new volume to the OpenStack creattttttion instance, make a filesystem
+Use Horizon to attach a new volume to the OpenStack instance. Format the attached volume for the `ext4` filesystem.
 
  $ mkfs.ext4 DEVICE
 
@@ -28,13 +28,16 @@ Mount the new filesystem
 
  $ sudo mount DEVICE MOUNT_POINT
 
-Create a new raw image file on the          mount point
+== Download latest Security Onion
+
+Follow steps at https://github.com/Security-Onion-Solutions/security-onion/blob/master/Verify_ISO.md
+
+
+Create a new raw image file on the mount point
 
  $ sudo qemu-img create 
 
 Start security onion using the following KVM command:
-
-
 
 ----
 kvm -m 4096 \
@@ -51,10 +54,12 @@ Begin the installation, choose 'Download Updates'
 
 Choose 'Use LVM' when prompted.
 
+----
 Use parameters: admin
 Computer name: computer
 Username: so_admin
 Password: 
+----
 
 Choose a memorable password that is sufficiently complex
 
@@ -64,9 +69,11 @@ Once setup is complete, login to the Security Onion instance and install the nec
 
  $ sudo apt-get update
 
- $ sudo apt-get install cloud-utils cloud-initramfs-growroot rsync openssh-server
+ $ sudo apt-get install cloud-utils cloud-initramfs-growroot 
 
-For Security Onion 16, rsync and openssh-server are already installed.
+For Security Onion 16, `rsync` and `openssh-server` are already installed.
+
+Boot Security Onion without the ISO image loaded
 
 ----
 kvm -m 4096 \
@@ -76,23 +83,21 @@ kvm -m 4096 \
 -show-cursor 
 ----
 
-This will boot Security Onion without the ISO image loaded
-
 Start a root shell
 
  $ sudo su
 
 == Configure MySQL not to prompt for root password
 
- $ echo "debconf debconf/frontend select noninteractive" | debconf-set-selections
+ # echo "debconf debconf/frontend select noninteractive" | debconf-set-selections
 
 == Remove MAC Address
 
- $ echo "" > /lib/udev/rules.d/75-persistent-net-generator.rules
+ # echo "" > /lib/udev/rules.d/75-persistent-net-generator.rules
 
 == Disable Firewall
 
-Edit file /etc/init/ufw.conf and comment out lines 9-11 that have to do with starting UFW by placing a `#` before the lines.
+Edit file `/etc/init/ufw.conf` and comment out lines 9-11 that have to do with starting UFW by placing a `#` before the lines.
 
 == Enable Boot Log
 
@@ -102,14 +107,13 @@ Edit the `/etc/default/grub` and set the following parameter
 GRUB_CMDLINE_LINUX_DEFAULT="console=ttyS0"
 ----
 
- $ update-grub
-
+ # update-grub
 
 == Edit Cloud-init
 
 May need to install the cloud-init package
 
- $ dpkg-reconfigure cloud-init
+ # dpkg-reconfigure cloud-init
 
 Only select the EC2 data source
 
@@ -135,10 +139,4 @@ May need to install `libguestfs-tool` package to perform the sysprep
 I needed to convert from RAW to QCOW2 format to compress the image. Also had to specify a 'tmp' directory because my current tmp directory did not have enough space.
 
  $ virt-sparsify --convert qcow2 --compress IMAGE_NAME.raw IMAGE_NAME_CLOUD.qcow2 --tmp .
-
-
-
-
-FUTURE RESEARCH: USE A qcow2 image format
-
 
