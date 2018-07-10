@@ -2,6 +2,10 @@
 Steve Willson
 2/3/18
 
+== Overview
+
+Amazon Web Services provides access to a publicly available instance for 1 year. This instance can be used to host a website, guacamole server, or ssh server to conduct computer training.
+
 .Steps
 * Set up a new instance
 * Set up DNS to point to the new server
