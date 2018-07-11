@@ -5,7 +5,7 @@ Steve Willson
 
 == Brief vi intro
 
-vi is installed on most linux machines, it is the **vi**sual mode for the *ex* line editor.
+vi is a text editor installed on most linux machines, it is the **vi**sual mode for the *ex* line editor.
 
 Many programs use vi style key bindings and learning the vi shortcut keys will help with those shortcuts.
 
@@ -15,11 +15,11 @@ Type `vi` to start vi, this will bring up a new vi session in command mode
 
 == All that you need to know
 
-The joke about vi is all that you need to know is how to quit vi...
+The joke about vi is all that you need to know about vi is how to quit vi...
 
 Most of the time, you can quit vi by typing the following sequence:
 
- $ ESC ESC : q ! <ENTER>
+`ESC ESC : q ! <ENTER>`
 
 == All that you need to know (continued)
 
@@ -30,7 +30,6 @@ Before learning commands, you should know that there are two modes in vi *COMMAN
 
 .INSERT MODE
 * Used to insert text into a file
-
 
 There are just a few vi commands that you need to know to be successful, after that, you can learn more commands to speed up editing
 

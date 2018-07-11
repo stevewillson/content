@@ -4,24 +4,26 @@ Steve Willson
 
 Goal: Use RDP to access a Windows machine behind a firewall using plink.exe
 
-Requirements
-Windows machine that you want to RDP into
-Jump server (or internet connected machine with SSH server running and able to be accessed from the internet)
+Requirements:
+* Windows machine that you want to RDP into
+* Jump server (or internet connected machine with SSH server running and able to be accessed from the internet)
+* Local Windows machine with RDP client
 
-Download plink
+Download plink (on the remote Windows Lab Machine)
 
 Enable RDP connections on the local Windows machine
 
 Create a connection using plink that will do remote port forwarding from the jump server to the workstation that you want to access 
 
-$ plink.exe -P PORT_SSH_SERVICE USER@SSH_SERVER -R PORT_TO_FORWARD:localhost:3389
+ $ plink.exe -P PORT_SSH_SERVICE USER@SSH_SERVER -R PORT_TO_FORWARD:localhost:3389
 
 Set up local port forwarding on a local Windows workstation connecting through SSH
-Download plink
+
+Download plink (on the local Windows Machine)
 
 Use plink to create a tunnel from the local workstation to the remote machine
 
-$ plink.exe -P PORT_SSH_SERVICE USER@SSH_SERVER -L PORT_TO_FORWARD:localhost:PORT_TO_DISTANT_MACHINE
+ $ plink.exe -P PORT_SSH_SERVICE USER@SSH_SERVER -L PORT_TO_FORWARD:localhost:PORT_TO_DISTANT_MACHINE
 
 Use the local Windows remote desktop program to create a connection to the workstation through SSH
 

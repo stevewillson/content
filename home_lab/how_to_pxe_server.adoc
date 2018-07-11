@@ -124,7 +124,7 @@ That was a dhclient process still running on the old interface. Killed it with `
 
 == Future work
 
-Now, how to automate the process so it is set and forget?
+How to automate the process so it is fully automated?
 
 Didn't create a kickstart file, just set up the PXE server to install the Ubuntu server image over the network.
 

@@ -1,5 +1,6 @@
 = Configure a Windows Server 2012R2 Machine
-Steve Willson 1/11/18
+Steve Willson 
+1/11/18
 
 The walkthrough goes through how to set up a Windows Server 2012R2 machine to be a Domain Controller for a lab setup
 
@@ -37,7 +38,4 @@ Once Windows installs, you will be prompted to enter a password for the Administ
 * At `Confirmation` click `Install`
 
 The server will take a few minutes to install the selected options.
-
-
-
 

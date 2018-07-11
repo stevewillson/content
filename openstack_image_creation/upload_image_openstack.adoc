@@ -1,4 +1,6 @@
 = Uploading an Image to OpenStack
+Steve Willson
+7/11/18
 
 Goal: Download a QCOW2 image off of the internet and upload it into openstack.
 
