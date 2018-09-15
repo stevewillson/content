@@ -1,0 +1,115 @@
+= Practical Use of Removable Media
+Steve Willson
+9/15/18
+
+I recently needed to transfer an 8.8GB file stored on a microSD card to my computer.
+
+I have two adapters for microSD cards, one that connects to SD and another that connects to USB.
+
+I just changed the hard drive on the computer to a SSD (Samsung EVO 860 500GB). So the hard drive should not be a bottleneck.
+
+I wanted to see if there was a difference between using a microSD -> SD card adapter or a microSD -> USB adapter to transfer the files
+
+It appears like there is... may need some more verification though.
+
+Test1: Transfer an 8.8GB file from the microSD card to the host, use the microSD -> SD card adapter and plug in to the SD card slot on the laptop
+
+First, use the microSD card, but with a microSD -> SD adapter.
+
+ $ lsblk
+
+----
+NAME            MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda               8:0    0 465.8G  0 disk 
+├─sda1            8:1    0   200M  0 part /boot/efi
+├─sda2            8:2    0     1G  0 part /boot
+└─sda3            8:3    0 464.6G  0 part 
+  ├─centos-root 253:0    0    50G  0 lvm  /
+  ├─centos-swap 253:1    0   7.8G  0 lvm  [SWAP]
+  └─centos-home 253:2    0 406.8G  0 lvm  /home
+sr0              11:0    1  1024M  0 rom  
+mmcblk0         179:0    0  14.9G  0 disk 
+├─mmcblk0p1     179:1    0   8.8G  0 part /run/media/user/CentOS 7 x86_64
+└─mmcblk0p2     179:2    0   8.8M  0 part 
+----
+
+Use `dd` to copy the file from the microSD card to the home directory.
+
+ $ sudo dd if=/dev/mmcblk0p1 of=/home/user/cent7_everything.iso
+
+----
+18354176+0 records in
+18354176+0 records out
+9397338112 bytes (9.4 GB) copied, 134.642 s, 69.8 MB/s
+----
+
+Unmount the SD card and flush the file system buffers.
+
+ $ sudo umount /dev/mmcblk0p1
+ $ sudo sync
+
+Now, use the same microSD card, but with a microSD -> USB adapter.
+
+ $ lsblk
+
+----
+NAME            MAJ:MIN RM   SIZE RO TYPE MOUNTPOINT
+sda               8:0    0 465.8G  0 disk 
+├─sda1            8:1    0   200M  0 part /boot/efi
+├─sda2            8:2    0     1G  0 part /boot
+└─sda3            8:3    0 464.6G  0 part 
+  ├─centos-root 253:0    0    50G  0 lvm  /
+  ├─centos-swap 253:1    0   7.8G  0 lvm  [SWAP]
+  └─centos-home 253:2    0 406.8G  0 lvm  /home
+sdb               8:16   1  14.9G  0 disk 
+├─sdb1            8:17   1   8.8G  0 part /run/media/user/CentOS 7 x86_64
+└─sdb2            8:18   1   8.8M  0 part 
+sr0              11:0    1  1024M  0 rom  
+----
+
+Use `dd` to copy the file from the microSD card to the home directory.
+
+ $ sudo dd if=/dev/sdb1 of=/home/user/cent7_everything_testUSB.iso                                                                                                                              
+
+----
+18354176+0 records in
+18354176+0 records out
+9397338112 bytes (9.4 GB) copied, 506.119 s, 18.6 MB/s
+----
+
+Unmount the USB device and flush the file system buffers.
+
+ $ sudo umount /dev/sdb1
+ $ sudo sync
+
+Verify the files transferred correctly.
+
+The sha256sum output from the centos mirror:
+
+----
+99723c8b87dcec21df8aed23de1eb810346d42cfd2a3fafafe70a68296053417  CentOS-7-x86_64-Everything-1804.iso
+----
+
+From my home directory:
+
+ $ sha256sum cent7_everything*
+
+----
+99723c8b87dcec21df8aed23de1eb810346d42cfd2a3fafafe70a68296053417  cent7_everything.iso
+99723c8b87dcec21df8aed23de1eb810346d42cfd2a3fafafe70a68296053417  cent7_everything_testUSB.iso
+----
+
+The hashes match! Good file transfer.
+
+In summary, 
+
+----
+microSD -> SD Card Adapter:
+9397338112 bytes (9.4 GB) copied, 134.642 s, 69.8 MB/s
+
+microSD -> USB Adapter:
+9397338112 bytes (9.4 GB) copied, 506.119 s, 18.6 MB/s
+----
+
+Now I'll use the SD Card adapter whenever possible to read/write to the microSD card. 
+
