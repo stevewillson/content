@@ -1,0 +1,32 @@
+= Kerberos' Weird Date
+Steve Willson
+10/8/18
+
+When making a Kerberos request for
+
+
+
+
+I have seen this date appear and reappear in Kerberos traffic. 
+
+----
+2037-09-13 02:48:05 (UTC)
+----
+
+This is truly a strange date, but it is consistent across many Kerberos requests; so, I'm not too concerned...
+
+but, what does it mean? Does it really grant a Kerberos TGT out to 2037?
+
+Time to lab it out
+
+Lab setup
+
+Windows Server 2016 (Running at FF level 2008R2) - Set up to run DHCP, DNS, FileSharing services.
+
+Windows 10 Host - joined to the domain
+
+Wireshark capturing traffic (on the DC)
+
+The traffic capture is posted on github. It has the 2037 till value in it.
+
+More updates to come
